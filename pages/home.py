@@ -1,5 +1,5 @@
 import dash
-from dash import html
+from dash import html, dcc
 import dash_bootstrap_components as dbc
 
 import dash_cytoscape as cyto
@@ -32,7 +32,9 @@ sidebar = html.Div(
             pills=True
         ),
     ],
-    style={'position': 'fixed', 'paddingTop': '3em'},
+    style={'position': 'fixed',
+           'paddingTop': '3em',             # Should be the same as padding-top of input_word
+           'z-index': '3000'}               # Should be higher than z-index of input_word
 )
 
 
@@ -47,8 +49,14 @@ input_word = dbc.Row([
         html.Br(),
         dbc.Input(),
         dbc.Button('Search', color='dark')
-    ])
-], style={'position': 'fixed', 'width': '50%', 'backgroundColor': 'white', 'paddingTop': '3em', 'paddingBottom': '2.3em'})
+    ], style={'width': '60%'})
+], style={'position': 'fixed',
+          'width': 'inherit',
+          'backgroundColor': 'white',
+          'paddingTop': '3em',              # Should be the same as padding-top of sidebar
+          'paddingBottom': '2.3em',
+          'z-index': '1000'}                # Should be lower than z-index of sidebar
+)
 
 
 # ==========================
@@ -158,18 +166,39 @@ network = dbc.Row([
 ])
 
 
+# =========================
+# Plot (Filtered by Sense)
+# =========================
+
+plot_by_sense = dbc.Row([
+    html.H4('Plot (Filtered by Sense)'),
+    html.Div([
+        dcc.Graph(id="graph"),
+        dbc.Checklist(
+            id="checklist",
+            options=["Asia", "Europe", "Africa", "Americas", "Oceania"],
+            value=["Americas", "Oceania"],
+            inline=True
+        ),
+    ])
+])
+
+
 # =====
 # Body
 # =====
 
+
 body = dbc.Row([
     dbc.Col(
-        dbc.Container(
-            [input_word,
-             senses,
-             html.Br(),
-             network]
-        )
+        dbc.Container([
+            input_word,
+            senses,
+            html.Br(),
+            network,
+            html.Br(),
+            plot_by_sense
+        ])
     ),
 
     dbc.Col(sidebar, width=3),

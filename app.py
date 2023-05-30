@@ -5,6 +5,8 @@ import dash_bootstrap_components as dbc
 from flask import Flask
 from dash import html
 
+import callbacks.home.callbacks
+
 server = Flask(__name__, static_folder='static')
 app = dash.Dash(__name__, use_pages=True,
                 external_stylesheets=[dbc.themes.BOOTSTRAP,
@@ -40,6 +42,9 @@ app.layout = dbc.Container([
     dbc.Row(dbc.Col('Copyright Lorem Ipsum', class_name='text-center'),
             class_name='bg-dark text-white p-3')
 ], fluid=True)
+
+
+callbacks.home.callbacks.init_callback(app)
 
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', port='8050', debug=True)
