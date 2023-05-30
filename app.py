@@ -28,6 +28,7 @@ app.layout = dbc.Container([
             brand_href='/',
             color='dark',
             dark=True,
+            style={'position': 'fixed', 'z-index': '100000'}
         ),
 
         dash.page_container
