@@ -97,20 +97,33 @@ senses = dbc.Row([
     ], style={'marginTop': '6.5em', 'marginLeft': '2em'})
 ])
 
+# ========
+# Network
+# ========
+
+# =====
+# Body
+# =====
+
+body = dbc.Row([
+    dbc.Col(
+        dbc.Container(
+            [input_word, senses]
+        )
+    ),
+
+    dbc.Col(sidebar, width=3),
+])
+
+# =======
+# Footer
+# =======
+
+
 layout = dbc.Container([
     html.Br(),
-
     html.Br(),
-
-    dbc.Row([
-        dbc.Col(
-            dbc.Container(
-                [input_word, senses]
-            )
-        ),
-
-        dbc.Col(sidebar, width=3),
-    ])
+    body,
 ],
     fluid=True,
     style={'paddingLeft': '6em', 'paddingRight': '6em'}

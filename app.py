@@ -11,28 +11,34 @@ app = dash.Dash(__name__, use_pages=True,
                                       dbc.icons.BOOTSTRAP, dbc.icons.FONT_AWESOME],
                 server=server)
 
+navbar = dbc.NavbarSimple(
+    children=[
+        dbc.NavItem(dbc.NavLink('Home', href='/', active='exact')),
+        dbc.NavItem(dbc.NavLink(
+                    'About', href='/about', active='exact')),
+        dbc.NavItem(dbc.NavLink(
+                    'People', href='/people', active='exact')),
+        dbc.NavItem(dbc.NavLink('Publications',
+                                href='/publications', active='exact')),
+    ],
+    brand=[html.Img(src="static/assets/filwordnet-logo.png",
+                    height="30px", style={'margin-right': '30px'}), 'FilWordNet'],
+    brand_href='/',
+    color='dark',
+    dark=True,
+    style={'position': 'fixed', 'z-index': '100000'}
+)
+
 app.layout = dbc.Container([
     dbc.Row([
-        dbc.NavbarSimple(
-            children=[
-                dbc.NavItem(dbc.NavLink('Home', href='/', active='exact')),
-                dbc.NavItem(dbc.NavLink(
-                    'About', href='/about', active='exact')),
-                dbc.NavItem(dbc.NavLink(
-                    'People', href='/people', active='exact')),
-                dbc.NavItem(dbc.NavLink('Publications',
-                            href='/publications', active='exact')),
-            ],
-            brand=[html.Img(src="static/assets/filwordnet-logo.png",
-                            height="30px", style={'margin-right': '30px'}), 'FilWordNet'],
-            brand_href='/',
-            color='dark',
-            dark=True,
-            style={'position': 'fixed', 'z-index': '100000'}
-        ),
-
+        navbar,
         dash.page_container
-    ])
+    ]),
+
+    html.Br(),
+
+    dbc.Row(dbc.Col('Copyright Lorem Ipsum', class_name='text-center'),
+            class_name='bg-dark text-white p-3')
 ], fluid=True)
 
 if __name__ == '__main__':
