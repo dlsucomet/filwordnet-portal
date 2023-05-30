@@ -35,7 +35,7 @@ sidebar = html.Div(
     ],
     style={'position': 'fixed',
            'paddingTop': '3em',             # Should be the same as padding-top of input_word
-           'zIndex': '3000'}               # Should be higher than z-index of input_word
+           'zIndex': '3000'}                # Should be higher than z-index of input_word
 )
 
 
@@ -56,7 +56,7 @@ input_word = dbc.Row([
           'backgroundColor': 'white',
           'paddingTop': '3em',              # Should be the same as padding-top of sidebar
           'paddingBottom': '2.3em',
-          'zIndex': '1000'}                # Should be lower than z-index of sidebar
+          'zIndex': '1000'}                 # Should be lower than z-index of sidebar
 )
 
 
@@ -173,32 +173,36 @@ network = dbc.Row([
 
 plot_by_sense = dbc.Row([
     html.H4('Plot (Filtered by Sense)'),
+    html.Br(),
+    html.Br(),
     html.Div([
-        dcc.Graph(id="graph"),
         dbc.Checklist(
             id="checklist",
             options=["Asia", "Europe", "Africa", "Americas", "Oceania"],
             value=["Americas", "Oceania"],
             inline=True
         ),
+        dcc.Graph(id="graph")
     ])
 ])
 
 
-# =========================
-# Plot (Filtered by Sense)
-# =========================
+# ==========================
+# Plot (Filtered by Source)
+# ==========================
 
 plot_by_source = dbc.Row([
-    html.H4('Plot (Filtered by Sense)'),
+    html.H4('Plot (Filtered by Source)'),
+    html.Br(),
+    html.Br(),
     html.Div([
-        dcc.Graph(id="graph1"),
         dbc.Checklist(
             id="checklist1",
             options=["Asia", "Europe", "Africa", "Americas", "Oceania"],
             value=["Americas", "Oceania"],
             inline=True
         ),
+        dcc.Graph(id="graph1")
     ])
 ])
 
@@ -209,12 +213,35 @@ plot_by_source = dbc.Row([
 
 embeddings = dbc.Row([
     html.H4('Embeddings'),
+    html.Br(),
+    html.Br(),
     html.Div([
+        dbc.Checklist(
+            id="embeddings-checklist",
+            options=["Source 1", "Source 2", "Source 3"],
+            value=["Source 1"],
+            inline=True
+        ),
         dcc.Graph(id="embeddings",
                   figure=px.scatter_3d(px.data.iris(),
                                        x='sepal_length', y='sepal_width', z='petal_width',
                                        color='species', hover_data=['petal_width'])),
     ])
+])
+
+
+# =======
+# Export
+# =======
+
+export = dbc.Row([
+    html.H4('Export Data'),
+    html.Br(),
+    html.Br(),
+    html.Ul([
+        html.Li('Senses and Sample Sentences (JSON)'),
+        html.Li('Embeddings (CSV)'),
+    ], style={'marginLeft': '2em'})
 ])
 
 
@@ -236,7 +263,9 @@ body = dbc.Row([
             plot_by_source,
             html.Br(),
             html.Br(),
-            embeddings
+            embeddings,
+            html.Br(),
+            export
         ])
     ),
 

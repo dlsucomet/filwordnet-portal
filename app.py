@@ -24,7 +24,7 @@ navbar = dbc.NavbarSimple(
                                 href='/publications', active='exact')),
     ],
     brand=[html.Img(src="static/assets/filwordnet-logo.png",
-                    height="30px", style={'margin-right': '30px'}), 'FilWordNet'],
+                    height="30px", style={'marginRight': '30px'}), 'FilWordNet'],
     brand_href='/',
     color='dark',
     dark=True,
