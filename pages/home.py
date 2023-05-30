@@ -3,6 +3,7 @@ from dash import html, dcc
 import dash_bootstrap_components as dbc
 
 import dash_cytoscape as cyto
+import plotly.express as px
 
 
 dash.register_page(__name__, path='/', name='Home')
@@ -202,6 +203,21 @@ plot_by_source = dbc.Row([
 ])
 
 
+# ===========
+# Embeddings
+# ===========
+
+embeddings = dbc.Row([
+    html.H4('Embeddings'),
+    html.Div([
+        dcc.Graph(id="embeddings",
+                  figure=px.scatter_3d(px.data.iris(),
+                                       x='sepal_length', y='sepal_width', z='petal_width',
+                                       color='species', hover_data=['petal_width'])),
+    ])
+])
+
+
 # =====
 # Body
 # =====
@@ -216,7 +232,11 @@ body = dbc.Row([
             html.Br(),
             plot_by_sense,
             html.Br(),
-            plot_by_source
+            html.Br(),
+            plot_by_source,
+            html.Br(),
+            html.Br(),
+            embeddings
         ])
     ),
 
