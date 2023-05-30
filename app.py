@@ -15,10 +15,13 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.NavbarSimple(
             children=[
-                dbc.NavItem(dbc.NavLink('Home', href='/')),
-                dbc.NavItem(dbc.NavLink('About', href='/about')),
-                dbc.NavItem(dbc.NavLink('People', href='/people')),
-                dbc.NavItem(dbc.NavLink('Publications', href='/publications')),
+                dbc.NavItem(dbc.NavLink('Home', href='/', active='exact')),
+                dbc.NavItem(dbc.NavLink(
+                    'About', href='/about', active='exact')),
+                dbc.NavItem(dbc.NavLink(
+                    'People', href='/people', active='exact')),
+                dbc.NavItem(dbc.NavLink('Publications',
+                            href='/publications', active='exact')),
             ],
             brand=[html.Img(src="static/assets/filwordnet-logo.png",
                             height="30px", style={'margin-right': '30px'}), 'FilWordNet'],
