@@ -2,9 +2,15 @@ import dash
 from dash import html
 import dash_bootstrap_components as dbc
 
+import dash_cytoscape as cyto
+
 
 dash.register_page(__name__, path='/', name='Home')
 
+
+# ==========================
+# Local Navigation Side-Bar
+# ==========================
 
 sidebar = html.Div(
     [
@@ -30,6 +36,10 @@ sidebar = html.Div(
 )
 
 
+# =====================
+# Input Field for Word
+# =====================
+
 input_word = dbc.Row([
     html.H5('Word to Search for'),
     html.Br(),
@@ -38,12 +48,12 @@ input_word = dbc.Row([
         dbc.Input(),
         dbc.Button('Search', color='dark')
     ])
-], style={'position': 'fixed', 'width': '50%', 'backgroundColor': 'white', 'paddingTop': '3em'})
+], style={'position': 'fixed', 'width': '50%', 'backgroundColor': 'white', 'paddingTop': '3em', 'paddingBottom': '2.3em'})
 
 
-# =======
-# Senses
-# =======
+# ==========================
+# Senses & Sample Sentences
+# ==========================
 
 simple_sense = html.Li([
     html.Span(
@@ -88,18 +98,65 @@ sense_with_see_more = html.Li([
 ], style={'fontSize': '1.10em'})
 
 senses = dbc.Row([
-    html.H2('Lorem'),
+    html.H2('Lorem', style={'marginTop': '5em'}),
     html.Ol([
         simple_sense,
         html.Br(),
         sense_with_see_more
-
-    ], style={'marginTop': '6.5em', 'marginLeft': '2em'})
+    ], style={'marginTop': '1.5em', 'marginLeft': '2em'})
 ])
+
 
 # ========
 # Network
 # ========
+
+nodes = [
+    {
+        'data': {'id': short, 'label': label},
+        'position': {'x': 20 * lat, 'y': -20 * long}
+    }
+    for short, label, long, lat in (
+        ('la', 'Lorem', 34.03, -118.25),
+        ('nyc', 'Ipsum 2', 40.71, -74),
+        ('to', 'Ipsum 3', 43.65, -79.38),
+        ('mtl', 'Ipsum 4', 45.50, -73.57),
+        ('van', 'Ipsum 5', 49.28, -123.12),
+        ('chi', 'Ipsum 6', 41.88, -87.63),
+        ('bos', 'Ipsum 7', 42.36, -71.06),
+        ('hou', 'Ipsum 8', 29.76, -95.37)
+    )
+]
+
+edges = [
+    {'data': {'source': source, 'target': target}}
+    for source, target in (
+        ('van', 'la'),
+        ('la', 'chi'),
+        ('hou', 'chi'),
+        ('to', 'mtl'),
+        ('mtl', 'bos'),
+        ('nyc', 'bos'),
+        ('to', 'hou'),
+        ('to', 'nyc'),
+        ('la', 'nyc'),
+        ('nyc', 'bos')
+    )
+]
+
+elements = nodes + edges
+
+network = dbc.Row([
+    html.H4('Network'),
+    html.Div([
+        cyto.Cytoscape(
+            layout={'name': 'breadthfirst', 'roots': '[id = "la"]'},
+            style={'width': '100%', 'height': '20em'},
+            elements=elements
+        )
+    ])
+])
+
 
 # =====
 # Body
@@ -108,17 +165,19 @@ senses = dbc.Row([
 body = dbc.Row([
     dbc.Col(
         dbc.Container(
-            [input_word, senses]
+            [input_word,
+             senses,
+             html.Br(),
+             network]
         )
     ),
 
     dbc.Col(sidebar, width=3),
 ])
 
-# =======
-# Footer
-# =======
-
+# ============
+# Main Layout
+# ============
 
 layout = dbc.Container([
     html.Br(),
