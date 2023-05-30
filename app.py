@@ -28,7 +28,7 @@ navbar = dbc.NavbarSimple(
     brand_href='/',
     color='dark',
     dark=True,
-    style={'position': 'fixed', 'z-index': '100000'}
+    style={'position': 'fixed', 'zIndex': '100000'}
 )
 
 app.layout = dbc.Container([
@@ -36,8 +36,6 @@ app.layout = dbc.Container([
         navbar,
         dash.page_container
     ]),
-
-    html.Br(),
 
     dbc.Row(dbc.Col('Copyright Lorem Ipsum', class_name='text-center'),
             class_name='bg-dark text-white p-3')

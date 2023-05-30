@@ -34,7 +34,7 @@ sidebar = html.Div(
     ],
     style={'position': 'fixed',
            'paddingTop': '3em',             # Should be the same as padding-top of input_word
-           'z-index': '3000'}               # Should be higher than z-index of input_word
+           'zIndex': '3000'}               # Should be higher than z-index of input_word
 )
 
 
@@ -55,7 +55,7 @@ input_word = dbc.Row([
           'backgroundColor': 'white',
           'paddingTop': '3em',              # Should be the same as padding-top of sidebar
           'paddingBottom': '2.3em',
-          'z-index': '1000'}                # Should be lower than z-index of sidebar
+          'zIndex': '1000'}                # Should be lower than z-index of sidebar
 )
 
 
@@ -184,10 +184,27 @@ plot_by_sense = dbc.Row([
 ])
 
 
+# =========================
+# Plot (Filtered by Sense)
+# =========================
+
+plot_by_source = dbc.Row([
+    html.H4('Plot (Filtered by Sense)'),
+    html.Div([
+        dcc.Graph(id="graph1"),
+        dbc.Checklist(
+            id="checklist1",
+            options=["Asia", "Europe", "Africa", "Americas", "Oceania"],
+            value=["Americas", "Oceania"],
+            inline=True
+        ),
+    ])
+])
+
+
 # =====
 # Body
 # =====
-
 
 body = dbc.Row([
     dbc.Col(
@@ -197,7 +214,9 @@ body = dbc.Row([
             html.Br(),
             network,
             html.Br(),
-            plot_by_sense
+            plot_by_sense,
+            html.Br(),
+            plot_by_source
         ])
     ),
 
@@ -212,6 +231,9 @@ layout = dbc.Container([
     html.Br(),
     html.Br(),
     body,
+    html.Br()           # Should be here, not in app.py
+                        # Otherwise, a portion of the footer can be seen when body
+                        #    has not completely loaded
 ],
     fluid=True,
     style={'paddingLeft': '6em', 'paddingRight': '6em'}
