@@ -48,8 +48,9 @@ input_word = dbc.Row([
     html.Br(),
     dbc.InputGroup([
         html.Br(),
-        dbc.Input(id='word-input'),
-        dbc.Button('Search', color='dark', id='home-submit', n_clicks=0)
+        dbc.Input(id='search-word'),
+        dbc.Button('Search', color='dark',
+                   id='search-word-submit-btn', n_clicks=0)
     ], style={'width': '64%'})
 ], style={'position': 'fixed',
           'width': 'inherit',
