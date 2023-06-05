@@ -179,9 +179,7 @@ plot_by_sense = dbc.Row([
     html.Br(),
     html.Div([
         dbc.Checklist(
-            id="checklist",
-            options=["Asia", "Europe", "Africa", "Americas", "Oceania"],
-            value=["Americas", "Oceania"],
+            id="checklist-sense",
             inline=True
         ),
         dcc.Graph(id="graph")

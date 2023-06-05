@@ -6,28 +6,6 @@ from .util import *
 
 def init_callback(app):
     @app.callback(
-        Output('graph', 'figure'),
-        Input('checklist', 'value')
-    )
-    def update_line_chart(continents):
-        df = px.data.gapminder()  # replace with your own data source
-        mask = df.continent.isin(continents)
-        fig = px.line(df[mask],
-                      x='year', y='lifeExp', color='country')
-        return fig
-
-    @app.callback(
-        Output('graph1', 'figure'),
-        Input('checklist1', 'value')
-    )
-    def update_line_chart1(continents):
-        df = px.data.gapminder()  # replace with your own data source
-        mask = df.continent.isin(continents)
-        fig = px.line(df[mask],
-                      x='year', y='lifeExp', color='country')
-        return fig
-
-    @app.callback(
         Output('senses-word', 'children'),
         Output('senses-container', 'children'),
         Input('search-word-submit-btn', 'n_clicks'),
@@ -113,3 +91,57 @@ def init_callback(app):
             return {'display': 'none'}, f'See more sample sentences ▼'
 
         raise PreventUpdate
+
+    @app.callback(
+        Output('checklist-sense', 'options'),
+        Output('checklist-sense', 'value'),
+        Input('search-word-submit-btn', 'n_clicks'),
+        State('search-word', 'value')
+    )
+    def display_checklist_sense(n_clicks, word):
+        if n_clicks >= 1:
+            if word:
+                df = get_definition_list(word)
+
+                if len(df) >= 1:
+                    return df['sense_id'].values, df['sense_id'].values
+                else:
+                    # TODO: Handle case where word is not in database
+                    raise PreventUpdate
+
+            raise PreventUpdate
+
+        raise PreventUpdate
+
+    @app.callback(
+        Output('graph', 'figure'),
+        Input('checklist-sense', 'value'),
+        Input('search-word-submit-btn', 'n_clicks'),
+        State('search-word', 'value')
+    )
+    def update_line_chart(checklist_sense, n_clicks, word):
+        if n_clicks >= 1:
+            if word:
+                df = get_definition_list(word)
+                data = convert_to_data_by_sense(
+                    df['contextual_info'].values, df['sense_id'].values)
+
+                mask = data.sense.isin(checklist_sense)
+                fig = px.line(data[mask], x='year', y='counts', color='source')
+
+                return fig
+
+            raise PreventUpdate
+
+        raise PreventUpdate
+
+    @app.callback(
+        Output('graph1', 'figure'),
+        Input('checklist1', 'value')
+    )
+    def update_line_chart1(continents):
+        df = px.data.gapminder()  # replace with your own data source
+        mask = df.continent.isin(continents)
+        fig = px.line(df[mask],
+                      x='year', y='lifeExp', color='country')
+        return fig
