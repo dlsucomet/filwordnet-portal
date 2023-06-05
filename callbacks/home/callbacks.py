@@ -1,5 +1,7 @@
-from dash import Input, Output
+from dash import Input, Output, State, html
 import plotly.express as px
+from dash.exceptions import PreventUpdate
+from .util import *
 
 
 def init_callback(app):
@@ -24,3 +26,48 @@ def init_callback(app):
         fig = px.line(df[mask],
                       x='year', y='lifeExp', color='country')
         return fig
+
+    @app.callback(
+        Output('senses-word', 'children'),
+        Output('senses-container', 'children'),
+        Input('home-submit', 'n_clicks'),
+        State('word-input', 'value')
+    )
+    def search_word(n_clicks, word):
+        if n_clicks >= 1:
+
+            df = get_definition_list(word)
+
+            def_list = []
+            for i in range(len(df)):
+                sanitized_example_sentences = sanitize_example_sentences(i, df)
+                example_sentences = []
+
+                for sentence in sanitized_example_sentences:
+                    example_sentences.append(
+                        html.Li(
+                            f'{sentence} (Sources)',
+                            style={'fontSize': '0.9em',
+                                   'color': 'gray',
+                                   'marginLeft': '1.5em'}
+                        ),
+                    )
+
+                def_list.append(html.Li([
+                    html.Span(
+                        df.loc[i, 'pos'],
+                        style={'fontStyle': 'italic'}
+                    ),
+                    html.Br(),
+                    html.Span(
+                        'Definition lorem ipsum',
+                        style={'fontSize': '0.9em', 'marginLeft': '1.5em'}
+                    ),
+                    html.Br(),
+                    html.Ul(example_sentences)
+
+                ], style={'fontSize': '1.10em'}))
+
+            return word, def_list
+
+        raise PreventUpdate

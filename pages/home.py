@@ -48,9 +48,9 @@ input_word = dbc.Row([
     html.Br(),
     dbc.InputGroup([
         html.Br(),
-        dbc.Input(),
-        dbc.Button('Search', color='dark')
-    ], style={'width': '60%'})
+        dbc.Input(id='word-input'),
+        dbc.Button('Search', color='dark', id='home-submit', n_clicks=0)
+    ], style={'width': '64%'})
 ], style={'position': 'fixed',
           'width': 'inherit',
           'backgroundColor': 'white',
@@ -107,12 +107,13 @@ sense_with_see_more = html.Li([
 ], style={'fontSize': '1.10em'})
 
 senses = dbc.Row([
-    html.H2('Lorem', style={'marginTop': '5em'}),
+    html.H2('Lorem', style={'marginTop': '5em'}, id='senses-word'),
     html.Ol([
         simple_sense,
         html.Br(),
         sense_with_see_more
-    ], style={'marginTop': '1.5em', 'marginLeft': '2em'})
+    ], style={'marginTop': '1.5em', 'marginLeft': '2em'},
+        id='senses-container')
 ])
 
 
