@@ -1,4 +1,4 @@
-from dash import Input, Output, State, html
+from dash import Input, Output, State, html, Patch, MATCH
 import plotly.express as px
 from dash.exceptions import PreventUpdate
 from .util import *
@@ -67,9 +67,26 @@ def init_callback(app):
                                        'marginLeft': '1.5em'}
                             ),
                             html.Br(),
-                            html.Ul(example_sentences)
+                            html.Ul(example_sentences,
+                                    id={
+                                        'type': 'word-def-example-sentences-list',
+                                        'index': i
+                                    }),
+                            html.Br(),
+                            html.Span(
+                                'See less sample sentences ▼',
+                                style={'fontSize': '0.9em',
+                                       'color': 'gray', 'marginLeft': '1.5em'},
+                                id={
+                                    'type': 'word-def-see-more-example-sentences-list',
+                                    'index': i
+                                }, n_clicks=0
+                            )
 
                         ], style={'fontSize': '1.10em'}))
+
+                    patched_children = Patch()
+                    patched_children.append(def_list)
 
                     return word, def_list
                 else:
@@ -77,5 +94,22 @@ def init_callback(app):
 
             else:
                 return [f'No Word Found: '], None
+
+        raise PreventUpdate
+
+    @app.callback(
+        Output({'type': 'word-def-example-sentences-list',
+               'index': MATCH}, 'style'),
+        Output({'type': 'word-def-see-more-example-sentences-list',
+                'index': MATCH}, 'children'),
+        Input({'type': 'word-def-see-more-example-sentences-list',
+              'index': MATCH}, 'n_clicks')
+    )
+    def test(n_clicks):
+        if n_clicks >= 1:
+            if n_clicks % 2 == 0:
+                return {'display': 'block'}, f'See less sample sentences ▼'
+
+            return {'display': 'none'}, f'See more sample sentences ▼'
 
         raise PreventUpdate
