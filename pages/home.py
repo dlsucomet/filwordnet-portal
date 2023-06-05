@@ -182,7 +182,7 @@ plot_by_sense = dbc.Row([
             id="checklist-sense",
             inline=True
         ),
-        dcc.Graph(id="graph")
+        dcc.Graph(id="graph-sense")
     ])
 ])
 
@@ -197,12 +197,10 @@ plot_by_source = dbc.Row([
     html.Br(),
     html.Div([
         dbc.Checklist(
-            id="checklist1",
-            options=["Asia", "Europe", "Africa", "Americas", "Oceania"],
-            value=["Americas", "Oceania"],
+            id="checklist-source",
             inline=True
         ),
-        dcc.Graph(id="graph1")
+        dcc.Graph(id="graph-source")
     ])
 ])
 

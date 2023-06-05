@@ -114,7 +114,7 @@ def init_callback(app):
         raise PreventUpdate
 
     @app.callback(
-        Output('graph', 'figure'),
+        Output('graph-sense', 'figure'),
         Input('checklist-sense', 'value'),
         Input('search-word-submit-btn', 'n_clicks'),
         State('search-word', 'value')
@@ -136,12 +136,49 @@ def init_callback(app):
         raise PreventUpdate
 
     @app.callback(
-        Output('graph1', 'figure'),
-        Input('checklist1', 'value')
+        Output('checklist-source', 'options'),
+        Output('checklist-source', 'value'),
+        Input('search-word-submit-btn', 'n_clicks'),
+        State('search-word', 'value')
     )
-    def update_line_chart1(continents):
-        df = px.data.gapminder()  # replace with your own data source
-        mask = df.continent.isin(continents)
-        fig = px.line(df[mask],
-                      x='year', y='lifeExp', color='country')
-        return fig
+    def display_checklist_sense(n_clicks, word):
+        if n_clicks >= 1:
+            if word:
+                df = get_definition_list(word)
+
+                if len(df) >= 1:
+                    df = get_definition_list(word)
+                    data = convert_to_data_by_sense(
+                        df['contextual_info'].values, df['sense_id'].values)
+
+                    return data['source'].unique(), data['source'].unique()
+                else:
+                    # TODO: Handle case where word is not in database
+                    raise PreventUpdate
+
+            raise PreventUpdate
+
+        raise PreventUpdate
+
+    @app.callback(
+        Output('graph-source', 'figure'),
+        Input('checklist-source', 'value'),
+        Input('search-word-submit-btn', 'n_clicks'),
+        State('search-word', 'value')
+    )
+    def update_line_chart(checklist_source, n_clicks, word):
+        if n_clicks >= 1:
+            if word:
+                df = get_definition_list(word)
+                data = convert_to_data_by_sense(
+                    df['contextual_info'].values, df['sense_id'].values)
+
+                mask = data.source.isin(checklist_source)
+                fig = px.line(data[mask], x='year',
+                              y='counts', color='sense')
+
+                return fig
+
+            raise PreventUpdate
+
+        raise PreventUpdate
