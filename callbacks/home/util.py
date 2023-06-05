@@ -41,6 +41,6 @@ def convert_to_data_by_sense(contextual_info, sense_ids):
                 for year in sources[categories][title]:
                     entry = [sources[categories][title][year], year,
                              title, categories, sense_ids[i]]
-                data_matrix.append(entry)
+                    data_matrix.append(entry)
 
     return pd.DataFrame(data_matrix, columns=['counts', 'year', 'source', 'category', 'sense'])
