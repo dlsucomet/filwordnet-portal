@@ -138,6 +138,8 @@ def init_callback(app):
                 mask = data.sense.isin(checklist_sense)
                 fig = px.line(data[mask], x='year', y='counts', color='source')
 
+                fig.update_xaxes(categoryorder='category ascending')
+
                 return fig
 
             raise PreventUpdate
@@ -185,6 +187,8 @@ def init_callback(app):
                 mask = data.source.isin(checklist_source)
                 fig = px.line(data[mask], x='year',
                               y='counts', color='sense')
+
+                fig.update_xaxes(categoryorder='category ascending')
 
                 return fig
 
