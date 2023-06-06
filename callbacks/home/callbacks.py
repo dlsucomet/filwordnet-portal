@@ -19,19 +19,21 @@ def init_callback(app):
                 if len(df) >= 1:
                     def_list = []
                     for i in range(len(df)):
-                        sanitized_example_sentences = sanitize_example_sentences(
+                        example_sentences_list = sanitize_example_sentences(
                             i, df)
-                        example_sentences = []
 
-                        for sentence in sanitized_example_sentences:
-                            example_sentences.append(
-                                html.Li(
-                                    f'{sentence} (Sources)',
-                                    style={'fontSize': '0.9em',
-                                           'color': 'gray',
-                                           'marginLeft': '1.5em'}
-                                ),
-                            )
+                        html_example_sentences_list = []
+                        for sentence in example_sentences_list:
+                            item = html.Div([
+                                html.Span(sentence,
+                                          style={
+                                              'fontSize': '0.9em',
+                                              'color': 'gray',
+                                              'marginLeft': '1.5em'
+                                          }), html.Br()
+                            ])
+
+                            html_example_sentences_list.append(item)
 
                         def_list.append(html.Li([
                             html.Span(
@@ -45,14 +47,18 @@ def init_callback(app):
                                        'marginLeft': '1.5em'}
                             ),
                             html.Br(),
-                            html.Ul(example_sentences,
-                                    id={
-                                        'type': 'word-def-example-sentences-list',
-                                        'index': i
-                                    }),
-                            html.Br(),
                             html.Span(
-                                'See less sample sentences ▼',
+                                html_example_sentences_list[0]
+                            ),
+                            html.Span(html_example_sentences_list[1:],
+                                      id={
+                                          'type': 'word-def-example-sentences-list',
+                                          'index': i
+                            },
+                                style={'display': 'none'}
+                            ),
+                            html.Span(
+                                'See more sample sentences ▼',
                                 style={'fontSize': '0.9em',
                                        'color': 'gray', 'marginLeft': '1.5em'},
                                 id={
@@ -60,7 +66,6 @@ def init_callback(app):
                                     'index': i
                                 }, n_clicks=0
                             )
-
                         ], style={'fontSize': '1.10em'}))
 
                     patched_children = Patch()
@@ -86,7 +91,7 @@ def init_callback(app):
     def test(n_clicks):
         if n_clicks >= 1:
             if n_clicks % 2 == 0:
-                return {'display': 'block'}, f'See less sample sentences ▼'
+                return {'display': 'block'}, f'See less sample sentences ▲'
 
             return {'display': 'none'}, f'See more sample sentences ▼'
 
