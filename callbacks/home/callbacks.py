@@ -90,7 +90,7 @@ def init_callback(app):
         Input({'type': 'word-def-see-more-example-sentences-list',
               'index': MATCH}, 'n_clicks')
     )
-    def test(n_clicks):
+    def see_or_hide_more_sentences(n_clicks):
         if n_clicks >= 1:
             if n_clicks % 2 == 0:
                 return {'display': 'block'}, f'See less sample sentences ▲'
