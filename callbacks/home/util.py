@@ -20,6 +20,35 @@ def sanitize_example_sentences(data, df):
     return data
 
 
+def sanitize_pos(pos):
+    pos_dict = {
+        'NN': 'Noun',
+        'VB': 'Verb'
+    }
+
+    if pos:
+        pos = str(pos)
+        if pos != 'nan':
+            pos = pos[1:]
+            pos = pos[:-1]
+            pos = pos.replace("'", '')
+
+            return pos, pos_dict[pos]
+        else:
+            return '', ''
+
+    return '', ''
+
+
+def display_pos_with_id(sense_id, pos):
+    pos_abbrev, pos_fullname = sanitize_pos(pos)
+
+    if pos_abbrev:
+        return f'{sense_id} - {pos_fullname} ({pos_abbrev})'
+
+    return f'{sense_id}'
+
+
 def convert_double_quotes_json(string):
     pattern = re.compile('(?<!\\\\)\'')
     return pattern.sub('\"', string)

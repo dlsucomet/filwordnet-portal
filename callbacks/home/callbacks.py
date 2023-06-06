@@ -37,7 +37,8 @@ def init_callback(app):
 
                         def_list.append(html.Li([
                             html.Span(
-                                df.loc[i, 'pos'],
+                                display_pos_with_id(
+                                    df.loc[i, 'sense_id'], df.loc[i, 'pos']),
                                 style={'fontStyle': 'italic'}
                             ),
                             html.Br(),
@@ -65,7 +66,8 @@ def init_callback(app):
                                     'type': 'word-def-see-more-example-sentences-list',
                                     'index': i
                                 }, n_clicks=0
-                            )
+                            ),
+
                         ], style={'fontSize': '1.10em'}))
 
                     patched_children = Patch()
