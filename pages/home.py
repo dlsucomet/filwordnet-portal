@@ -160,7 +160,7 @@ network = dbc.Row([
     html.H4('Network'),
     html.Div([
         cyto.Cytoscape(
-            layout={'name': 'breadthfirst', 'roots': '[id = "la"]'},
+            layout={'name': 'concentric'},
             style={'width': '100%', 'height': '20em'},
             elements=elements,
             id='network'

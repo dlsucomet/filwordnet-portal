@@ -52,6 +52,22 @@ def display_pos_with_id(sense_id, pos):
     return f'{sense_id}'
 
 
+def sanitize_network_data(network):
+    if network:
+        network = str(network)
+        if network != 'nan':
+            network = network.replace('list', '')
+            network = network[3:]
+            network = network[:-3]
+            network = network.replace(',', '')
+            network = network.replace("'", '')
+            network = network.split()
+
+            return network
+
+    return ''
+
+
 def load_network():
 
     return None
