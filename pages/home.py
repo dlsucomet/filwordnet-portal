@@ -3,7 +3,6 @@ from dash import html, dcc
 import dash_bootstrap_components as dbc
 
 import dash_cytoscape as cyto
-import plotly.express as px
 
 
 dash.register_page(__name__, path='/', name='Home')
@@ -163,7 +162,8 @@ network = dbc.Row([
         cyto.Cytoscape(
             layout={'name': 'breadthfirst', 'roots': '[id = "la"]'},
             style={'width': '100%', 'height': '20em'},
-            elements=elements
+            elements=elements,
+            id='network'
         )
     ])
 ])
@@ -216,14 +216,15 @@ embeddings = dbc.Row([
     html.Div([
         dbc.Checklist(
             id="embeddings-checklist",
-            options=["Source 1", "Source 2", "Source 3"],
-            value=["Source 1"],
-            inline=True
+            # options=["Source 1", "Source 2", "Source 3"],
+            # value=["Source 1"],
+            inline=True,
+            style={'display': 'none'}
         ),
-        dcc.Graph(id="embeddings",
-                  figure=px.scatter_3d(px.data.iris(),
-                                       x='sepal_length', y='sepal_width', z='petal_width',
-                                       color='species', hover_data=['petal_width'])),
+        dcc.Graph(id="embeddings")  # ,
+        # figure=px.scatter_3d(px.data.iris(),
+        #                     x='sepal_length', y='sepal_width', z='petal_width',
+        #                     color='species', hover_data=['petal_width'])),
     ])
 ])
 
@@ -267,7 +268,7 @@ body = dbc.Row([
         ])
     ),
 
-    dbc.Col(sidebar, width=3),
+    # dbc.Col(sidebar, width=3),
 ])
 
 # ============

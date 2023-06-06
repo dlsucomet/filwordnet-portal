@@ -1,11 +1,14 @@
 import pandas as pd
 import re
 import json
+from sklearn.decomposition import PCA
 
 
 def get_definition_list(word):
     df = pd.read_csv('static/data/merged_wordnet.csv')
+
     def_list = df.loc[df['word'] == word]
+    def_list = def_list.reset_index()
 
     return def_list
 
@@ -47,6 +50,38 @@ def display_pos_with_id(sense_id, pos):
         return f'{sense_id} - {pos_fullname} ({pos_abbrev})'
 
     return f'{sense_id}'
+
+
+def load_network():
+
+    return None
+
+
+def sanitize_embeddings(embeddings):
+    if embeddings:
+        embeddings = str(embeddings)
+        if embeddings != 'nan':
+            embeddings = embeddings.replace('tensor', '')
+            embeddings = embeddings[4:]
+            embeddings = embeddings[:-3]
+            embeddings = embeddings.replace(',', '')
+            embeddings = embeddings.split()
+            embeddings = [eval(e.strip())
+                          for e in embeddings]  # change string to float
+
+            return embeddings
+
+    return ''
+
+
+def load_embeddings(embeddings_list):
+    if embeddings_list:
+
+        pca = PCA(n_components=3)
+
+        return pca.fit_transform(embeddings_list)
+
+    return ''
 
 
 def convert_double_quotes_json(string):

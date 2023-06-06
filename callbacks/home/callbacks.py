@@ -102,6 +102,8 @@ def init_callback(app):
     @app.callback(
         Output('checklist-sense', 'options'),
         Output('checklist-sense', 'value'),
+        Output('embeddings-checklist', 'options'),
+        Output('embeddings-checklist', 'value'),
         Input('search-word-submit-btn', 'n_clicks'),
         State('search-word', 'value')
     )
@@ -111,7 +113,7 @@ def init_callback(app):
                 df = get_definition_list(word)
 
                 if len(df) >= 1:
-                    return df['sense_id'].values, df['sense_id'].values
+                    return df['sense_id'].values, df['sense_id'].values, df['sense_id'].values, df['sense_id'].values
                 else:
                     # TODO: Handle case where word is not in database
                     raise PreventUpdate
@@ -154,7 +156,7 @@ def init_callback(app):
                 df = get_definition_list(word)
 
                 if len(df) >= 1:
-                    df = get_definition_list(word)
+
                     data = convert_to_data_by_sense(
                         df['contextual_info'].values, df['sense_id'].values)
 
@@ -188,4 +190,28 @@ def init_callback(app):
 
             raise PreventUpdate
 
+        raise PreventUpdate
+
+    @app.callback(
+        Output('embeddings', 'figure'),
+        Input('embeddings-checklist', 'value'),
+        Input('search-word-submit-btn', 'n_clicks'),
+        State('search-word', 'value')
+    )
+    def display_embeddings(checklist_embeddings, n_clicks, word):
+        if n_clicks >= 1:
+            df = get_definition_list(word)
+            if len(df) >= 1:
+                embeddings_list = []
+                for i in range(len(df)):
+                    embeddings = df.loc[i, 'sense_embedding']
+                    embeddings = sanitize_embeddings(embeddings)
+                    if embeddings:
+                        embeddings_list.append(embeddings)
+
+                components = load_embeddings(embeddings_list)
+                fig = px.scatter_3d(components,
+                                    x=0, y=1, z=2,
+                                    color=df['sense_id'].values)
+                return fig
         raise PreventUpdate
