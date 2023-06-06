@@ -268,7 +268,7 @@ body = dbc.Row([
         ])
     ),
 
-    # dbc.Col(sidebar, width=3),
+    dbc.Col(sidebar, width=3),
 ])
 
 # ============
