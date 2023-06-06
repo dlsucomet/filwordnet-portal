@@ -10,21 +10,14 @@ def get_definition_list(word):
     return def_list
 
 
-def sanitize_str_list_to_list(data):
-    data = str(data)
+def sanitize_example_sentences(data, df):
+    data = df.loc[data, 'example_sentences']
     data = data.strip()
     data = data[1:]
     data = data[:-1]
     data = data.split(',')
 
     return data
-
-
-def sanitize_example_sentences(data, df):
-    example_sentences = df.loc[data, 'example_sentences']
-    example_sentences = sanitize_str_list_to_list(example_sentences)
-
-    return example_sentences
 
 
 def convert_double_quotes_json(string):
