@@ -70,6 +70,8 @@ def init_callback(app):
 
                         ], style={'fontSize': '1.10em'}))
 
+                        def_list.append(html.Br())
+
                     patched_children = Patch()
                     patched_children.append(def_list)
 
