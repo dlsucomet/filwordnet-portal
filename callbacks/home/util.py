@@ -18,6 +18,7 @@ def sanitize_example_sentences(data, df):
     data = data.strip()
     data = data[1:]
     data = data[:-1]
+    data = data.replace("'", '"')
     data = data.split(',')
 
     return data
