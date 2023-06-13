@@ -248,7 +248,7 @@ plot_by_source = dbc.Row([
 # ===========
 
 embeddings = dbc.Row([
-    html.H4('Embeddings'),
+    html.H4('Sense Embeddings'),
     html.Br(),
     html.Br(),
     html.Div([
