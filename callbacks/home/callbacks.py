@@ -25,57 +25,70 @@ def init_callback(app):
                         html_example_sentences_list = []
                         for sentence in example_sentences_list:
                             item = html.Div([
-                                html.Span(sentence,
-                                          style={
-                                              'fontSize': '0.9em',
-                                              'color': 'gray',
-                                              'marginLeft': '1.5em'
-                                          }), html.Br()
+                                html.Span(f'{sentence} (Source)'),
+                                html.Br()
                             ])
 
                             html_example_sentences_list.append(item)
 
-                        def_list.append(html.Li([
-                            html.Span(
-                                display_pos_with_id(
-                                    df.loc[i, 'sense_id'], df.loc[i, 'pos']),
-                                style={'fontStyle': 'italic'}
-                            ),
-                            html.Br(),
-                            html.Span(
-                                'Definition lorem ipsum',
-                                style={'fontSize': '0.9em',
-                                       'marginLeft': '1.5em'}
-                            ),
-                            html.Br(),
-                            html.Span(
-                                html_example_sentences_list[0]
-                            ),
-                            html.Span(html_example_sentences_list[1:],
-                                      id={
-                                          'type': 'word-def-example-sentences-list',
-                                          'index': i
-                            },
-                                style={'display': 'none'}
-                            ),
-                            html.Span(
-                                'See more sample sentences ▼',
-                                style={'fontSize': '0.9em',
-                                       'color': 'gray', 'marginLeft': '1.5em'},
-                                id={
-                                    'type': 'word-def-see-more-example-sentences-list',
-                                    'index': i
-                                }, n_clicks=0
-                            ),
+                        def_list.append(html.Tr([
+                            html.Td(
+                                html.Span(f'Sense #{i+1}:'),
+                                style={'width': '11%'}),
+                            html.Td(
+                                html.Div([
+                                    html.Span(
+                                        'Definition lorem ipsum',
+                                        style={'fontSize': '0.9em'}
+                                    ),
+                                    html.Br(),
+                                    html.Span(
+                                        display_pos(df.loc[i, 'pos']),
+                                        style={'fontSize': '0.9em',
+                                               'color': 'gray'}
+                                    ),
+                                    html.Br(),
+                                    html.Br(),
+                                    html.Span(
+                                        'Sample Sentences',
+                                        style={'fontSize': '0.9em'}
+                                    ),
+                                    html.Br(),
+                                    html.Ol([
+                                        html.Li(
+                                            html.Span(
+                                                html_example_sentences_list[0]
+                                            )
+                                        ),
+                                        html.Div(children=[html.Li(i) for i in html_example_sentences_list[1:]],
+                                                 id={
+                                            'type': 'word-def-example-sentences-list',
+                                            'index': i
+                                        },
+                                            style={'display': 'none'}),
 
-                        ], style={'fontSize': '1.10em'}))
-
-                        def_list.append(html.Br())
+                                    ], style={'fontSize': '0.9em',
+                                              'color': 'gray',
+                                              'list-style-type': 'lower-alpha'
+                                              }),
+                                    html.Span(
+                                        'See more sample sentences ▼',
+                                        style={'fontSize': '0.9em',
+                                               'color': 'gray'},
+                                        id={
+                                            'type': 'word-def-see-more-example-sentences-list',
+                                            'index': i
+                                        }, n_clicks=0
+                                    ),
+                                    html.Br(),
+                                    html.Br()
+                                ]))], className='align-baseline'))
 
                     patched_children = Patch()
                     patched_children.append(def_list)
 
                     return word, def_list
+
                 else:
                     return [f'No Word Found: {word}'], None
 

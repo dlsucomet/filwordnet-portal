@@ -44,13 +44,10 @@ def sanitize_pos(pos):
     return '', ''
 
 
-def display_pos_with_id(sense_id, pos):
+def display_pos(pos):
     pos_abbrev, pos_fullname = sanitize_pos(pos)
 
-    if pos_abbrev:
-        return f'{sense_id} - {pos_fullname} ({pos_abbrev})'
-
-    return f'{sense_id}'
+    return f'{pos_fullname} ({pos_abbrev})'
 
 
 def sanitize_network_data(network):

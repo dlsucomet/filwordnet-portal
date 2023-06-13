@@ -108,12 +108,50 @@ sense_with_see_more = html.Li([
 
 senses = dbc.Row([
     html.H2('Lorem', style={'marginTop': '5em'}, id='senses-word'),
-    html.Ol([
-        simple_sense,
-        html.Br(),
-        sense_with_see_more
-    ], style={'marginTop': '1.5em', 'marginLeft': '2em'},
-        id='senses-container')
+    html.Div([
+        dbc.Table(id='senses-container', children=[
+            html.Tr([
+                html.Td(
+                    html.Span('Sense #1:'),
+                    style={'width': '11%'}),
+                html.Td(
+                    html.Div([
+                        html.Span(
+                            'Definition lorem ipsum',
+                            style={'fontSize': '0.9em'}
+                        ),
+                        html.Br(),
+                        html.Span(
+                            'Verb (v)',
+                            style={'fontSize': '0.9em',
+                                   'color': 'gray'}
+                        ),
+                        html.Br(),
+                        html.Br(),
+                        html.Span(
+                            'Sample Sentences',
+                            style={'fontSize': '0.9em'}
+                        ),
+                        html.Br(),
+                        html.Ol([
+                            html.Li(
+                                html.Span('"Sentence lorem ipsum" (Source)')),
+                            html.Li(
+                                html.Span('"Sentence lorem ipsum" (Source)')),
+                        ], style={'fontSize': '0.9em',
+                                  'color': 'gray',
+                                  'list-style-type': 'lower-alpha'
+                                  }),
+                        html.Span(['See more sample sentences ▼'],
+                                  style={'fontSize': '0.9em',
+                                         'color': 'gray'
+                                         }),
+                        html.Br(),
+                        html.Br()
+                    ]))], className='align-baseline'),
+        ])
+
+    ], style={'fontSize': '1.10em'})
 ])
 
 
