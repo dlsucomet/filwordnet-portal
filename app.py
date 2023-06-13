@@ -15,7 +15,7 @@ app = dash.Dash(__name__, use_pages=True,
 
 navbar = dbc.NavbarSimple(
     children=[
-        dbc.NavItem(dbc.NavLink('Home', href='/', active='exact')),
+        dbc.NavItem(dbc.NavLink('Discover', href='/', active='exact')),
         dbc.NavItem(dbc.NavLink(
                     'About', href='/about', active='exact')),
         dbc.NavItem(dbc.NavLink(
