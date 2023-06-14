@@ -194,7 +194,7 @@ def init_callback(app):
                     df['contextual_info'].values, df['sense_id'].values)
 
                 mask = data.sense.isin(checklist_sense)
-                fig = px.line(data[mask], x='year', y='counts', color='source')
+                fig = px.line(data[mask], x='year', y='counts', color='category')
 
                 fig.update_xaxes(categoryorder='category ascending')
 
@@ -220,7 +220,7 @@ def init_callback(app):
                     data = convert_to_data_by_sense(
                         df['contextual_info'].values, df['sense_id'].values)
 
-                    return data['source'].unique(), data['source'].unique()
+                    return data['category'].unique(), data['category'].unique()
                 else:
                     # TODO: Handle case where word is not in database
                     raise PreventUpdate
@@ -242,7 +242,7 @@ def init_callback(app):
                 data = convert_to_data_by_sense(
                     df['contextual_info'].values, df['sense_id'].values)
 
-                mask = data.source.isin(checklist_source)
+                mask = data.category.isin(checklist_source)
                 fig = px.line(data[mask], x='year',
                               y='counts', color='sense')
 
