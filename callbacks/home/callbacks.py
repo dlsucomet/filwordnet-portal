@@ -75,6 +75,7 @@ def init_callback(app):
                                         'See more sample sentences ▼',
                                         style={'fontSize': '0.9em',
                                                'color': 'gray'},
+                                        className='see-more',
                                         id={
                                             'type': 'word-def-see-more-example-sentences-list',
                                             'index': i

@@ -101,6 +101,7 @@ sense_with_see_more = html.Li([
     html.Br(),
     html.Span(
         'See more sample sentences ▼',
+        className='see-more',
         style={'fontSize': '0.9em',
                'color': 'gray', 'marginLeft': '1.5em'}
     )
@@ -143,6 +144,7 @@ senses = dbc.Row([
                                   'list-style-type': 'lower-alpha'
                                   }),
                         html.Span(['See more sample sentences ▼'],
+                                  className='see-more',
                                   style={'fontSize': '0.9em',
                                          'color': 'gray'
                                          }),
