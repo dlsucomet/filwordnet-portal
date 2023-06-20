@@ -194,7 +194,8 @@ def init_callback(app):
                     df['contextual_info'].values, df['sense_id'].values)
 
                 mask = data.sense.isin(checklist_sense)
-                fig = px.line(data[mask], x='year', y='counts', color='category')
+                fig = px.line(data[mask], x='year',
+                              y='counts', color='category')
 
                 fig.update_xaxes(categoryorder='category ascending')
 
@@ -263,6 +264,8 @@ def init_callback(app):
     def display_embeddings(checklist_embeddings, n_clicks, word):
         if n_clicks >= 1:
             df = get_definition_list(word)
+            sense_id_list = []
+
             if len(df) >= 1:
                 embeddings_list = []
                 for i in range(len(df)):
@@ -270,10 +273,12 @@ def init_callback(app):
                     embeddings = sanitize_embeddings(embeddings)
                     if embeddings:
                         embeddings_list.append(embeddings)
+                        sense_id_list.append(f'Sense #{i+1}')
 
                 components = load_embeddings(embeddings_list)
                 fig = px.scatter_3d(components,
                                     x=0, y=1, z=2,
-                                    color=df['sense_id'].values)
+                                    color=sense_id_list)
+                fig.update_layout(legend_title_text='Senses')
                 return fig
         raise PreventUpdate
