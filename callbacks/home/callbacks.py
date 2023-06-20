@@ -2,6 +2,7 @@ from dash import Input, Output, State, html, Patch, MATCH
 import plotly.express as px
 from dash.exceptions import PreventUpdate
 from .util import *
+import dash_bootstrap_components as dbc
 
 
 def init_callback(app):
@@ -24,10 +25,22 @@ def init_callback(app):
 
                         html_example_sentences_list = []
                         for sentence in example_sentences_list:
+                            item = html.Tr([
+                                html.Td(
+                                    html.Li(),
+                                    style={'width': '1%'}
+                                ),
+                                html.Td(
+                                    html.Span(f'{sentence} (Source)')
+                                )
+                            ], style={'fontSize': '0.9em',
+                                      'color': 'gray'})
+                            """
                             item = html.Div([
                                 html.Span(f'{sentence} (Source)'),
                                 html.Br()
                             ])
+                            """
 
                             html_example_sentences_list.append(item)
 
@@ -54,23 +67,19 @@ def init_callback(app):
                                         style={'fontSize': '0.9em'}
                                     ),
                                     html.Br(),
-                                    html.Ol([
-                                        html.Li(
-                                            html.Span(
-                                                html_example_sentences_list[0]
-                                            )
-                                        ),
-                                        html.Div(children=[html.Li(i) for i in html_example_sentences_list[1:]],
-                                                 id={
-                                            'type': 'word-def-example-sentences-list',
-                                            'index': i
-                                        },
-                                            style={'display': 'none'}),
-
-                                    ], style={'fontSize': '0.9em',
-                                              'color': 'gray',
-                                              'list-style-type': 'lower-alpha'
-                                              }),
+                                    dbc.Table(id='senses-sample-sentences-container', children=[
+                                        html.Ol(children=[
+                                            html.Div(
+                                                children=[html_example_sentences_list[0]]),
+                                            html.Div(children=[j for j in html_example_sentences_list[1:]],
+                                                     id={
+                                                'type': 'word-def-example-sentences-list',
+                                                'index': i}, style={'display': 'none'})
+                                        ], style={'list-style-type': 'lower-alpha',
+                                                  'list-style-position': 'inside',
+                                                  'padding-left': '0'}
+                                        )
+                                    ], borderless=True),
                                     html.Span(
                                         'See more sample sentences ▼',
                                         style={'fontSize': '0.9em',
