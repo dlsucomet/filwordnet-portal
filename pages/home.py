@@ -197,7 +197,7 @@ edges = [
 elements = nodes + edges
 
 network = dbc.Row([
-    html.H4('Network'),
+    html.H4('Word Occurence'),
     html.Div([
         cyto.Cytoscape(
             layout={'name': 'concentric'},
