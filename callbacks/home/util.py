@@ -19,7 +19,8 @@ def sanitize_sample_sentences(data, df):
     data = data[1:]
     data = data[:-1]
     data = data.replace("'", '"')
-    data = data.split(',')
+    # data = data.split(',')
+    data = re.findall('"[A-Z][^"]*"', data)
 
     return data
 
