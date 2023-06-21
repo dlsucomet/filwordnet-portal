@@ -289,6 +289,11 @@ def init_callback(app):
                 fig = px.scatter_3d(components,
                                     x=0, y=1, z=2,
                                     color=sense_id_list)
-                fig.update_layout(legend_title_text='Senses')
+                fig.update_layout(legend_title_text='Senses',
+                                  scene=dict(
+                                      xaxis_title='component 1',
+                                      yaxis_title='component 2',
+                                      zaxis_title='component 3')
+                                  )
                 return fig
         raise PreventUpdate
