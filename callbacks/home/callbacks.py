@@ -28,13 +28,18 @@ def init_callback(app):
                             item = html.Tr([
                                 html.Td(
                                     html.Li(),
-                                    style={'width': '1%'}
+                                    style={
+                                        'width': '1%', 'padding-bottom': '0'}
                                 ),
                                 html.Td(
-                                    html.Span(f'{sentence} (Source)')
+                                    html.Span(
+                                        f'{sentence} (Source)',
+                                    ), style={'padding': '0'}
                                 )
                             ], style={'fontSize': '0.9em',
                                       'color': 'gray'})
+                            # id={'type': 'word-def-example-sentences-list',
+                            #    'index': i})
                             """
                             item = html.Div([
                                 html.Span(f'{sentence} (Source)'),
@@ -67,26 +72,29 @@ def init_callback(app):
                                         style={'fontSize': '0.9em'}
                                     ),
                                     html.Br(),
-                                    dbc.Table(id='senses-sample-sentences-container', children=[
-                                        html.Ol(children=[
-                                            html.Div(
-                                                children=[html_example_sentences_list[0]]),
-                                            html.Div(children=[j for j in html_example_sentences_list[1:]],
-                                                     id={
-                                                'type': 'word-def-example-sentences-list',
-                                                'index': i}, style={'display': 'none'})
-                                        ], style={'list-style-type': 'lower-alpha',
-                                                  'list-style-position': 'inside',
-                                                  'padding-left': '0'}
-                                        )
-                                    ], borderless=True),
+
+                                    dbc.Table(
+                                        id={'type': 'senses-sample-sentences-container',
+                                            'index': i},
+                                        children=[
+                                            html.Ol(children=[
+                                                j for j in html_example_sentences_list
+                                            ], style={'list-style-type': 'lower-alpha',
+                                                      'list-style-position': 'inside',
+                                                      'padding-left': '0',
+                                                      },
+
+                                                className='example-sentence'
+                                            )
+                                        ],
+                                        borderless=True),
                                     html.Span(
                                         'See more sample sentences ▼',
                                         style={'fontSize': '0.9em',
                                                'color': 'gray'},
                                         className='see-more',
                                         id={
-                                            'type': 'word-def-see-more-example-sentences-list',
+                                            'type': 'word-def-see-more-example-sentences-text',
                                             'index': i
                                         }, n_clicks=0
                                     ),
@@ -108,19 +116,19 @@ def init_callback(app):
         raise PreventUpdate
 
     @app.callback(
-        Output({'type': 'word-def-example-sentences-list',
-               'index': MATCH}, 'style'),
-        Output({'type': 'word-def-see-more-example-sentences-list',
+        Output({'type': 'senses-sample-sentences-container',
+               'index': MATCH}, 'className'),
+        Output({'type': 'word-def-see-more-example-sentences-text',
                 'index': MATCH}, 'children'),
-        Input({'type': 'word-def-see-more-example-sentences-list',
+        Input({'type': 'word-def-see-more-example-sentences-text',
               'index': MATCH}, 'n_clicks')
     )
     def see_or_hide_more_sentences(n_clicks):
         if n_clicks >= 1:
             if n_clicks % 2 == 0:
-                return {'display': 'block'}, f'See less sample sentences ▲'
+                return 'example-sentence-see-all', f'See less sample sentences ▲'
 
-            return {'display': 'none'}, f'See more sample sentences ▼'
+            return 'example-sentence', f'See more sample sentences ▼'
 
         raise PreventUpdate
 
