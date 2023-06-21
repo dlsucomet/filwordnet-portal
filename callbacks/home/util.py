@@ -13,7 +13,7 @@ def get_definition_list(word):
     return def_list
 
 
-def sanitize_example_sentences(data, df):
+def sanitize_sample_sentences(data, df):
     data = df.loc[data, 'example_sentences']
     data = data.strip()
     data = data[1:]

@@ -2,15 +2,15 @@
     cursor: pointer;
 }
 
-.example-sentence tr {
+.sample-sentence tr {
     display: none;
 }
 
-.example-sentence tr:first-child {
+.sample-sentence tr:first-child {
     display: block;
 }
 
-.example-sentence-see-all tr{
+.sample-sentence-see-all tr{
     display: block;
 }
 

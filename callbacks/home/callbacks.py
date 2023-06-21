@@ -20,11 +20,11 @@ def init_callback(app):
                 if len(df) >= 1:
                     def_list = []
                     for i in range(len(df)):
-                        example_sentences_list = sanitize_example_sentences(
+                        sample_sentences_list = sanitize_sample_sentences(
                             i, df)
 
-                        html_example_sentences_list = []
-                        for sentence in example_sentences_list:
+                        html_sample_sentences_list = []
+                        for sentence in sample_sentences_list:
                             item = html.Tr([
                                 html.Td(
                                     html.Li(),
@@ -38,16 +38,8 @@ def init_callback(app):
                                 )
                             ], style={'fontSize': '0.9em',
                                       'color': 'gray'})
-                            # id={'type': 'word-def-example-sentences-list',
-                            #    'index': i})
-                            """
-                            item = html.Div([
-                                html.Span(f'{sentence} (Source)'),
-                                html.Br()
-                            ])
-                            """
 
-                            html_example_sentences_list.append(item)
+                            html_sample_sentences_list.append(item)
 
                         def_list.append(html.Tr([
                             html.Td(
@@ -78,13 +70,13 @@ def init_callback(app):
                                             'index': i},
                                         children=[
                                             html.Ol(children=[
-                                                j for j in html_example_sentences_list
+                                                j for j in html_sample_sentences_list
                                             ], style={'list-style-type': 'lower-alpha',
                                                       'list-style-position': 'inside',
                                                       'padding-left': '0',
                                                       },
 
-                                                className='example-sentence'
+                                                className='sample-sentence'
                                             )
                                         ],
                                         borderless=True),
@@ -94,7 +86,7 @@ def init_callback(app):
                                                'color': 'gray'},
                                         className='see-more',
                                         id={
-                                            'type': 'word-def-see-more-example-sentences-text',
+                                            'type': 'word-def-see-more-sample-sentences-text',
                                             'index': i
                                         }, n_clicks=0
                                     ),
@@ -118,17 +110,17 @@ def init_callback(app):
     @app.callback(
         Output({'type': 'senses-sample-sentences-container',
                'index': MATCH}, 'className'),
-        Output({'type': 'word-def-see-more-example-sentences-text',
+        Output({'type': 'word-def-see-more-sample-sentences-text',
                 'index': MATCH}, 'children'),
-        Input({'type': 'word-def-see-more-example-sentences-text',
+        Input({'type': 'word-def-see-more-sample-sentences-text',
               'index': MATCH}, 'n_clicks')
     )
     def see_or_hide_more_sentences(n_clicks):
         if n_clicks >= 1:
             if n_clicks % 2 == 0:
-                return 'example-sentence-see-all', f'See less sample sentences ▲'
+                return 'sample-sentence-see-all', f'See less sample sentences ▲'
 
-            return 'example-sentence', f'See more sample sentences ▼'
+            return 'sample-sentence', f'See more sample sentences ▼'
 
         raise PreventUpdate
 
