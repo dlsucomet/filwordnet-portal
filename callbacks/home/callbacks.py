@@ -79,7 +79,8 @@ def init_callback(app):
                                                 className='sample-sentence'
                                             )
                                         ],
-                                        borderless=True),
+                                        borderless=True,
+                                        style={'margin-bottom': '0'}),
                                     html.Span(
                                         'See more sample sentences ▼',
                                         style={'fontSize': '0.9em',
