@@ -46,7 +46,7 @@ def init_callback(app):
 
                         def_list.append(html.Tr([
                             html.Td(
-                                html.Span(f'Sense #{i+1}:'),
+                                html.Span(f'Sense {i+1}:'),
                                 style={'width': '11%'}),
                             html.Td(
                                 html.Div([
@@ -278,7 +278,7 @@ def init_callback(app):
                     embeddings = sanitize_embeddings(embeddings)
                     if embeddings:
                         embeddings_list.append(embeddings)
-                        sense_id_list.append(f'Sense #{i+1}')
+                        sense_id_list.append(f'Sense {i+1}')
 
                 components = load_embeddings(embeddings_list)
                 fig = px.scatter_3d(components,
