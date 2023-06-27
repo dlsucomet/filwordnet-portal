@@ -176,7 +176,14 @@ def init_callback(app):
                 df = get_definition_list(word)
 
                 if len(df) >= 1:
-                    return df['sense_id'].values, df['sense_id'].values, df['sense_id'].values, df['sense_id'].values
+
+                    checklist_options = {}
+                    num_sense = 0
+                    for sense_id in df['sense_id'].values:
+                        checklist_options[sense_id] = f'Sense {num_sense+1}'
+                        num_sense = num_sense + 1
+
+                    return checklist_options, df['sense_id'].values, df['sense_id'].values, df['sense_id'].values
                 else:
                     # TODO: Handle case where word is not in database
                     raise PreventUpdate
