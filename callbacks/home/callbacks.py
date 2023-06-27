@@ -214,6 +214,10 @@ def init_callback(app):
                               y='counts', color='category')
 
                 fig.update_xaxes(categoryorder='category ascending')
+                fig.update_layout(
+                    xaxis_title='year',
+                    yaxis_title='number of times it appeared'
+                )
 
                 return fig
 

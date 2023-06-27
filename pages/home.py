@@ -249,10 +249,10 @@ plot_by_sense = dbc.Row([
 
         html.Br(),
 
-        dbc.Checklist(
-            id="checklist-sense",
-            inline=True
-        ),
+        # dbc.Checklist(
+        #    id="checklist-sense",
+        #    inline=True
+        # ),
         dcc.Graph(id="graph-sense")
     ])
 ])
