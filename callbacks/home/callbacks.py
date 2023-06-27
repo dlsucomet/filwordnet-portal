@@ -163,14 +163,12 @@ def init_callback(app):
         raise PreventUpdate
 
     @app.callback(
-        Output('checklist-sense', 'options'),
-        Output('checklist-sense', 'value'),
-        Output('embeddings-checklist', 'options'),
-        Output('embeddings-checklist', 'value'),
+        Output('sense-dropdown', 'options'),
+        Output('sense-dropdown', 'value'),
         Input('search-word-submit-btn', 'n_clicks'),
         State('search-word', 'value')
     )
-    def display_checklist_sense(n_clicks, word):
+    def display_sense_dropdown(n_clicks, word):
         if n_clicks >= 1:
             if word:
                 df = get_definition_list(word)
@@ -179,11 +177,17 @@ def init_callback(app):
 
                     checklist_options = {}
                     num_sense = 0
-                    for sense_id in df['sense_id'].values:
-                        checklist_options[sense_id] = f'Sense {num_sense+1}'
+                    for i in range(len(df)):
+                        sense_id = df.loc[i, 'sense_id']
+                        pos_abbrev, pos = sanitize_pos(df.loc[i, 'pos'])
+
+                        checklist_options[sense_id] = f'Sense {num_sense+1} ({pos})'
                         num_sense = num_sense + 1
 
-                    return checklist_options, df['sense_id'].values, df['sense_id'].values, df['sense_id'].values
+                    if not checklist_options:
+                        checklist_options = {None: None}
+
+                    return checklist_options, None
                 else:
                     # TODO: Handle case where word is not in database
                     raise PreventUpdate
@@ -194,18 +198,18 @@ def init_callback(app):
 
     @app.callback(
         Output('graph-sense', 'figure'),
-        Input('checklist-sense', 'value'),
+        Input('sense-dropdown', 'value'),
         Input('search-word-submit-btn', 'n_clicks'),
         State('search-word', 'value')
     )
-    def update_line_chart(checklist_sense, n_clicks, word):
+    def update_line_chart(sense_value, n_clicks, word):
         if n_clicks >= 1:
             if word:
                 df = get_definition_list(word)
                 data = convert_to_data_by_sense(
                     df['contextual_info'].values, df['sense_id'].values)
 
-                mask = data.sense.isin(checklist_sense)
+                mask = data.sense.isin([sense_value])
                 fig = px.line(data[mask], x='year',
                               y='counts', color='category')
 

@@ -213,11 +213,42 @@ network = dbc.Row([
 # Plot (Filtered by Sense)
 # =========================
 
+other_ref_genomes = [{'value': 'N22', 'label': 'N22   (aus Nagina-22)'},
+                     {'value': 'MH63', 'label': 'MH63   (indica Minghui-63)'},
+                     {'value': 'Azu', 'label': 'Azu   (japonica Azucena)'},
+                     {'value': 'ARC', 'label': 'ARC   (basmati ARC)'},
+                     {'value': 'IR64', 'label': 'IR64   (indica IR64)'},
+                     {'value': 'CMeo', 'label': 'CMeo   (japonica CHAO MEO)'}]
+
 plot_by_sense = dbc.Row([
-    html.H4('Plot (Filtered by Sense)'),
+    html.H4('Usage Over Time Per Sense'),
     html.Br(),
     html.Br(),
     html.Div([
+        html.Div([
+            'Show me how ',
+            # html.Div(
+            html.Div([
+                dcc.Dropdown(
+                    id='sense-dropdown',
+                    style={
+                        # 'padding-left': '1%',
+                        # 'padding-right': '1%',
+                        # 'width': '40%',
+                        'verticalAlign': 'middle'}
+                ),
+            ], style={'width': '20%', 'margin-left': '1%', 'margin-right': '1%'},
+            ),
+
+            # ),
+            ' is used by source per time of source'
+        ],  className='d-flex flex-row align-middle',
+            # style={'display': 'inline-block'}
+            # className='d-inline'
+        ),
+
+        html.Br(),
+
         dbc.Checklist(
             id="checklist-sense",
             inline=True
