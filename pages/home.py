@@ -280,10 +280,10 @@ plot_by_source = dbc.Row([
             ' evolves over time'
         ],  className='d-flex flex-row align-middle',
         ),
-        dbc.Checklist(
-            id="checklist-source",
-            inline=True
-        ),
+        # dbc.Checklist(
+        #    id="checklist-source",
+        #    inline=True
+        # ),
         dcc.Graph(id="graph-source")
     ])
 ])

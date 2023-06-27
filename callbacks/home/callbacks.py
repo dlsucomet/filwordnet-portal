@@ -269,6 +269,10 @@ def init_callback(app):
                               y='counts', color='sense')
 
                 fig.update_xaxes(categoryorder='category ascending')
+                fig.update_layout(
+                    xaxis_title='year',
+                    yaxis_title='number of times it appeared'
+                )
 
                 return fig
 
@@ -294,7 +298,8 @@ def init_callback(app):
                     embeddings = sanitize_embeddings(embeddings)
                     if embeddings:
                         embeddings_list.append(embeddings)
-                        sense_id_list.append(f'Sense {i+1}')
+                        pos_abbrev, pos = sanitize_pos(df.loc[i, 'pos'])
+                        sense_id_list.append(f'Sense {i+1} ({pos})')
 
                 components = load_embeddings(embeddings_list)
                 fig = px.scatter_3d(components,
