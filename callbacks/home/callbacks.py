@@ -26,16 +26,19 @@ def init_callback(app):
                         html_sample_sentences_list = []
                         for sentence in sample_sentences_list:
                             item = html.Tr([
-                                html.Td(
-                                    html.Li(),
-                                    style={
-                                        'width': '1%', 'padding-bottom': '0'}
+                                html.Td(children=[
+                                    html.Div(children=[
+                                        f'Source'
+                                    ])
+                                ],
                                 ),
-                                html.Td(
-                                    html.Span(
-                                        f'{sentence} (Source)',
-                                    ), style={'padding': '0'}
-                                )
+
+                                html.Td(children=[
+                                    html.Div(children=[
+                                        f'{sentence}'
+                                    ])
+                                ]
+                                ),
                             ], style={'fontSize': '0.9em',
                                       'color': 'gray'})
 
@@ -69,16 +72,8 @@ def init_callback(app):
                                         id={'type': 'senses-sample-sentences-container',
                                             'index': i},
                                         children=[
-                                            html.Ol(children=[
-                                                j for j in html_sample_sentences_list
-                                            ], style={'list-style-type': 'lower-alpha',
-                                                      'list-style-position': 'inside',
-                                                      'padding-left': '0',
-                                                      },
-
-                                                className='sample-sentence'
-                                            )
-                                        ],
+                                            j for j in html_sample_sentences_list
+                                        ], className='sample-sentence',
                                         borderless=True,
                                         style={'margin-bottom': '0'}),
                                     html.Span(
