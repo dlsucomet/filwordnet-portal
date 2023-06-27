@@ -221,12 +221,12 @@ other_ref_genomes = [{'value': 'N22', 'label': 'N22   (aus Nagina-22)'},
                      {'value': 'CMeo', 'label': 'CMeo   (japonica CHAO MEO)'}]
 
 plot_by_sense = dbc.Row([
-    html.H4('Usage Over Time Per Sense'),
+    html.H4('Usage Over Time Per Sense (Filtered by Sense)'),
     html.Br(),
     html.Br(),
     html.Div([
         html.Div([
-            'Show me how ',
+            'Show me how the use of ',
             # html.Div(
             html.Div([
                 dcc.Dropdown(
@@ -241,7 +241,7 @@ plot_by_sense = dbc.Row([
             ),
 
             # ),
-            ' is used by source per time of source'
+            ' evolves over time'
         ],  className='d-flex flex-row align-middle',
             # style={'display': 'inline-block'}
             # className='d-inline'
