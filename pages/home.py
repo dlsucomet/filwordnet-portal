@@ -263,10 +263,23 @@ plot_by_sense = dbc.Row([
 # ==========================
 
 plot_by_source = dbc.Row([
-    html.H4('Plot (Filtered by Source)'),
+    html.H4('Usage Over Time Per Sense (Filtered by Source)'),
     html.Br(),
     html.Br(),
     html.Div([
+        html.Div([
+            'Show me how the use of sense in ',
+            html.Div([
+                dcc.Dropdown(
+                    id='source-dropdown',
+                    style={
+                        'verticalAlign': 'middle'}
+                ),
+            ], style={'width': '20%', 'margin-left': '1%', 'margin-right': '1%'},
+            ),
+            ' evolves over time'
+        ],  className='d-flex flex-row align-middle',
+        ),
         dbc.Checklist(
             id="checklist-source",
             inline=True

@@ -226,12 +226,12 @@ def init_callback(app):
         raise PreventUpdate
 
     @app.callback(
-        Output('checklist-source', 'options'),
-        Output('checklist-source', 'value'),
+        Output('source-dropdown', 'options'),
+        Output('source-dropdown', 'value'),
         Input('search-word-submit-btn', 'n_clicks'),
         State('search-word', 'value')
     )
-    def display_checklist_sense(n_clicks, word):
+    def display_source_dropdown(n_clicks, word):
         if n_clicks >= 1:
             if word:
                 df = get_definition_list(word)
@@ -241,7 +241,8 @@ def init_callback(app):
                     data = convert_to_data_by_sense(
                         df['contextual_info'].values, df['sense_id'].values)
 
-                    return data['category'].unique(), data['category'].unique()
+                    # data['category'].unique()
+                    return data['category'].unique(), None
                 else:
                     # TODO: Handle case where word is not in database
                     raise PreventUpdate
@@ -252,18 +253,18 @@ def init_callback(app):
 
     @app.callback(
         Output('graph-source', 'figure'),
-        Input('checklist-source', 'value'),
+        Input('source-dropdown', 'value'),
         Input('search-word-submit-btn', 'n_clicks'),
         State('search-word', 'value')
     )
-    def update_line_chart(checklist_source, n_clicks, word):
+    def update_line_chart(selected_source, n_clicks, word):
         if n_clicks >= 1:
             if word:
                 df = get_definition_list(word)
                 data = convert_to_data_by_sense(
                     df['contextual_info'].values, df['sense_id'].values)
 
-                mask = data.category.isin(checklist_source)
+                mask = data.category.isin([selected_source])
                 fig = px.line(data[mask], x='year',
                               y='counts', color='sense')
 
