@@ -207,7 +207,7 @@ def init_callback(app):
             if word:
                 df = get_definition_list(word)
                 data = convert_to_data_by_sense(
-                    df['contextual_info'].values, df['sense_id'].values)
+                    df['contextual_info'].values, df['sense_id'].values, df['pos'].values)
 
                 mask = data.sense.isin([sense_value])
                 fig = px.line(data[mask], x='year',
@@ -239,7 +239,7 @@ def init_callback(app):
                 if len(df) >= 1:
 
                     data = convert_to_data_by_sense(
-                        df['contextual_info'].values, df['sense_id'].values)
+                        df['contextual_info'].values, df['sense_id'].values, df['pos'].values)
 
                     # data['category'].unique()
                     return data['category'].unique(), None
@@ -262,17 +262,17 @@ def init_callback(app):
             if word:
                 df = get_definition_list(word)
                 data = convert_to_data_by_sense(
-                    df['contextual_info'].values, df['sense_id'].values)
+                    df['contextual_info'].values, df['sense_id'].values, df['pos'].values)
 
                 mask = data.category.isin([selected_source])
                 fig = px.line(data[mask], x='year',
-                              y='counts', color='sense')
+                              y='counts', color='sense_and_pos')
 
                 fig.update_xaxes(categoryorder='category ascending')
-                fig.update_layout(
-                    xaxis_title='year',
-                    yaxis_title='number of times it appeared'
-                )
+                fig.update_layout(legend_title_text='sense',
+                                  xaxis_title='year',
+                                  yaxis_title='number of times it appeared'
+                                  )
 
                 return fig
 
@@ -305,7 +305,7 @@ def init_callback(app):
                 fig = px.scatter_3d(components,
                                     x=0, y=1, z=2,
                                     color=sense_id_list)
-                fig.update_layout(legend_title_text='Senses',
+                fig.update_layout(legend_title_text='sense',
                                   scene=dict(
                                       xaxis_title='component 1',
                                       yaxis_title='component 2',

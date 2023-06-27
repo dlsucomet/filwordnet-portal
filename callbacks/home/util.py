@@ -104,15 +104,16 @@ def convert_double_quotes_json(string):
     return pattern.sub('\"', string)
 
 
-def convert_to_data_by_sense(contextual_info, sense_ids):
+def convert_to_data_by_sense(contextual_info, sense_ids, pos_list):
     data_matrix = []
     for i in range(0, len(contextual_info)):
         sources = json.loads(convert_double_quotes_json(contextual_info[i]))
         for categories in sources:
             for title in sources[categories]:
                 for year in sources[categories][title]:
+                    pos_abbrev, pos = sanitize_pos(pos_list[i])
                     entry = [sources[categories][title][year], year,
-                             title, categories, sense_ids[i]]
+                             title, categories, sense_ids[i], f'Sense {i+1} ({pos})']
                     data_matrix.append(entry)
 
-    return pd.DataFrame(data_matrix, columns=['counts', 'year', 'source', 'category', 'sense'])
+    return pd.DataFrame(data_matrix, columns=['counts', 'year', 'source', 'category', 'sense', 'sense_and_pos'])
