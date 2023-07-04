@@ -6,6 +6,7 @@ from flask import Flask
 from dash import html
 
 import callbacks.home.callbacks
+import callbacks.home.scroll_callbacks
 
 server = Flask(__name__, static_folder='static')
 app = dash.Dash(__name__, use_pages=True,
@@ -43,6 +44,7 @@ app.layout = dbc.Container([
 
 
 callbacks.home.callbacks.init_callback(app)
+callbacks.home.scroll_callbacks.init_callback(app)
 
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', port='8050', debug=True)

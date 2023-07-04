@@ -18,15 +18,18 @@ sidebar = html.Div(
         html.Hr(),
         dbc.Nav(
             [
-                dbc.NavLink('Senses and Sample Sentences',
-                            href='/', active='exact'),
-                dbc.NavLink('Network', href='#', active='exact'),
-                dbc.NavLink('Plot (Filtered by Sense)',
-                            href='#', active='exact'),
-                dbc.NavLink('Plot (Filtered by Source)',
-                            href='#', active='exact'),
-                dbc.NavLink('Embeddings', href='#', active='exact'),
-                dbc.NavLink('Export', href='#', active='exact'),
+                dbc.NavLink('Senses and Sample Sentences', id='senses-link',
+                            href='/', active='exact', className='sidebar-link'),
+                dbc.NavLink('Network', href='#', active='exact', id='network-link',
+                            className='sidebar-link'),
+                dbc.NavLink('Plot (Filtered by Sense)', id='plot-sense-link',
+                            href='#', active='exact', className='sidebar-link'),
+                dbc.NavLink('Plot (Filtered by Source)', id='plot-source-link',
+                            href='#', active='exact', className='sidebar-link'),
+                dbc.NavLink('Embeddings', href='#', active='exact', id='embeddings-link',
+                            className='sidebar-link'),
+                dbc.NavLink('Export', href='#', active='exact', id='export-link',
+                            className='sidebar-link'),
             ],
             vertical=True,
             pills=True
@@ -50,13 +53,14 @@ input_word = dbc.Row([
         dbc.Input(id='search-word'),
         dbc.Button('Search', color='dark',
                    id='search-word-submit-btn', n_clicks=0)
-    ], style={'width': '64%'})
+    ], style={'width': '60%'})
 ], style={'position': 'fixed',
           'width': 'inherit',
           'backgroundColor': 'white',
           'paddingTop': '3em',              # Should be the same as padding-top of sidebar
           'paddingBottom': '2.3em',
-          'zIndex': '1000'}                 # Should be lower than z-index of sidebar
+          'zIndex': '1000'},                # Should be lower than z-index of sidebar
+    id='search-word-div'
 )
 
 
@@ -201,7 +205,7 @@ network = dbc.Row([
     html.Div([
         cyto.Cytoscape(
             layout={'name': 'concentric'},
-            style={'width': '100%', 'height': '20em'},
+            style={'width': '100%', 'height': '30em'},
             elements=elements,
             id='network'
         )
@@ -212,13 +216,6 @@ network = dbc.Row([
 # =========================
 # Plot (Filtered by Sense)
 # =========================
-
-other_ref_genomes = [{'value': 'N22', 'label': 'N22   (aus Nagina-22)'},
-                     {'value': 'MH63', 'label': 'MH63   (indica Minghui-63)'},
-                     {'value': 'Azu', 'label': 'Azu   (japonica Azucena)'},
-                     {'value': 'ARC', 'label': 'ARC   (basmati ARC)'},
-                     {'value': 'IR64', 'label': 'IR64   (indica IR64)'},
-                     {'value': 'CMeo', 'label': 'CMeo   (japonica CHAO MEO)'}]
 
 plot_by_sense = dbc.Row([
     html.H4('Usage Over Time Per Sense (Filtered by Sense)'),
@@ -324,7 +321,7 @@ export = dbc.Row([
     html.Ul([
         html.Li('Senses and Sample Sentences (JSON)'),
         html.Li('Embeddings (CSV)'),
-    ], style={'marginLeft': '2em'})
+    ], style={'marginLeft': '2em'}),
 ])
 
 
@@ -337,17 +334,17 @@ body = dbc.Row([
         dbc.Container([
             input_word,
             senses,
-            html.Br(),
+            html.Br(id='network-row'),
             network,
-            html.Br(),
+            html.Br(id='plot-sense-row'),
             plot_by_sense,
-            html.Br(),
+            html.Br(id='plot-source-row'),
             html.Br(),
             plot_by_source,
-            html.Br(),
+            html.Br(id='embeddings-row'),
             html.Br(),
             embeddings,
-            html.Br(),
+            html.Br(id='export-row'),
             export
         ])
     ),

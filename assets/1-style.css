@@ -17,3 +17,12 @@
 .all-sentences tr {
     text-align: left;
 }
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: white;
+    color: black;
+}
+
+.sidebar-link, .sidebar-link:hover, .sidebar-link:active, .sidebar-link.active {
+    color: black;
+}
