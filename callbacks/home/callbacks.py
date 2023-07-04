@@ -84,6 +84,25 @@ def init_callback(app):
 
                             )
 
+                        html_pos = html.Div(
+                            children=[
+                                html.Br()
+                            ]
+                        )
+                        pos = display_pos(df.loc[i, 'pos'])
+                        if pos:
+                            html_pos = html.Div(
+                                children=[
+                                    html.Span(
+                                        pos,
+                                        style={'fontSize': '0.9em',
+                                               'color': 'gray'}
+                                    ),
+                                    html.Br(),
+                                    html.Br()
+                                ]
+                            )
+
                         def_list.append(html.Tr([
                             html.Td(
                                 html.Span(f'Sense {i+1}:'),
@@ -94,14 +113,8 @@ def init_callback(app):
                                         'Definition lorem ipsum',
                                         style={'fontSize': '0.9em'}
                                     ),
-                                    html.Br(),
-                                    html.Span(
-                                        display_pos(df.loc[i, 'pos']),
-                                        style={'fontSize': '0.9em',
-                                               'color': 'gray'}
-                                    ),
-                                    html.Br(),
-                                    html.Br(),
+                                    html_pos,
+
                                     html_sample_sentences_container,
 
                                 ]))], className='align-baseline'))
