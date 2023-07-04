@@ -44,10 +44,12 @@ def init_callback(app):
 
                             html_sample_sentences_list.append(item)
 
-                        html_see_more_text = html.Span()
+                        html_see_more_text = html.Div()
                         if len(html_sample_sentences_list) >= 2:
-                            html_see_more_text = html.Span(
-                                'See more sample sentences ▼',
+                            html_see_more_text = html.Div(
+                                children=[
+                                    'See more sample sentences ▼'
+                                ],
                                 style={'fontSize': '0.9em',
                                        'color': 'gray'},
                                 className='see-more',
@@ -55,6 +57,31 @@ def init_callback(app):
                                     'type': 'word-def-see-more-sample-sentences-text',
                                             'index': i
                                 }, n_clicks=0
+                            )
+
+                        html_sample_sentences_container = html.Div()
+                        if len(html_sample_sentences_list) >= 1:
+                            html_sample_sentences_container = html.Div(
+                                children=[
+                                    html.Span('Sample Sentences',
+                                              style={'fontSize': '0.9em',
+                                                     'color': 'gray'}),
+                                    html.Br(),
+
+                                    dbc.Table(
+                                        id={'type': 'senses-sample-sentences-container',
+                                            'index': i},
+                                        children=[
+                                            j for j in html_sample_sentences_list
+                                        ], className='sample-sentence',
+                                        borderless=True,
+                                        style={'margin-bottom': '0'}),
+                                    html_see_more_text,
+                                    html.Br(),
+                                    html.Br()
+
+                                ]
+
                             )
 
                         def_list.append(html.Tr([
@@ -75,23 +102,8 @@ def init_callback(app):
                                     ),
                                     html.Br(),
                                     html.Br(),
-                                    html.Span(
-                                        'Sample Sentences',
-                                        style={'fontSize': '0.9em'}
-                                    ),
-                                    html.Br(),
+                                    html_sample_sentences_container,
 
-                                    dbc.Table(
-                                        id={'type': 'senses-sample-sentences-container',
-                                            'index': i},
-                                        children=[
-                                            j for j in html_sample_sentences_list
-                                        ], className='sample-sentence',
-                                        borderless=True,
-                                        style={'margin-bottom': '0'}),
-                                    html_see_more_text,
-                                    html.Br(),
-                                    html.Br()
                                 ]))], className='align-baseline'))
 
                     patched_children = Patch()
