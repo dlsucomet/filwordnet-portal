@@ -145,7 +145,7 @@ senses = dbc.Row([
                                 html.Span('"Sentence lorem ipsum" (Source)')),
                         ], style={'fontSize': '0.9em',
                                   'color': 'gray',
-                                  'list-style-type': 'lower-alpha'
+                                  'listStyleType': 'lower-alpha'
                                   }),
                         html.Span(['See more sample sentences ▼'],
                                   className='see-more',
@@ -234,7 +234,7 @@ plot_by_sense = dbc.Row([
                         # 'width': '40%',
                         'verticalAlign': 'middle'}
                 ),
-            ], style={'width': '20%', 'margin-left': '1%', 'margin-right': '1%'},
+            ], style={'width': '20%', 'marginLeft': '1%', 'marginRight': '1%'},
             ),
 
             # ),
@@ -272,7 +272,7 @@ plot_by_source = dbc.Row([
                     style={
                         'verticalAlign': 'middle'}
                 ),
-            ], style={'width': '20%', 'margin-left': '1%', 'margin-right': '1%'},
+            ], style={'width': '20%', 'marginLeft': '1%', 'marginRight': '1%'},
             ),
             ' evolves over time'
         ],  className='d-flex flex-row align-middle',

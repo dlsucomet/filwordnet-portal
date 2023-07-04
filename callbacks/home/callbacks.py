@@ -40,7 +40,8 @@ def init_callback(app):
                                 ]
                                 ),
                             ], style={'fontSize': '0.9em',
-                                      'color': 'gray'})
+                                      'color': 'gray',
+                                      'verticalAlign': 'top'})
 
                             html_sample_sentences_list.append(item)
 
@@ -75,11 +76,9 @@ def init_callback(app):
                                             j for j in html_sample_sentences_list
                                         ], className='sample-sentence',
                                         borderless=True,
-                                        style={'margin-bottom': '0'}),
+                                        style={'marginBottom': '0'}),
                                     html_see_more_text,
-                                    html.Br(),
                                     html.Br()
-
                                 ]
 
                             )

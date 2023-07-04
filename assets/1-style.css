@@ -25,4 +25,5 @@
 
 .sidebar-link, .sidebar-link:hover, .sidebar-link:active, .sidebar-link.active {
     color: black;
+    padding-left: 0;
 }
