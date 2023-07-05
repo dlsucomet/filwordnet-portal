@@ -29,10 +29,13 @@ def init_callback(app):
                         checklist_options[sense_id] = f'Sense {num_sense+1} ({pos})'
                         num_sense = num_sense + 1
 
+                    selected_option = None
                     if not checklist_options:
                         checklist_options = {None: None}
+                    else:
+                        selected_option = list(checklist_options.keys())[0]
 
-                    return checklist_options, None
+                    return checklist_options, selected_option
                 else:
                     # TODO: Handle case where word is not in database
                     raise PreventUpdate
@@ -95,7 +98,7 @@ def init_callback(app):
                         df['contextual_info'].values, df['sense_id'].values, df['pos'].values)
 
                     # data['category'].unique()
-                    return data['category'].unique(), None
+                    return data['category'].unique(), data['category'].unique()[0]
                 else:
                     # TODO: Handle case where word is not in database
                     raise PreventUpdate
