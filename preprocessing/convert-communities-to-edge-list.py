@@ -43,4 +43,4 @@ def convert_communities_to_edge_list(word):
 
 
 if __name__ == '__main__':
-    convert_communities_to_edge_list('tumaas')
+    convert_communities_to_edge_list('tuldok')
