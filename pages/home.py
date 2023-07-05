@@ -19,7 +19,7 @@ sidebar = html.Div(
         dbc.Nav(
             [
                 dbc.NavLink('Senses and Sample Sentences', id='senses-link',
-                            href='/', active='exact', className='sidebar-link'),
+                            href='#', active='exact', className='sidebar-link'),
                 dbc.NavLink('Network', href='#', active='exact', id='network-link',
                             className='sidebar-link'),
                 dbc.NavLink('Plot (Filtered by Sense)', id='plot-sense-link',
@@ -202,6 +202,30 @@ elements = nodes + edges
 
 network = dbc.Row([
     html.H4('Word Occurrence'),
+    html.Br(),
+    html.Br(),
+    html.P('Choose a word occurrence community'),
+    dcc.Dropdown(
+        id='communities-dropdown',
+        options=[
+            {'label': 'Community 1', 'value': 1},
+            {'label': 'Community 2', 'value': 2},
+            {'label': 'Community 3', 'value': 3},
+        ],
+        value=1
+    ),
+    html.Br(),
+    html.Br(),
+    html.Br(),
+    html.P(
+        html.Div([
+            dbc.Button([html.I(
+                className='bi bi-arrow-clockwise me-2'),
+                'Reset Display'],
+                id='reset-network',
+                color='light', size='sm', className='ms-3 table-button')
+        ], style={'textAlign': 'right'})
+    ),
     html.Div([
         cyto.Cytoscape(
             layout={'name': 'concentric'},
@@ -210,7 +234,7 @@ network = dbc.Row([
             id='network'
         )
     ])
-])
+], style={'width': '96%'})
 
 
 # =========================
@@ -238,7 +262,8 @@ plot_by_sense = dbc.Row([
             ),
 
             # ),
-            ' evolves over time'
+            ' evolves over time',
+
         ],  className='d-flex flex-row align-middle',
             # style={'display': 'inline-block'}
             # className='d-inline'
@@ -349,7 +374,7 @@ body = dbc.Row([
         ])
     ),
 
-    dbc.Col(sidebar, width=3),
+    dbc.Col(sidebar, width=3)
 ])
 
 # ============

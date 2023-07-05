@@ -1,5 +1,6 @@
 from dash import Input, Output, State, html, Patch, MATCH
 import plotly.express as px
+from plotly.graph_objs import *
 from dash.exceptions import PreventUpdate
 from .util import *
 import dash_bootstrap_components as dbc
@@ -151,9 +152,10 @@ def init_callback(app):
     @app.callback(
         Output('network', 'elements'),
         Input('search-word-submit-btn', 'n_clicks'),
-        State('search-word', 'value')
+        State('search-word', 'value'),
+        Input('communities-dropdown', 'value')
     )
-    def display_network(n_clicks, word):
+    def display_network(n_clicks, word, community_idx):
         if n_clicks >= 1:
             df = get_definition_list(word)
 
@@ -161,8 +163,8 @@ def init_callback(app):
                 all_words = [(word, word)]
                 edges = []
                 for i in range(len(df)):
-                    network = df.loc[i, 'community']
-                    network = sanitize_network_data(network)
+                    network = parse_json_communities(word, community_idx)
+
                     for j in network:
                         item = (word, j)
                         edges.append(item)
@@ -241,10 +243,14 @@ def init_callback(app):
                 fig = px.line(data[mask], x='year',
                               y='counts', color='category')
 
-                fig.update_xaxes(categoryorder='category ascending')
+                fig.update_xaxes(
+                    categoryorder='category ascending', linecolor='black', tickangle=-45)
+                fig.update_yaxes(linecolor='black',
+                                 gridcolor='gray', gridwidth=0.5)
                 fig.update_layout(
-                    xaxis_title='year',
-                    yaxis_title='number of times it appeared'
+                    xaxis_title='Year',
+                    yaxis_title='Number of Appearances',
+                    plot_bgcolor='white'
                 )
 
                 return fig
@@ -296,11 +302,15 @@ def init_callback(app):
                 fig = px.line(data[mask], x='year',
                               y='counts', color='sense_and_pos')
 
-                fig.update_xaxes(categoryorder='category ascending')
-                fig.update_layout(legend_title_text='sense',
-                                  xaxis_title='year',
-                                  yaxis_title='number of times it appeared'
-                                  )
+                fig.update_xaxes(
+                    categoryorder='category ascending', linecolor='black', tickangle=-45)
+                fig.update_yaxes(linecolor='black',
+                                 gridcolor='gray', gridwidth=0.5)
+                fig.update_layout(
+                    xaxis_title='Year',
+                    yaxis_title='Number of Appearances',
+                    plot_bgcolor='white'
+                )
 
                 return fig
 
@@ -335,9 +345,9 @@ def init_callback(app):
                                     color=sense_id_list)
                 fig.update_layout(legend_title_text='sense',
                                   scene=dict(
-                                      xaxis_title='component 1',
-                                      yaxis_title='component 2',
-                                      zaxis_title='component 3')
+                                      xaxis_title='Component 1',
+                                      yaxis_title='Component 2',
+                                      zaxis_title='Component 3')
                                   )
                 return fig
         raise PreventUpdate

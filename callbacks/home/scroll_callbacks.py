@@ -5,7 +5,7 @@ def init_callback(app):
     app.clientside_callback(
         """
         function (n_clicks) {
-            const sidebar_link = document.getElementById('senses-link');
+            const sidebar_link = document.getElementById('network-link');
             sidebar_link.onclick = function(e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -19,6 +19,6 @@ def init_callback(app):
         }
         """,
         Output('network-row', 'children'),
-        Input('senses-link', 'n_clicks'),
+        Input('network-link', 'n_clicks'),
         prevent_initial_call=True
     )

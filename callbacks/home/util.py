@@ -119,3 +119,11 @@ def convert_to_data_by_sense(contextual_info, sense_ids, pos_list):
                     data_matrix.append(entry)
 
     return pd.DataFrame(data_matrix, columns=['counts', 'year', 'source', 'category', 'sense', 'sense_and_pos'])
+
+
+def parse_json_communities(word, idx):
+    with open('static/data/wsi_comms_lm_v1.json') as f:
+        communities = json.load(f)
+        for entry in communities:
+            if entry['ego'] == word:
+                return entry['community'][idx]['context_words']
