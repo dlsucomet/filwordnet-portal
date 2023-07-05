@@ -264,7 +264,7 @@ plot_by_sense = dbc.Row([
             # ),
             ' evolves over time',
 
-        ],  className='d-flex flex-row align-middle',
+        ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
             # style={'display': 'inline-block'}
             # className='d-inline'
         ),
@@ -300,7 +300,7 @@ plot_by_source = dbc.Row([
             ], style={'width': '20%', 'marginLeft': '1%', 'marginRight': '1%'},
             ),
             ' evolves over time'
-        ],  className='d-flex flex-row align-middle',
+        ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
         ),
         # dbc.Checklist(
         #    id="checklist-source",
