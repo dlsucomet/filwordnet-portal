@@ -177,6 +177,21 @@ network = dbc.Row([
     html.Br(),
     html.Br(),
     html.Br(),
+    dbc.Label('Select the display layout'),
+
+    dbc.RadioItems(
+        id='coexpression-graph-layout',
+        options=[
+            {'value': 'circle', 'label': 'Circle',
+             'label_id': 'circle'},
+            {'value': 'grid', 'label': 'Grid',
+             'label_id': 'grid'}
+        ],
+        value='circle',
+        inline=True,
+        className='ms-3'
+    ),
+    html.Br(),
     html.P(
         html.Div([
             dbc.Button([html.I(

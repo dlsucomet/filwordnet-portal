@@ -28,3 +28,8 @@
     padding-left: 0;
     cursor: pointer;
 }
+
+.form-check-input:checked {
+    background-color: black;
+    border-color: black;
+}
