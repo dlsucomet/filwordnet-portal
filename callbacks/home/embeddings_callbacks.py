@@ -39,15 +39,28 @@ def init_callback(app):
 
                 fig.update_layout(legend_title_text='Word Sense',
                                   scene=dict(
-                                      xaxis_title='Component 1',
-                                      yaxis_title='Component 2',
-                                      zaxis_title='Component 3'),
+                                      xaxis=dict(
+                                          zerolinecolor='gray',
+                                          linecolor='gray',
+                                          gridcolor='#D3D3D3',
+                                          title='Component 1',
+                                          showbackground=False
+                                      ),
+                                      yaxis=dict(
+                                          zerolinecolor='gray',
+                                          linecolor='gray',
+                                          gridcolor='#D3D3D3',
+                                          title='Component 2',
+                                          showbackground=False
+                                      ),
+                                      zaxis=dict(
+                                          zerolinecolor='gray',
+                                          linecolor='gray',
+                                          gridcolor='#D3D3D3',
+                                          title='Component 3',
+                                          showbackground=False
+                                      )),
                                   scene_camera=camera
                                   )
-                # fig.update_traces(marker=dict(size=8)
-                # line=dict(width=2,
-                #          color='DarkSlateGrey')),
-                # selector=dict(mode='markers')
-                #                  )
                 return fig
         raise PreventUpdate
