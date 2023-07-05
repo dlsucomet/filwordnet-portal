@@ -5,7 +5,7 @@ import dash_bootstrap_components as dbc
 import dash_cytoscape as cyto
 
 
-dash.register_page(__name__, path='/', name='Home')
+dash.register_page(__name__, path='/', name='FilWordNet | Discover')
 
 
 # ==========================
@@ -20,15 +20,15 @@ sidebar = html.Div(
             [
                 dbc.NavLink('Senses and Sample Sentences', id='senses-link',
                             href='#', active='exact', className='sidebar-link'),
-                dbc.NavLink('Network', active='exact', id='network-link',
+                dbc.NavLink('Word Occurrence', active='exact', id='network-link',
                             className='sidebar-link'),
-                dbc.NavLink('Plot (Filtered by Sense)', id='plot-sense-link',
+                dbc.NavLink('Usage of Word Senses Over Time', id='plot-sense-link',
                             active='exact', className='sidebar-link'),
-                dbc.NavLink('Plot (Filtered by Source)', id='plot-source-link',
+                dbc.NavLink('Usage of Word Across Sources Over Time', id='plot-source-link',
                             active='exact', className='sidebar-link'),
-                dbc.NavLink('Embeddings', active='exact', id='embeddings-link',
+                dbc.NavLink('Word Sense Embeddings', active='exact', id='embeddings-link',
                             className='sidebar-link'),
-                dbc.NavLink('Export', active='exact', id='export-link',
+                dbc.NavLink('Export Data', active='exact', id='export-link',
                             className='sidebar-link'),
             ],
             vertical=True,
