@@ -34,7 +34,7 @@ def init_callback(app):
                                     x=0, y=1, z=2,
                                     color=sense_id_list)
                 camera = dict(
-                    eye=dict(x=2, y=2, z=0.1)
+                    eye=dict(x=2, y=2, z=1)
                 )
 
                 fig.update_layout(legend_title_text='Word Sense',
