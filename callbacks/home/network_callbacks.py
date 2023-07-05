@@ -20,20 +20,22 @@ def init_callback(app):
 
     @app.callback(
         Output('network', 'elements'),
+        Output('network', 'layout'),
         Input('search-word-submit-btn', 'n_clicks'),
         State('search-word', 'value'),
-        Input('communities-dropdown', 'value')
+        Input('communities-dropdown', 'value'),
+        Input('communities-layout', 'value')
     )
-    def display_network(n_clicks, word, community_idx):
+    def display_network(n_clicks, word, community_idx, layout):
         if n_clicks >= 1:
             network = f'static/data/{word}/{community_idx}.tsv'
-            G = nx.read_edgelist(network, data=(("coexpress",),))
+            G = nx.read_edgelist(network)
 
             elements = nx.cytoscape_data(G)['elements']
             for node in elements['nodes']:
                 if node['data']['id'] == word:
                     node['classes'] = 'shaded'
 
-            return elements
+            return elements, {'name': layout}
 
         raise PreventUpdate

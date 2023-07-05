@@ -18,9 +18,9 @@ sidebar = html.Div(
         html.Hr(),
         dbc.Nav(
             [
-                dbc.NavLink('Senses and Sample Sentences', id='senses-link',
+                dbc.NavLink('Word Senses and Sample Sentences', id='senses-link',
                             href='#', active='exact', className='sidebar-link'),
-                dbc.NavLink('Word Occurrence', active='exact', id='network-link',
+                dbc.NavLink('Word Co-Occurrence', active='exact', id='network-link',
                             className='sidebar-link'),
                 dbc.NavLink('Usage of Word Senses Over Time', id='plot-sense-link',
                             active='exact', className='sidebar-link'),
@@ -166,10 +166,10 @@ senses = dbc.Row([
 # ========
 
 network = dbc.Row([
-    html.H4('Word Occurrence'),
+    html.H4('Word Co-Occurrence'),
     html.Br(),
     html.Br(),
-    html.P('Select a word occurrence community'),
+    html.P('Select a word co-occurrence community'),
     dcc.Dropdown(
         id='communities-dropdown',
         value=0
@@ -180,7 +180,7 @@ network = dbc.Row([
     dbc.Label('Select the display layout'),
 
     dbc.RadioItems(
-        id='coexpression-graph-layout',
+        id='communities-layout',
         options=[
             {'value': 'circle', 'label': 'Circle',
              'label_id': 'circle'},
@@ -342,7 +342,7 @@ export = dbc.Row([
     html.Br(),
     html.Br(),
     html.Ul([
-        html.Li('Senses and Sample Sentences (JSON)'),
+        html.Li('Word Senses and Sample Sentences (JSON)'),
         html.Li('Embeddings (CSV)'),
     ], style={'marginLeft': '2em'}),
 ])
