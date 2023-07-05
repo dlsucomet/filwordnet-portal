@@ -62,9 +62,9 @@ def init_callback(app):
                               y='counts', color='category', markers=True)
 
                 fig.update_xaxes(
-                    categoryorder='category ascending', linecolor='black', tickangle=-45)
-                fig.update_yaxes(linecolor='black',
-                                 gridcolor='gray', gridwidth=0.5)
+                    categoryorder='category ascending', linecolor='gray', tickangle=-45)
+                fig.update_yaxes(linecolor='gray',
+                                 gridcolor='#D3D3D3', gridwidth=0.5)
                 fig.update_layout(
                     legend_title_text='Source',
                     xaxis_title='Year',
@@ -125,9 +125,9 @@ def init_callback(app):
                               y='counts', color='sense_and_pos', markers=True)
 
                 fig.update_xaxes(
-                    categoryorder='category ascending', linecolor='black', tickangle=-45)
-                fig.update_yaxes(linecolor='black',
-                                 gridcolor='gray', gridwidth=0.5)
+                    categoryorder='category ascending', linecolor='gray', tickangle=-45)
+                fig.update_yaxes(linecolor='gray',
+                                 gridcolor='#D3D3D3', gridwidth=0.5)
                 fig.update_layout(
                     legend_title_text='Word Sense',
                     xaxis_title='Year',
