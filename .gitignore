@@ -160,4 +160,4 @@ cython_debug/
 #.idea/
 
 # Large files
-static/data/wsi_comms_lm_v1.json
+static/data/
