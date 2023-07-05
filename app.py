@@ -42,7 +42,7 @@ app.layout = dbc.Container([
         dash.page_container
     ]),
 
-    dbc.Row(dbc.Col('Copyright Lorem Ipsum', class_name='text-center'),
+    dbc.Row(dbc.Col('Copyright © 2023. Center for Complexity and Emerging Technologies, De La Salle University', class_name='text-center'),
             class_name='bg-dark text-white p-3')
 ], fluid=True)
 
