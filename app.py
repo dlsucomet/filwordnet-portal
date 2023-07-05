@@ -5,7 +5,11 @@ import dash_bootstrap_components as dbc
 from flask import Flask
 from dash import html
 
-import callbacks.home.callbacks
+import callbacks.home.sense_callbacks
+import callbacks.home.network_callbacks
+import callbacks.home.plot_callbacks
+import callbacks.home.embeddings_callbacks
+
 import callbacks.home.scroll_callbacks
 
 server = Flask(__name__, static_folder='static')
@@ -43,7 +47,11 @@ app.layout = dbc.Container([
 ], fluid=True)
 
 
-callbacks.home.callbacks.init_callback(app)
+callbacks.home.sense_callbacks.init_callback(app)
+callbacks.home.network_callbacks.init_callback(app)
+callbacks.home.plot_callbacks.init_callback(app)
+callbacks.home.embeddings_callbacks.init_callback(app)
+
 callbacks.home.scroll_callbacks.init_callback(app)
 
 if __name__ == '__main__':
