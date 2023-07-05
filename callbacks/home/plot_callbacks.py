@@ -113,9 +113,12 @@ def init_callback(app):
                 data = convert_to_data_by_sense(
                     df['contextual_info'].values, df['sense_id'].values, df['pos'].values)
 
+                data = data.groupby(['sense_and_pos', 'year', 'category'])[
+                    'counts'].sum().reset_index()
+
                 mask = data.category.isin([selected_source])
                 fig = px.line(data[mask], x='year',
-                              y='counts', color='sense_and_pos')
+                              y='counts', color='sense_and_pos', markers=True)
 
                 fig.update_xaxes(
                     categoryorder='category ascending', linecolor='black', tickangle=-45)
