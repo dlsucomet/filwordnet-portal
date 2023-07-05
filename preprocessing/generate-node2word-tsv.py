@@ -1,4 +1,4 @@
-with open('../static/data/final_network_filtered.graphml', encoding='utf-8') as network, open('../static/data/node2word.tsv', 'a', encoding='utf-8') as node2word:
+with open('../static/data/final_network_filtered.graphml', encoding='utf-8') as network, open('../static/data/node2word.tsv', 'w', encoding='utf-8') as node2word:
     for idx, line in enumerate(network):
         line = line.strip()
         if line.startswith('<node id='):
