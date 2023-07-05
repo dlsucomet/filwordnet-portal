@@ -33,7 +33,7 @@ def init_callback(app):
                 fig = px.scatter_3d(components,
                                     x=0, y=1, z=2,
                                     color=sense_id_list)
-                fig.update_layout(legend_title_text='sense',
+                fig.update_layout(legend_title_text='Word Sense',
                                   scene=dict(
                                       xaxis_title='Component 1',
                                       yaxis_title='Component 2',

@@ -66,6 +66,7 @@ def init_callback(app):
                 fig.update_yaxes(linecolor='black',
                                  gridcolor='gray', gridwidth=0.5)
                 fig.update_layout(
+                    legend_title_text='Source',
                     xaxis_title='Year',
                     yaxis_title='Number of Appearances',
                     plot_bgcolor='white'
@@ -128,6 +129,7 @@ def init_callback(app):
                 fig.update_yaxes(linecolor='black',
                                  gridcolor='gray', gridwidth=0.5)
                 fig.update_layout(
+                    legend_title_text='Word Sense',
                     xaxis_title='Year',
                     yaxis_title='Number of Appearances',
                     plot_bgcolor='white'
