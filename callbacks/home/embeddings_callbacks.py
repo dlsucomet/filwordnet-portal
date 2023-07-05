@@ -33,11 +33,16 @@ def init_callback(app):
                 fig = px.scatter_3d(components,
                                     x=0, y=1, z=2,
                                     color=sense_id_list)
+                camera = dict(
+                    eye=dict(x=2, y=2, z=0.1)
+                )
+
                 fig.update_layout(legend_title_text='Word Sense',
                                   scene=dict(
                                       xaxis_title='Component 1',
                                       yaxis_title='Component 2',
-                                      zaxis_title='Component 3')
+                                      zaxis_title='Component 3'),
+                                  scene_camera=camera
                                   )
                 return fig
         raise PreventUpdate
