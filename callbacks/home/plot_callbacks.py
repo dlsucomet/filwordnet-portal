@@ -29,10 +29,13 @@ def init_callback(app):
                         checklist_options[sense_id] = f'Sense {num_sense+1} ({pos})'
                         num_sense = num_sense + 1
 
+                    selected_option = None
                     if not checklist_options:
                         checklist_options = {None: None}
+                    else:
+                        selected_option = list(checklist_options.keys())[0]
 
-                    return checklist_options, None
+                    return checklist_options, selected_option
                 else:
                     # TODO: Handle case where word is not in database
                     raise PreventUpdate
@@ -62,10 +65,11 @@ def init_callback(app):
                               y='counts', color='category', markers=True)
 
                 fig.update_xaxes(
-                    categoryorder='category ascending', linecolor='black', tickangle=-45)
-                fig.update_yaxes(linecolor='black',
-                                 gridcolor='gray', gridwidth=0.5)
+                    categoryorder='category ascending', linecolor='gray', tickangle=-45)
+                fig.update_yaxes(linecolor='gray',
+                                 gridcolor='#D3D3D3', gridwidth=0.5)
                 fig.update_layout(
+                    legend_title_text='Source',
                     xaxis_title='Year',
                     yaxis_title='Number of Appearances',
                     plot_bgcolor='white'
@@ -94,7 +98,7 @@ def init_callback(app):
                         df['contextual_info'].values, df['sense_id'].values, df['pos'].values)
 
                     # data['category'].unique()
-                    return data['category'].unique(), None
+                    return data['category'].unique(), data['category'].unique()[0]
                 else:
                     # TODO: Handle case where word is not in database
                     raise PreventUpdate
@@ -124,10 +128,11 @@ def init_callback(app):
                               y='counts', color='sense_and_pos', markers=True)
 
                 fig.update_xaxes(
-                    categoryorder='category ascending', linecolor='black', tickangle=-45)
-                fig.update_yaxes(linecolor='black',
-                                 gridcolor='gray', gridwidth=0.5)
+                    categoryorder='category ascending', linecolor='gray', tickangle=-45)
+                fig.update_yaxes(linecolor='gray',
+                                 gridcolor='#D3D3D3', gridwidth=0.5)
                 fig.update_layout(
+                    legend_title_text='Word Sense',
                     xaxis_title='Year',
                     yaxis_title='Number of Appearances',
                     plot_bgcolor='white'
