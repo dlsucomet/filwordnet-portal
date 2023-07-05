@@ -34,7 +34,7 @@ def init_callback(app):
                                     x=0, y=1, z=2,
                                     color=sense_id_list)
                 camera = dict(
-                    eye=dict(x=2, y=2, z=1)
+                    eye=dict(x=1.75, y=1.75, z=1)
                 )
 
                 fig.update_layout(legend_title_text='Word Sense',
@@ -44,5 +44,10 @@ def init_callback(app):
                                       zaxis_title='Component 3'),
                                   scene_camera=camera
                                   )
+                # fig.update_traces(marker=dict(size=8)
+                # line=dict(width=2,
+                #          color='DarkSlateGrey')),
+                # selector=dict(mode='markers')
+                #                  )
                 return fig
         raise PreventUpdate
