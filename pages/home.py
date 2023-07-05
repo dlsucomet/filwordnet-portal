@@ -165,41 +165,6 @@ senses = dbc.Row([
 # Network
 # ========
 
-nodes = [
-    {
-        'data': {'id': short, 'label': label},
-        'position': {'x': 20 * lat, 'y': -20 * long}
-    }
-    for short, label, long, lat in (
-        ('la', 'Lorem', 34.03, -118.25),
-        ('nyc', 'Ipsum 2', 40.71, -74),
-        ('to', 'Ipsum 3', 43.65, -79.38),
-        ('mtl', 'Ipsum 4', 45.50, -73.57),
-        ('van', 'Ipsum 5', 49.28, -123.12),
-        ('chi', 'Ipsum 6', 41.88, -87.63),
-        ('bos', 'Ipsum 7', 42.36, -71.06),
-        ('hou', 'Ipsum 8', 29.76, -95.37)
-    )
-]
-
-edges = [
-    {'data': {'source': source, 'target': target}}
-    for source, target in (
-        ('van', 'la'),
-        ('la', 'chi'),
-        ('hou', 'chi'),
-        ('to', 'mtl'),
-        ('mtl', 'bos'),
-        ('nyc', 'bos'),
-        ('to', 'hou'),
-        ('to', 'nyc'),
-        ('la', 'nyc'),
-        ('nyc', 'bos')
-    )
-]
-
-elements = nodes + edges
-
 network = dbc.Row([
     html.H4('Word Occurrence'),
     html.Br(),
@@ -228,10 +193,35 @@ network = dbc.Row([
     ),
     html.Div([
         cyto.Cytoscape(
-            layout={'name': 'concentric'},
-            style={'width': '100%', 'height': '30em'},
-            elements=elements,
-            id='network'
+            style={'width': '100%', 'height': '100vh'},
+            id='network',
+            layout={'name': 'circle'},
+            stylesheet=[
+                {
+                    'selector': 'node',
+                                'style': {
+                                    'content': 'data(id)',
+                                    'height': '5px',
+                                    'width': '5px',
+                                    'font-size': '10px'
+                                }
+                },
+                {
+                    'selector': 'edge',
+                                'style': {
+                                    'width': '0.5px',
+                                }
+                },
+                {
+                    'selector': '.shaded',
+                                'style': {
+                                    'background-color': '#254b5d',
+                                    'line-color': '#254b5d',
+                                    'height': '20px',
+                                    'width': '20px'
+                                }
+                }
+            ]
         )
     ])
 ], style={'width': '96%'})
@@ -247,7 +237,7 @@ plot_by_sense = dbc.Row([
     html.Br(),
     html.Div([
         html.Div([
-            'Show me how the use of ',
+            'Show me how the usage of ',
             # html.Div(
             html.Div([
                 dcc.Dropdown(
@@ -290,7 +280,7 @@ plot_by_source = dbc.Row([
     html.Br(),
     html.Div([
         html.Div([
-            'Show me how the use of sense in ',
+            'Show me how the usage of sense in ',
             html.Div([
                 dcc.Dropdown(
                     id='source-dropdown',
