@@ -169,15 +169,10 @@ network = dbc.Row([
     html.H4('Word Occurrence'),
     html.Br(),
     html.Br(),
-    html.P('Choose a word occurrence community'),
+    html.P('Select a word occurrence community'),
     dcc.Dropdown(
         id='communities-dropdown',
-        options=[
-            {'label': 'Community 1', 'value': 1},
-            {'label': 'Community 2', 'value': 2},
-            {'label': 'Community 3', 'value': 3},
-        ],
-        value=1
+        value=0
     ),
     html.Br(),
     html.Br(),
@@ -215,10 +210,10 @@ network = dbc.Row([
                 {
                     'selector': '.shaded',
                                 'style': {
-                                    'background-color': '#254b5d',
-                                    'line-color': '#254b5d',
-                                    'height': '20px',
-                                    'width': '20px'
+                                    'background-color': 'black',
+                                    'line-color': 'black',
+                                    'height': '10px',
+                                    'width': '10px'
                                 }
                 }
             ]
@@ -232,12 +227,12 @@ network = dbc.Row([
 # =========================
 
 plot_by_sense = dbc.Row([
-    html.H4('Usage Over Time Per Sense (Filtered by Sense)'),
+    html.H4('Usage of Word Senses Over Time'),
     html.Br(),
     html.Br(),
     html.Div([
         html.Div([
-            'Show me how the usage of ',
+            'Show me how the usage of the word\'s ',
             # html.Div(
             html.Div([
                 dcc.Dropdown(
@@ -275,12 +270,12 @@ plot_by_sense = dbc.Row([
 # ==========================
 
 plot_by_source = dbc.Row([
-    html.H4('Usage Over Time Per Sense (Filtered by Source)'),
+    html.H4('Usage of Word Across Sources Over Time'),
     html.Br(),
     html.Br(),
     html.Div([
         html.Div([
-            'Show me how the usage of sense in ',
+            'Show me how the usage of the word in ',
             html.Div([
                 dcc.Dropdown(
                     id='source-dropdown',
@@ -306,21 +301,18 @@ plot_by_source = dbc.Row([
 # ===========
 
 embeddings = dbc.Row([
-    html.H4('Sense Embeddings'),
+    html.H4('Word Sense Embeddings'),
     html.Br(),
     html.Br(),
     html.Div([
+        html.Div(
+            'Three-dimensional projection of word sense embeddings obtained via principal component analysis (PCA)'),
         dbc.Checklist(
             id="embeddings-checklist",
-            # options=["Source 1", "Source 2", "Source 3"],
-            # value=["Source 1"],
             inline=True,
             style={'display': 'none'}
         ),
-        dcc.Graph(id="embeddings")  # ,
-        # figure=px.scatter_3d(px.data.iris(),
-        #                     x='sepal_length', y='sepal_width', z='petal_width',
-        #                     color='species', hover_data=['petal_width'])),
+        dcc.Graph(id="embeddings")
     ])
 ])
 
