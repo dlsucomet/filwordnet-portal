@@ -27,38 +27,43 @@ def init_callback(app):
                         pos_abbrev, pos = sanitize_pos(df.loc[i, 'pos'])
                         sense_id_list.append(f'Sense {i+1} ({pos})')
 
-                components = load_embeddings(embeddings_list)
-                fig = px.scatter_3d(components,
-                                    x=0, y=1, z=2,
-                                    color=sense_id_list)
-                camera = dict(
-                    eye=dict(x=1.75, y=1.75, z=1)
-                )
+                if len(embeddings_list) >= 3:
+                    components = load_embeddings(embeddings_list)
+                    fig = px.scatter_3d(components,
+                                        x=0, y=1, z=2,
+                                        color=sense_id_list)
+                    camera = dict(
+                        eye=dict(x=1.75, y=1.75, z=1)
+                    )
 
-                fig.update_layout(legend_title_text='Word Sense',
-                                  scene=dict(
-                                      xaxis=dict(
-                                          zerolinecolor='gray',
-                                          linecolor='gray',
-                                          gridcolor='#D3D3D3',
-                                          title='Component 1',
-                                          showbackground=False
-                                      ),
-                                      yaxis=dict(
-                                          zerolinecolor='gray',
-                                          linecolor='gray',
-                                          gridcolor='#D3D3D3',
-                                          title='Component 2',
-                                          showbackground=False
-                                      ),
-                                      zaxis=dict(
-                                          zerolinecolor='gray',
-                                          linecolor='gray',
-                                          gridcolor='#D3D3D3',
-                                          title='Component 3',
-                                          showbackground=False
-                                      )),
-                                  scene_camera=camera
-                                  )
-                return fig
+                    fig.update_layout(legend_title_text='Word Sense',
+                                    scene=dict(
+                                        xaxis=dict(
+                                            zerolinecolor='gray',
+                                            linecolor='gray',
+                                            gridcolor='#D3D3D3',
+                                            title='Component 1',
+                                            showbackground=False
+                                        ),
+                                        yaxis=dict(
+                                            zerolinecolor='gray',
+                                            linecolor='gray',
+                                            gridcolor='#D3D3D3',
+                                            title='Component 2',
+                                            showbackground=False
+                                        ),
+                                        zaxis=dict(
+                                            zerolinecolor='gray',
+                                            linecolor='gray',
+                                            gridcolor='#D3D3D3',
+                                            title='Component 3',
+                                            showbackground=False
+                                        )),
+                                    scene_camera=camera
+                                    )
+                    return fig
+                
+                else:
+                    # TODO: add exception handling
+                    raise PreventUpdate
         raise PreventUpdate
