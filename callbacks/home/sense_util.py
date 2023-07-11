@@ -6,10 +6,10 @@ def sanitize_sample_sentences(data, df):
     data = data.strip()
     data = data[1:]
     data = data[:-1]
-    data = data.replace("'", '"')
-    # data = data.split(',')
-    data = re.findall('"[A-Z][^"]*"', data)
-
+    #data = data.replace("'", '"')
+    #data = re.findall('"[A-Z][^"]*"', data)
+    data = re.findall("'[A-Z][^']*'", data)
+    data = [f'"{x[1:-1]}"' for x in data]
     return data
 
 
