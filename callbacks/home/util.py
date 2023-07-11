@@ -8,3 +8,4 @@ def get_definition_list(word):
     def_list = def_list.reset_index()
 
     return def_list
+

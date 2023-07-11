@@ -24,9 +24,8 @@ def init_callback(app):
                     num_sense = 0
                     for i in range(len(df)):
                         sense_id = df.loc[i, 'sense_id']
-                        pos_abbrev, pos = sanitize_pos(df.loc[i, 'pos'])
-
-                        checklist_options[sense_id] = f'Sense {num_sense+1} ({pos})'
+                        
+                        checklist_options[sense_id] = sense_and_pos_text(f'Sense {num_sense+1}', df.loc[i, 'pos'])
                         num_sense = num_sense + 1
 
                     selected_option = None

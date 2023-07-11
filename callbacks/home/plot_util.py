@@ -16,11 +16,15 @@ def convert_to_data_by_sense(contextual_info, sense_ids, pos_list):
         for categories in sources:
             for title in sources[categories]:
                 for year in sources[categories][title]:
-                    pos_abbrev, pos = sanitize_pos(pos_list[i])
+                    #pos_abbrev, pos = sanitize_pos(pos_list[i])
+                    #sense_and_pos = f'Sense {i+1}'
+                    #if pos: 
+                    #    sense_and_pos = f'Sense {i+1} ({pos})'
+                    sense_and_pos = sense_and_pos_text(f'Sense {i+1}', pos_list[i])   
                     category = sanitize_category(categories)
 
                     entry = [sources[categories][title][year], year,
-                             title, category, sense_ids[i], f'Sense {i+1} ({pos})']
+                             title, category, sense_ids[i], sense_and_pos]
                     data_matrix.append(entry)
 
     return pd.DataFrame(data_matrix, columns=['counts', 'year', 'source', 'category', 'sense', 'sense_and_pos'])
@@ -34,3 +38,11 @@ def sanitize_category(category):
         text_list.append(text.capitalize())
 
     return ' '.join(text_list)
+
+def sense_and_pos_text(sense, pos):
+    pos_abbrev, pos_name = sanitize_pos(pos)
+
+    if pos_name: 
+        return f'{sense} ({pos_name})'
+
+    return f'{sense}'
