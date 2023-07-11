@@ -4,11 +4,13 @@ import re
 def sanitize_sample_sentences(data, df):
     data = df.loc[data, 'example_sentences']
     data = data.strip()
-    data = data[1:]
-    data = data[:-1]
+    data = data[1:-1]
     #data = data.replace("'", '"')
     #data = re.findall('"[A-Z][^"]*"', data)
-    data = re.findall("'[A-Z][^']*'", data)
+    regex1 = "'[\w]+[^']*'"
+    regex2 = '"[\w]+[^"]*"'
+    regex = f'{regex1}|{regex2}'
+    data = re.findall(regex, data)
     data = [f'"{x[1:-1]}"' for x in data]
     return data
 
