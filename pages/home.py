@@ -323,11 +323,6 @@ embeddings = dbc.Row([
     html.Div([
         html.Div(
             'Three-dimensional projection of word sense embeddings obtained via principal component analysis (PCA)'),
-        dbc.Checklist(
-            id="embeddings-checklist",
-            inline=True,
-            style={'display': 'none'}
-        ),
         dcc.Graph(id="embeddings")
     ])
 ])
