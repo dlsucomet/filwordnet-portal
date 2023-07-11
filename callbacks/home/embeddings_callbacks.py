@@ -10,11 +10,10 @@ from .sense_util import *
 def init_callback(app):
     @app.callback(
         Output('embeddings', 'figure'),
-        Input('embeddings-checklist', 'value'),
         Input('search-word-submit-btn', 'n_clicks'),
         State('search-word', 'value')
     )
-    def display_embeddings(checklist_embeddings, n_clicks, word):
+    def display_embeddings(n_clicks, word):
         if n_clicks >= 1:
             df = get_definition_list(word)
             sense_id_list = []
