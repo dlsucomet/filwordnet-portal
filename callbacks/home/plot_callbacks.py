@@ -8,6 +8,26 @@ from .plot_util import *
 
 def init_callback(app):
     @app.callback(
+        Output('word-plot-sense', 'children'),
+        Input('submitted-word', 'data')
+    )
+    def display_word_in_the_sense_plot_desciption(word):
+        if word:
+            return f' {word} '  
+
+        raise PreventUpdate
+
+    @app.callback(
+        Output('word-plot-source', 'children'),
+        Input('submitted-word', 'data')
+    )
+    def display_word_in_the_sense_plot_desciption(word):
+        if word:
+            return f' {word} '  
+
+        raise PreventUpdate
+
+    @app.callback(
         Output('sense-dropdown', 'options'),
         Output('sense-dropdown', 'value'),
         Input('submitted-word', 'data')

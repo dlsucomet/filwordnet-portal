@@ -248,34 +248,23 @@ plot_by_sense = dbc.Row([
     html.Br(),
     html.Div([
         html.Div([
-            'Show me how the usage of the word\'s ',
-            # html.Div(
+            'Show me how the usage of ',
             html.Div([
                 dcc.Dropdown(
                     id='sense-dropdown',
                     style={
-                        # 'padding-left': '1%',
-                        # 'padding-right': '1%',
-                        # 'width': '40%',
                         'verticalAlign': 'middle'}
                 ),
             ], style={'width': '20%', 'marginLeft': '1%', 'marginRight': '1%'},
             ),
 
-            # ),
-            ' evolves over time',
+            ' of', html.Span(id='word-plot-sense', style={'white-space': 'pre'}, className='fw-bold'), 'evolves over time',
 
         ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
-            # style={'display': 'inline-block'}
-            # className='d-inline'
         ),
 
         html.Br(),
 
-        # dbc.Checklist(
-        #    id="checklist-sense",
-        #    inline=True
-        # ),
         dcc.Graph(id="graph-sense")
     ])
 ])
@@ -291,7 +280,7 @@ plot_by_source = dbc.Row([
     html.Br(),
     html.Div([
         html.Div([
-            'Show me how the usage of the word in ',
+            'Show me how the usage of ', html.Span(id='word-plot-source', style={'white-space': 'pre'}, className='fw-bold'),'in',
             html.Div([
                 dcc.Dropdown(
                     id='source-dropdown',
@@ -303,10 +292,7 @@ plot_by_source = dbc.Row([
             ' evolves over time'
         ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
         ),
-        # dbc.Checklist(
-        #    id="checklist-source",
-        #    inline=True
-        # ),
+
         dcc.Graph(id="graph-source")
     ])
 ])
