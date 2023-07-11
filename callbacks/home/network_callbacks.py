@@ -9,11 +9,10 @@ from .network_util import *
 def init_callback(app):
     @app.callback(
         Output('communities-dropdown', 'options'),
-        Input('search-word-submit-btn', 'n_clicks'),
-        State('search-word', 'value')
+        Input('submitted-word', 'data')
     )
-    def populate_communities_dropdown(n_clicks, word):
-        if n_clicks >= 1:
+    def populate_communities_dropdown(word):
+        if word:
             return [{'label': 'Community ' + str(i + 1), 'value': i} for i in range(get_num_communities(word))]
 
         raise PreventUpdate
@@ -21,13 +20,12 @@ def init_callback(app):
     @app.callback(
         Output('network', 'elements'),
         Output('network', 'layout'),
-        Input('search-word-submit-btn', 'n_clicks'),
-        State('search-word', 'value'),
+        Input('submitted-word', 'data'),
         Input('communities-dropdown', 'value'),
         Input('communities-layout', 'value')
     )
-    def display_network(n_clicks, word, community_idx, layout):
-        if n_clicks >= 1:
+    def display_network(word, community_idx, layout):
+        if word:
             network = f'static/data/{word}/{community_idx}.tsv'
             G = nx.read_edgelist(network)
 

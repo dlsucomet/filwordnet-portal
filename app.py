@@ -3,7 +3,7 @@ import dash
 import dash_bootstrap_components as dbc
 
 from flask import Flask
-from dash import html
+from dash import html, dcc
 
 import callbacks.home.sense_callbacks
 import callbacks.home.network_callbacks
@@ -43,7 +43,13 @@ app.layout = dbc.Container([
     ]),
 
     dbc.Row(dbc.Col('Copyright © 2023. Center for Complexity and Emerging Technologies, De La Salle University', class_name='text-center'),
-            class_name='bg-dark text-white p-3')
+            class_name='bg-dark text-white p-3'),
+
+    dcc.Store(
+        id='submitted-word',
+        storage_type='session'
+    )
+
 ], fluid=True)
 
 
