@@ -14,7 +14,7 @@ def init_callback(app):
     )
     def submit_input(n_clicks, word):
         if n_clicks >= 1:
-            return word
+            return word.lower()
         
         raise PreventUpdate
 
@@ -66,7 +66,7 @@ def init_callback(app):
                             className='see-more',
                             id={
                                 'type': 'word-def-see-more-sample-sentences-text',
-                                        'index': i
+                                'index': i
                             }, n_clicks=0
                         )
 
