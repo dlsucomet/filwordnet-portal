@@ -177,6 +177,19 @@ network = dbc.Row([
     html.Br(),
     html.Br(),
     html.Br(),
+    html.Label('Select the size of the displayed community'),
+    html.Br(),
+    html.Br(),
+    dcc.Slider(1, 4,
+               marks={1: '1 (Closest Co-Occurring Words)',
+                      2: '2',
+                      3: '3',
+                      4: '4 (All Co-Occurring Words)'},
+               value=1,
+               id='communities-ego-network-dist'),
+    html.Br(),
+    html.Br(),
+    html.Br(),
     dbc.Label('Select the display layout'),
 
     dbc.RadioItems(
@@ -258,7 +271,8 @@ plot_by_sense = dbc.Row([
             ], style={'width': '20%', 'marginLeft': '1%', 'marginRight': '1%'},
             ),
 
-            ' of', html.Span(id='word-plot-sense', style={'white-space': 'pre'}, className='fw-bold'), 'evolves over time',
+            ' of', html.Span(
+                id='word-plot-sense', style={'white-space': 'pre'}, className='fw-bold'), 'evolves over time',
 
         ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
         ),
@@ -280,7 +294,8 @@ plot_by_source = dbc.Row([
     html.Br(),
     html.Div([
         html.Div([
-            'Show me how the usage of ', html.Span(id='word-plot-source', style={'white-space': 'pre'}, className='fw-bold'),'in',
+            'Show me how the usage of ', html.Span(
+                id='word-plot-source', style={'white-space': 'pre'}, className='fw-bold'), 'in',
             html.Div([
                 dcc.Dropdown(
                     id='source-dropdown',
