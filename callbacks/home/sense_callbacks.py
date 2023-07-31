@@ -147,10 +147,7 @@ def init_callback(app):
               'index': MATCH}, 'n_clicks')
     )
     def see_or_hide_more_sentences(n_clicks):
-        if n_clicks >= 1:
-            if n_clicks % 2 == 0:
-                return 'sample-sentence-see-all', f'See less sample sentences ▲'
+        if n_clicks % 2 == 1:
+            return 'sample-sentence-see-all', f'See less sample sentences ▲'
 
-            return 'sample-sentence', f'See more sample sentences ▼'
-
-        raise PreventUpdate
+        return 'sample-sentence', f'See more sample sentences ▼'
