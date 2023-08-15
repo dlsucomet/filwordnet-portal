@@ -33,7 +33,8 @@ navbar = dbc.NavbarSimple(
     brand_href='/',
     color='dark',
     dark=True,
-    style={'position': 'fixed', 'zIndex': '100000'}
+    style={'position': 'fixed', 'zIndex': '100000', 'padding-left': '6em', 'padding-right': '6em'},
+    fluid=True
 )
 
 app.layout = dbc.Container([
