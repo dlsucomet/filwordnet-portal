@@ -276,6 +276,7 @@ plot_by_sense = dbc.Row([
 
         ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
         ),
+        html.Div(id='sense-sample-sentence'),
 
         html.Br(),
 

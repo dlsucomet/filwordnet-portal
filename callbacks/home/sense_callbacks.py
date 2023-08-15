@@ -31,7 +31,7 @@ def init_callback(app):
                 def_list = []
                 for i in range(len(df)):
                     sample_sentences_list = sanitize_sample_sentences(
-                        i, df)
+                        df.loc[i, 'example_sentences'])
 
                     html_sample_sentences_list = []
                     for sentence in sample_sentences_list:

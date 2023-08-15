@@ -1,8 +1,7 @@
 import re
 
 
-def sanitize_sample_sentences(data, df):
-    data = df.loc[data, 'example_sentences']
+def sanitize_sample_sentences(data):
     data = data.strip()
     data = data[1:-1]
     #data = data.replace("'", '"')

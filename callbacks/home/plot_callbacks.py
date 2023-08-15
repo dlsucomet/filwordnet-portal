@@ -1,9 +1,10 @@
-from dash import Input, Output, State
+from dash import Input, Output, State, html
 import plotly.express as px
 from plotly.graph_objs import *
 from dash.exceptions import PreventUpdate
 from .util import *
 from .plot_util import *
+from .sense_util import *
 
 
 def init_callback(app):
@@ -56,6 +57,54 @@ def init_callback(app):
             else:
                 # TODO: Handle case where word is not in database
                 raise PreventUpdate
+
+        raise PreventUpdate
+
+    @app.callback(
+        Output('sense-sample-sentence', 'children'),
+        Input('sense-dropdown', 'value'),
+        Input('submitted-word', 'data')
+    )
+    def plot_update_sample_sentence_base_on_sense(sense_value, word):
+        
+        if word and sense_value:
+            df = get_definition_list(word)
+        
+            if len(df) > 0:
+                sense_id_df = df.loc[df['sense_id'] == sense_value.lower()]
+
+                sample_sentence_list = sanitize_sample_sentences(sense_id_df.iloc[0]['example_sentences'])
+
+                sample_sentence = ''
+                if len(sample_sentence_list) > 0:
+                    sample_sentence = sample_sentence_list[0]
+
+                sense_data = html.Div(
+                    children=[
+                        html.Br(),
+                        html.Div(
+                            children=[
+                                html.Span('Definition: '),
+                                html.Span(
+                                    'lorem ipsum', 
+                                    style={ 'color': 'gray'}
+                                )
+                            ]
+                        ),
+                        html.Div(
+                            children=[
+                                html.Span('Sample sentence: '),
+                                html.Span(
+                                    sample_sentence, 
+                                    style={ 'color': 'gray'}
+                                )
+                            ]
+                        ),
+                    ]
+                )
+                return sense_data
+
+                #return [html.Br(), f'Definition: lorem ipsum', html.Br(), f'Sample sentence: {sample_sentence}']
 
         raise PreventUpdate
 
