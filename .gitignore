@@ -161,3 +161,5 @@ cython_debug/
 
 # Large files
 static/data/
+
+.env

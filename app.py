@@ -12,6 +12,13 @@ import callbacks.home.embeddings_callbacks
 
 import callbacks.home.scroll_callbacks
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+print(os.environ.get("API_URL"))
+
 server = Flask(__name__, static_folder='static')
 app = dash.Dash(__name__, use_pages=True,
                 external_stylesheets=[dbc.themes.BOOTSTRAP,
@@ -33,7 +40,8 @@ navbar = dbc.NavbarSimple(
     brand_href='/',
     color='dark',
     dark=True,
-    style={'position': 'fixed', 'zIndex': '100000', 'padding-left': '6em', 'padding-right': '6em'},
+    style={'position': 'fixed', 'zIndex': '100000',
+           'padding-left': '6em', 'padding-right': '6em'},
     fluid=True
 )
 
