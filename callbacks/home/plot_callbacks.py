@@ -35,16 +35,20 @@ def init_callback(app, API_URL):
     )
     def display_sense_dropdown(word):
         if word:
-            df = get_definition_list(word)
+            df = get_word_db(API_URL, word)#get_definition_list(word)
 
             if len(df) >= 1:
 
                 checklist_options = {}
                 num_sense = 0
                 for i in range(len(df)):
-                    sense_id = df.loc[i, 'sense_id']
+                    sense_id = df.iloc[i]['sense_id']
                     
-                    checklist_options[sense_id] = sense_and_pos_text(f'Sense {num_sense+1}', df.loc[i, 'pos'])
+                    pos = ''
+                    if 'pos' in df.columns:
+                        pos = df.iloc[i]['pos']
+
+                    checklist_options[sense_id] = sense_and_pos_text(f'Sense {num_sense+1}', pos)
                     num_sense = num_sense + 1
 
                 selected_option = None
@@ -68,12 +72,13 @@ def init_callback(app, API_URL):
     def plot_update_sample_sentence_base_on_sense(sense_value, word):
         
         if word and sense_value:
-            df = get_definition_list(word)
-        
+            df = get_word_db(API_URL, word) #get_definition_list(word)
+
             if len(df) > 0:
                 sense_id_df = df.loc[df['sense_id'] == sense_value.lower()]
-
-                sample_sentence_list = sanitize_sample_sentences(sense_id_df.iloc[0]['example_sentences'])
+                
+                #sample_sentence_list = sanitize_sample_sentences(sense_id_df.iloc[0]['example_sentences'])
+                sample_sentence_list = sense_id_df.iloc[0]['example_sentences']
 
                 sample_sentence = ''
                 if len(sample_sentence_list) > 0:

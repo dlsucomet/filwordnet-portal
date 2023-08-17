@@ -17,7 +17,7 @@ def get_word_db(API_URL, word):
         word_db = res.json()
         
         df = pd.DataFrame(word_db)
-
+        print(df)
         return df
     except:
         return pd.DataFrame()
