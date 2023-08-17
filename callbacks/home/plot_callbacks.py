@@ -12,7 +12,7 @@ def init_callback(app, API_URL):
         Output('word-plot-sense', 'children'),
         Input('submitted-word', 'data')
     )
-    def display_word_in_the_sense_plot_desciption(word):
+    def display_word_in_the_sense_plot_description(word):
         if word:
             return f' {word} '  
 
@@ -22,7 +22,7 @@ def init_callback(app, API_URL):
         Output('word-plot-source', 'children'),
         Input('submitted-word', 'data')
     )
-    def display_word_in_the_sense_plot_desciption(word):
+    def display_word_in_the_source_plot_description(word):
         if word:
             return f' {word} '  
 
@@ -120,9 +120,15 @@ def init_callback(app, API_URL):
     )
     def update_line_chart(sense_value, word):
         if word:
-            df = get_definition_list(word)
+            df = get_word_db(API_URL, word)#get_definition_list(word)
+            #df = get_definition_list(word)
+
+            pos = ''
+            if 'pos' in df.columns:
+                pos = df['pos'].values
+
             data = convert_to_data_by_sense(
-                df['contextual_info'].values, df['sense_id'].values, df['pos'].values)
+                df['contextual_info'].values, df['sense_id'].values, pos)
 
             data = data.groupby(['category', 'year', 'sense_and_pos', 'sense'])[
                 'counts'].sum().reset_index()
