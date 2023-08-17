@@ -6,7 +6,7 @@ import networkx as nx
 from .network_util import *
 
 
-def init_callback(app):
+def init_callback(app, API_URL):
     @app.callback(
         Output('communities-dropdown', 'options'),
         Input('submitted-word', 'data')

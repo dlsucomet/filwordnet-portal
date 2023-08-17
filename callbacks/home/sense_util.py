@@ -1,5 +1,5 @@
 import re
-
+import requests 
 
 def sanitize_sample_sentences(data):
     data = data.strip()
@@ -19,7 +19,7 @@ def sanitize_pos(pos):
         'NN': 'Noun',
         'VB': 'Verb'
     }
-
+    """
     if pos:
         pos = str(pos)
         if pos != 'nan':
@@ -31,6 +31,14 @@ def sanitize_pos(pos):
         else:
             return '', ''
 
+    return '', ''
+    """
+    if pos:
+        if pos in pos_dict:
+            return pos, pos_dict[pos]
+        else:
+            return pos, ''
+    
     return '', ''
 
 

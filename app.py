@@ -18,6 +18,7 @@ import os
 load_dotenv()
 
 print(os.environ.get("API_URL"))
+API_URL = os.environ.get("API_URL")
 
 server = Flask(__name__, static_folder='static')
 app = dash.Dash(__name__, use_pages=True,
@@ -62,10 +63,10 @@ app.layout = dbc.Container([
 ], fluid=True)
 
 
-callbacks.home.sense_callbacks.init_callback(app)
-callbacks.home.network_callbacks.init_callback(app)
-callbacks.home.plot_callbacks.init_callback(app)
-callbacks.home.embeddings_callbacks.init_callback(app)
+callbacks.home.sense_callbacks.init_callback(app, API_URL)
+callbacks.home.network_callbacks.init_callback(app, API_URL)
+callbacks.home.plot_callbacks.init_callback(app, API_URL)
+callbacks.home.embeddings_callbacks.init_callback(app, API_URL)
 
 callbacks.home.scroll_callbacks.init_callback(app)
 

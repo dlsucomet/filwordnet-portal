@@ -7,7 +7,7 @@ from .embeddings_util import *
 from .sense_util import *
 
 
-def init_callback(app):
+def init_callback(app, API_URL):
     @app.callback(
         Output('embeddings', 'figure'),
         Input('submitted-word', 'data')

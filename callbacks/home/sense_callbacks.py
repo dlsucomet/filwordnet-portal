@@ -6,7 +6,7 @@ from .sense_util import *
 import dash_bootstrap_components as dbc
 
 
-def init_callback(app):
+def init_callback(app, API_URL):
     @app.callback(
         Output('submitted-word', 'data'),
         Input('search-word-submit-btn', 'n_clicks'),
@@ -25,14 +25,14 @@ def init_callback(app):
     )
     def search_word(word):
         if word:
-            df = get_definition_list(word)
-
+            df = get_word_db(API_URL, word) #get_definition_list(word)
+ 
             if len(df) >= 1:
                 def_list = []
                 for i in range(len(df)):
-                    sample_sentences_list = sanitize_sample_sentences(
-                        df.loc[i, 'example_sentences'])
-
+                    #sample_sentences_list = sanitize_sample_sentences(df.iloc[i]['example_sentences'])
+                    sample_sentences_list = df.iloc[i]['example_sentences']
+                 
                     html_sample_sentences_list = []
                     for sentence in sample_sentences_list:
                         item = html.Tr([
@@ -54,7 +54,7 @@ def init_callback(app):
                                     'verticalAlign': 'top'})
 
                         html_sample_sentences_list.append(item)
-
+      
                     html_see_more_text = html.Div()
                     if len(html_sample_sentences_list) >= 2:
                         html_see_more_text = html.Div(
@@ -98,19 +98,20 @@ def init_callback(app):
                             html.Br()
                         ]
                     )
-                    pos = display_pos(df.loc[i, 'pos'])
-                    if pos:
-                        html_pos = html.Div(
-                            children=[
-                                html.Span(
-                                    pos,
-                                    style={'fontSize': '0.9em',
-                                            'color': 'gray'}
-                                ),
-                                html.Br(),
-                                html.Br()
-                            ]
-                        )
+                    if 'pos' in df.columns:
+                        pos = display_pos(df.iloc[i]['pos'])
+                        if pos:
+                            html_pos = html.Div(
+                                children=[
+                                    html.Span(
+                                        pos,
+                                        style={'fontSize': '0.9em',
+                                                'color': 'gray'}
+                                    ),
+                                    html.Br(),
+                                    html.Br()
+                                ]
+                            )
 
                     def_list.append(html.Tr([
                         html.Td(
@@ -127,9 +128,6 @@ def init_callback(app):
                                 html_sample_sentences_container,
 
                             ]))], className='align-baseline'))
-
-                patched_children = Patch()
-                patched_children.append(def_list)
 
                 return word, def_list
 
