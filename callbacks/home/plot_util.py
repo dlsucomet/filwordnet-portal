@@ -13,7 +13,6 @@ def convert_to_data_by_sense(contextual_info, sense_ids, pos_list):
     data_matrix = []
     for i in range(0, len(contextual_info)):
         #sources = json.loads(convert_double_quotes_json(contextual_info[i]))
-        #print(type(sources))
         sources = contextual_info[i]
         for categories in sources:
             for title in sources[categories]:

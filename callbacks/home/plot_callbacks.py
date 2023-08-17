@@ -121,7 +121,6 @@ def init_callback(app, API_URL):
     def update_line_chart(sense_value, word):
         if word:
             df = get_word_db(API_URL, word)#get_definition_list(word)
-            #df = get_definition_list(word)
 
             pos = ''
             if 'pos' in df.columns:
@@ -159,12 +158,16 @@ def init_callback(app, API_URL):
     )
     def display_source_dropdown(word):
         if word:
-            df = get_definition_list(word)
+            df = get_word_db(API_URL, word)#get_definition_list(word)
 
             if len(df) >= 1:
+                
+                pos = ''
+                if 'pos' in df.columns:
+                    pos = df['pos'].values
 
                 data = convert_to_data_by_sense(
-                    df['contextual_info'].values, df['sense_id'].values, df['pos'].values)
+                    df['contextual_info'].values, df['sense_id'].values, pos)
 
                 # data['category'].unique()
                 return data['category'].unique(), data['category'].unique()[0]
@@ -181,9 +184,13 @@ def init_callback(app, API_URL):
     )
     def update_line_chart(selected_source, word):
         if word:
-            df = get_definition_list(word)
+            df = get_word_db(API_URL, word)#get_definition_list(word)
+            pos = ''
+            if 'pos' in df.columns:
+                pos = df['pos'].values
+
             data = convert_to_data_by_sense(
-                df['contextual_info'].values, df['sense_id'].values, df['pos'].values)
+                df['contextual_info'].values, df['sense_id'].values, pos)
 
             data = data.groupby(['sense_and_pos', 'sense', 'year', 'category'])[
                 'counts'].sum().reset_index()
