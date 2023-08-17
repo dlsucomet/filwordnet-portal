@@ -14,18 +14,20 @@ def init_callback(app, API_URL):
     )
     def display_embeddings(word):
         if word:
-            df = get_definition_list(word)
+            df = get_word_embeddings_db(API_URL, word) #get_definition_list(word)
             sense_id_list = []
 
             if len(df) >= 1:
                 embeddings_list = []
                 for i in range(len(df)):
-                    embeddings = df.loc[i, 'sense_embedding']
+                    embeddings = df.iloc[i]['sense_embedding']
                     embeddings = sanitize_embeddings(embeddings)
                     if embeddings:
                         embeddings_list.append(embeddings)
-                        pos_abbrev, pos = sanitize_pos(df.loc[i, 'pos'])
-                        sense_id_list.append(f'Sense {i+1} ({pos})')
+                        
+                        #pos_abbrev, pos = sanitize_pos(df.loc[i, 'pos'])
+                        #sense_id_list.append(f'Sense {i+1} ({pos})')
+                        sense_id_list.append(f'Sense {i+1}')
 
                 if len(embeddings_list) >= 3:
                     components = load_embeddings(embeddings_list)
