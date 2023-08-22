@@ -354,8 +354,8 @@ body = dbc.Row([
         dbc.Container([
             input_word,
             senses,
-            html.Br(id='network-row'),
-            network,
+            # html.Br(id='network-row'),
+            # network,
             html.Br(id='plot-sense-row'),
             plot_by_sense,
             html.Br(id='plot-source-row'),

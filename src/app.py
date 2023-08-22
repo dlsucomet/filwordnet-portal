@@ -2,11 +2,10 @@
 import dash
 import dash_bootstrap_components as dbc
 
-from flask import Flask
 from dash import html, dcc
 
 import callbacks.home.sense_callbacks
-import callbacks.home.network_callbacks
+# import callbacks.home.network_callbacks
 import callbacks.home.plot_callbacks
 import callbacks.home.embeddings_callbacks
 
@@ -62,7 +61,7 @@ app.layout = dbc.Container([
 
 
 callbacks.home.sense_callbacks.init_callback(app, API_URL)
-callbacks.home.network_callbacks.init_callback(app, API_URL)
+# callbacks.home.network_callbacks.init_callback(app, API_URL)
 callbacks.home.plot_callbacks.init_callback(app, API_URL)
 callbacks.home.embeddings_callbacks.init_callback(app, API_URL)
 
