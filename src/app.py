@@ -18,13 +18,10 @@ import os
 load_dotenv()
 
 API_URL = os.environ.get("API_URL")
-print(API_URL)
 
-server = Flask(__name__, static_folder='static')
 app = dash.Dash(__name__, use_pages=True,
                 external_stylesheets=[dbc.themes.BOOTSTRAP,
-                                      dbc.icons.BOOTSTRAP, dbc.icons.FONT_AWESOME],
-                server=server)
+                                      dbc.icons.BOOTSTRAP, dbc.icons.FONT_AWESOME])
 server = app.server
 
 navbar = dbc.NavbarSimple(
