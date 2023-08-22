@@ -3,6 +3,7 @@ dash_bootstrap_components==1.4.1
 dash_cytoscape==0.3.0
 networkx==2.8.7
 pandas==1.5.1
+scikit-learn==1.3.0
 python-dotenv==1.0.0
 dash-tools==1.11.1
 gunicorn
