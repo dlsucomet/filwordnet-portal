@@ -17,8 +17,8 @@ import os
 
 load_dotenv()
 
-print(os.environ.get("API_URL"))
 API_URL = os.environ.get("API_URL")
+print(API_URL)
 
 server = Flask(__name__, static_folder='static')
 app = dash.Dash(__name__, use_pages=True,

@@ -15,7 +15,7 @@ def init_callback(app, API_URL):
     def submit_input(n_clicks, word):
         if n_clicks >= 1:
             return word.lower()
-        
+
         raise PreventUpdate
 
     @app.callback(
@@ -25,14 +25,14 @@ def init_callback(app, API_URL):
     )
     def search_word(word):
         if word:
-            df = get_word_db(API_URL, word) #get_definition_list(word)
- 
+            df = get_word_db(API_URL, word)  # get_definition_list(word)
+
             if len(df) >= 1:
                 def_list = []
                 for i in range(len(df)):
-                    #sample_sentences_list = sanitize_sample_sentences(df.iloc[i]['example_sentences'])
+                    # sample_sentences_list = sanitize_sample_sentences(df.iloc[i]['example_sentences'])
                     sample_sentences_list = df.iloc[i]['example_sentences']
-                 
+
                     html_sample_sentences_list = []
                     for sentence in sample_sentences_list:
                         item = html.Tr([
@@ -50,11 +50,11 @@ def init_callback(app, API_URL):
                             ]
                             ),
                         ], style={'fontSize': '0.9em',
-                                    'color': 'gray',
-                                    'verticalAlign': 'top'})
+                                  'color': 'gray',
+                                  'verticalAlign': 'top'})
 
                         html_sample_sentences_list.append(item)
-      
+
                     html_see_more_text = html.Div()
                     if len(html_sample_sentences_list) >= 2:
                         html_see_more_text = html.Div(
@@ -62,7 +62,7 @@ def init_callback(app, API_URL):
                                 'See more sample sentences ▼'
                             ],
                             style={'fontSize': '0.9em',
-                                    'color': 'gray'},
+                                   'color': 'gray'},
                             className='see-more',
                             id={
                                 'type': 'word-def-see-more-sample-sentences-text',
@@ -75,8 +75,8 @@ def init_callback(app, API_URL):
                         html_sample_sentences_container = html.Div(
                             children=[
                                 html.Span('Sample Sentences',
-                                            style={'fontSize': '0.9em',
-                                                    'color': 'gray'}),
+                                          style={'fontSize': '0.9em',
+                                                 'color': 'gray'}),
                                 html.Br(),
 
                                 dbc.Table(
@@ -106,7 +106,7 @@ def init_callback(app, API_URL):
                                     html.Span(
                                         pos,
                                         style={'fontSize': '0.9em',
-                                                'color': 'gray'}
+                                               'color': 'gray'}
                                     ),
                                     html.Br(),
                                     html.Br()

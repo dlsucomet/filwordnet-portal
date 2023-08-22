@@ -33,17 +33,13 @@ def init_callback(app, API_URL):
             for node in G.nodes:
                 if node == word:
                     node_word = node
-                    print(node_word)
 
             if ego_network_dist == 1:
                 g = nx.ego_graph(G, node_word, radius=1, center=True)
-                print("----", g.nodes)
             elif ego_network_dist == 2:
                 g = nx.ego_graph(G, node_word, radius=3)
-                print("====", g.nodes)
             elif ego_network_dist == 3:
                 g = nx.ego_graph(G, node_word, radius=5)
-                print(">>>>", g.nodes)
 
             elements = nx.cytoscape_data(G)['elements']
             for node in elements['nodes']:
