@@ -4,3 +4,5 @@ dash_cytoscape==0.3.0
 networkx==2.8.7
 pandas==1.5.1
 python-dotenv==1.0.0
+dash-tools==1.11.1
+gunicorn
