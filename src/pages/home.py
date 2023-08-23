@@ -280,7 +280,7 @@ plot_by_sense = dbc.Row([
 
         html.Br(),
 
-        dcc.Graph(id="graph-sense")
+        dcc.Loading(dcc.Graph(id="graph-sense"))
     ])
 ])
 
@@ -309,7 +309,7 @@ plot_by_source = dbc.Row([
         ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
         ),
 
-        dcc.Graph(id="graph-source")
+        dcc.Loading(dcc.Graph(id="graph-source"))
     ])
 ])
 
@@ -325,7 +325,7 @@ embeddings = dbc.Row([
     html.Div([
         html.Div(
             'Three-dimensional projection of word sense embeddings obtained via principal component analysis (PCA)'),
-        dcc.Graph(id="embeddings")
+        dcc.Loading(dcc.Graph(id="embeddings"))
     ])
 ])
 
