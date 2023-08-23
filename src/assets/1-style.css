@@ -33,3 +33,7 @@
     background-color: black;
     border-color: black;
 }
+
+.dash-default-spinner > div {
+    background-color: black !important;
+}
