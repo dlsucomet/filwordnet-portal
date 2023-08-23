@@ -9,7 +9,7 @@ This is the web portal for **FilWordNet** &mdash; a language resource for Filipi
 
 Run the following command to install the necessary dependencies:
 ```
-pythom -m pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 Run the following command to launch the app:
