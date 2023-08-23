@@ -1,0 +1,12 @@
+name: Check deployment status
+on: [push, pull_request]
+jobs:
+  deploy:
+    name: Check deployment status
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for Render Deployment
+        uses: bounceapp/render-action@0.6.0
+        with:
+          service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
+          wait: 30000
