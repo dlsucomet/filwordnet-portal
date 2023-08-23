@@ -12,32 +12,26 @@ dash.register_page(__name__, path='/', name='FilWordNet | Discover')
 # Local Navigation Side-Bar
 # ==========================
 
-sidebar = html.Div(
-    [
-        html.H5('Contents'),
-        html.Hr(),
-        dbc.Nav(
-            [
-                dbc.NavLink('Word Senses and Sample Sentences', id='senses-link',
-                            href='#', active='exact', className='sidebar-link'),
-                dbc.NavLink('Word Co-Occurrence', active='exact', id='network-link',
-                            className='sidebar-link'),
-                dbc.NavLink('Usage of Word Senses Over Time', id='plot-sense-link',
-                            active='exact', className='sidebar-link'),
-                dbc.NavLink('Usage of Word Across Sources Over Time', id='plot-source-link',
-                            active='exact', className='sidebar-link'),
-                dbc.NavLink('Word Sense Embeddings', active='exact', id='embeddings-link',
-                            className='sidebar-link'),
-                dbc.NavLink('Export Data', active='exact', id='export-link',
-                            className='sidebar-link'),
-            ],
-            vertical=True,
-            pills=True
-        ),
-    ],
-    style={'position': 'fixed',
-           'paddingTop': '3em',             # Should be the same as padding-top of input_word
-           'zIndex': '3000'}                # Should be higher than z-index of input_word
+sidebar = html.Div([
+    html.H5('Contents'),
+    html.Hr(),
+    dbc.Nav([
+        dbc.NavLink('Word Senses and Sample Sentences', id='senses-link',
+                    href='#', active='exact', className='sidebar-link'),
+        dbc.NavLink('Word Co-Occurrence', active='exact', id='network-link',
+                    className='sidebar-link'),
+        dbc.NavLink('Usage of Word Senses Over Time', id='plot-sense-link',
+                    active='exact', className='sidebar-link'),
+        dbc.NavLink('Usage of Word Across Sources Over Time', id='plot-source-link',
+                    active='exact', className='sidebar-link'),
+        dbc.NavLink('Word Sense Embeddings', active='exact', id='embeddings-link',
+                    className='sidebar-link'),
+        dbc.NavLink('Export Data', active='exact', id='export-link',
+                    className='sidebar-link'),
+    ], vertical=True, pills=True),
+], style={'position': 'fixed',
+          'paddingTop': '3em',             # Should be the same as padding-top of input_word
+          'zIndex': '3000'}                # Should be higher than z-index of input_word
 )
 
 
@@ -112,12 +106,12 @@ sense_with_see_more = html.Li([
 ], style={'fontSize': '1.10em'})
 
 senses = dbc.Row([
-    html.H2('Lorem', style={'marginTop': '5em'}, id='senses-word'),
     dcc.Loading(
-        html.Div([
-            dbc.Table(
-                id='senses-container',
-                children=[
+        [html.H2('Lorem', style={'marginTop': '5em'}, id='senses-word'),
+         html.Div([
+             dbc.Table(
+                 id='senses-container',
+                 children=[
                     html.Tr([
                         html.Td(
                             html.Span('Sense #1:'),
@@ -157,13 +151,12 @@ senses = dbc.Row([
                                                  }),
                                 html.Br(),
                                 html.Br()
-                            ]
-                            )
+                            ])
                         )
                     ], className='align-baseline'),
-                ]
-            )
-        ], style={'fontSize': '1.10em'})
+                 ]
+             )
+         ], style={'fontSize': '1.10em'})]
     )
 ])
 

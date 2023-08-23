@@ -1,8 +1,8 @@
-from dash import Input, Output, State, html, Patch, MATCH
+from dash import Input, Output, State, html, MATCH
 from plotly.graph_objs import *
 from dash.exceptions import PreventUpdate
+from ..api_query import *
 from .util import *
-from .sense_util import *
 import dash_bootstrap_components as dbc
 
 
@@ -25,12 +25,12 @@ def init_callback(app, API_URL):
     )
     def search_word(word):
         if word:
-            df = get_word_db(API_URL, word)  # get_definition_list(word)
+            df = get_word_db(API_URL, word)
+            df['example_sentences']
 
             if len(df) >= 1:
                 def_list = []
                 for i in range(len(df)):
-                    # sample_sentences_list = sanitize_sample_sentences(df.iloc[i]['example_sentences'])
                     sample_sentences_list = df.iloc[i]['example_sentences']
 
                     html_sample_sentences_list = []

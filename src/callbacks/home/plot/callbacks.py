@@ -1,10 +1,10 @@
-from dash import Input, Output, State, html
+from dash import Input, Output, html
 import plotly.express as px
 from plotly.graph_objs import *
 from dash.exceptions import PreventUpdate
+from ..api_query import *
 from .util import *
-from .plot_util import *
-from .sense_util import *
+from ..sense.util import *
 
 
 def init_callback(app, API_URL):
@@ -14,7 +14,7 @@ def init_callback(app, API_URL):
     )
     def display_word_in_the_sense_plot_description(word):
         if word:
-            return f' {word} '  
+            return f' {word} '
 
         raise PreventUpdate
 
@@ -24,7 +24,7 @@ def init_callback(app, API_URL):
     )
     def display_word_in_the_source_plot_description(word):
         if word:
-            return f' {word} '  
+            return f' {word} '
 
         raise PreventUpdate
 
@@ -35,7 +35,7 @@ def init_callback(app, API_URL):
     )
     def display_sense_dropdown(word):
         if word:
-            df = get_word_db(API_URL, word)#get_definition_list(word)
+            df = get_word_db(API_URL, word)
 
             if len(df) >= 1:
 
@@ -43,12 +43,13 @@ def init_callback(app, API_URL):
                 num_sense = 0
                 for i in range(len(df)):
                     sense_id = df.iloc[i]['sense_id']
-                    
+
                     pos = ''
                     if 'pos' in df.columns:
                         pos = df.iloc[i]['pos']
 
-                    checklist_options[sense_id] = sense_and_pos_text(f'Sense {num_sense+1}', pos)
+                    checklist_options[sense_id] = sense_and_pos_text(
+                        f'Sense {num_sense+1}', pos)
                     num_sense = num_sense + 1
 
                 selected_option = None
@@ -70,14 +71,13 @@ def init_callback(app, API_URL):
         Input('submitted-word', 'data')
     )
     def plot_update_sample_sentence_base_on_sense(sense_value, word):
-        
+
         if word and sense_value:
-            df = get_word_db(API_URL, word) #get_definition_list(word)
+            df = get_word_db(API_URL, word)  # get_definition_list(word)
 
             if len(df) > 0:
                 sense_id_df = df.loc[df['sense_id'] == sense_value.lower()]
-                
-                #sample_sentence_list = sanitize_sample_sentences(sense_id_df.iloc[0]['example_sentences'])
+
                 sample_sentence_list = sense_id_df.iloc[0]['example_sentences']
 
                 sample_sentence = ''
@@ -91,8 +91,8 @@ def init_callback(app, API_URL):
                             children=[
                                 html.Span('Definition: '),
                                 html.Span(
-                                    'lorem ipsum', 
-                                    style={ 'color': 'gray'}
+                                    'lorem ipsum',
+                                    style={'color': 'gray'}
                                 )
                             ]
                         ),
@@ -100,16 +100,14 @@ def init_callback(app, API_URL):
                             children=[
                                 html.Span('Sample sentence: '),
                                 html.Span(
-                                    sample_sentence, 
-                                    style={ 'color': 'gray'}
+                                    sample_sentence,
+                                    style={'color': 'gray'}
                                 )
                             ]
                         ),
                     ]
                 )
                 return sense_data
-
-                #return [html.Br(), f'Definition: lorem ipsum', html.Br(), f'Sample sentence: {sample_sentence}']
 
         raise PreventUpdate
 
@@ -120,7 +118,7 @@ def init_callback(app, API_URL):
     )
     def update_line_chart(sense_value, word):
         if word:
-            df = get_word_db(API_URL, word)#get_definition_list(word)
+            df = get_word_db(API_URL, word)
 
             pos = ''
             if 'pos' in df.columns:
@@ -134,12 +132,12 @@ def init_callback(app, API_URL):
 
             mask = data.sense.isin([sense_value])
             fig = px.line(data[mask], x='year',
-                            y='counts', color='category', markers=True)
+                          y='counts', color='category', markers=True)
 
             fig.update_xaxes(
                 categoryorder='category ascending', linecolor='gray', tickangle=-45)
             fig.update_yaxes(linecolor='gray',
-                                gridcolor='#D3D3D3', gridwidth=0.5)
+                             gridcolor='#D3D3D3', gridwidth=0.5)
             fig.update_layout(
                 legend_title_text='Source',
                 xaxis_title='Year',
@@ -158,10 +156,10 @@ def init_callback(app, API_URL):
     )
     def display_source_dropdown(word):
         if word:
-            df = get_word_db(API_URL, word)#get_definition_list(word)
+            df = get_word_db(API_URL, word)
 
             if len(df) >= 1:
-                
+
                 pos = ''
                 if 'pos' in df.columns:
                     pos = df['pos'].values
@@ -169,7 +167,6 @@ def init_callback(app, API_URL):
                 data = convert_to_data_by_sense(
                     df['contextual_info'].values, df['sense_id'].values, pos)
 
-                # data['category'].unique()
                 return data['category'].unique(), data['category'].unique()[0]
             else:
                 # TODO: Handle case where word is not in database
@@ -184,7 +181,7 @@ def init_callback(app, API_URL):
     )
     def update_line_chart(selected_source, word):
         if word:
-            df = get_word_db(API_URL, word)#get_definition_list(word)
+            df = get_word_db(API_URL, word)
             pos = ''
             if 'pos' in df.columns:
                 pos = df['pos'].values
@@ -197,12 +194,12 @@ def init_callback(app, API_URL):
 
             mask = data.category.isin([selected_source])
             fig = px.line(data[mask], x='year',
-                            y='counts', color='sense_and_pos', markers=True)
+                          y='counts', color='sense_and_pos', markers=True)
 
             fig.update_xaxes(
                 categoryorder='category ascending', linecolor='gray', tickangle=-45)
             fig.update_yaxes(linecolor='gray',
-                                gridcolor='#D3D3D3', gridwidth=0.5)
+                             gridcolor='#D3D3D3', gridwidth=0.5)
             fig.update_layout(
                 legend_title_text='Word Sense',
                 xaxis_title='Year',

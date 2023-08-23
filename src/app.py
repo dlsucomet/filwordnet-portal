@@ -4,10 +4,10 @@ import dash_bootstrap_components as dbc
 
 from dash import html, dcc
 
-import callbacks.home.sense_callbacks
+import callbacks.home.sense.callbacks
 # import callbacks.home.network_callbacks
-import callbacks.home.plot_callbacks
-import callbacks.home.embeddings_callbacks
+import callbacks.home.plot.callbacks
+import callbacks.home.embeddings.callbacks
 
 import callbacks.home.scroll_callbacks
 
@@ -60,10 +60,10 @@ app.layout = dbc.Container([
 ], fluid=True)
 
 
-callbacks.home.sense_callbacks.init_callback(app, API_URL)
+callbacks.home.sense.callbacks.init_callback(app, API_URL)
 # callbacks.home.network_callbacks.init_callback(app, API_URL)
-callbacks.home.plot_callbacks.init_callback(app, API_URL)
-callbacks.home.embeddings_callbacks.init_callback(app, API_URL)
+callbacks.home.plot.callbacks.init_callback(app, API_URL)
+callbacks.home.embeddings.callbacks.init_callback(app, API_URL)
 
 callbacks.home.scroll_callbacks.init_callback(app)
 
