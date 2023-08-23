@@ -16,5 +16,5 @@ python app.py
 
 The app can be accessed at the following URL:
 ```
-localhost:8050
+localhost:8049
 ```
