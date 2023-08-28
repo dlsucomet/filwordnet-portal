@@ -10,6 +10,7 @@ import callbacks.home.plot.callbacks
 import callbacks.home.embeddings.callbacks
 
 import callbacks.home.scroll_callbacks
+import callbacks.home.home_callbacks
 
 from dotenv import load_dotenv
 import os
@@ -49,8 +50,8 @@ app.layout = dbc.Container([
         dash.page_container
     ]),
 
-    dbc.Row(dbc.Col('Copyright © 2023. Center for Complexity and Emerging Technologies, De La Salle University', class_name='text-center'),
-            class_name='bg-dark text-white p-3'),
+    #dbc.Row(dbc.Col('Copyright © 2023. Center for Complexity and Emerging Technologies, De La Salle University', class_name='text-center'),
+    #        class_name='bg-dark text-white p-3'),
 
     dcc.Store(
         id='submitted-word',
@@ -66,6 +67,7 @@ callbacks.home.plot.callbacks.init_callback(app, API_URL)
 callbacks.home.embeddings.callbacks.init_callback(app, API_URL)
 
 callbacks.home.scroll_callbacks.init_callback(app)
+callbacks.home.home_callbacks.init_callback(app)
 
 if __name__ == '__main__':
     app.run_server(port='8049', debug=True)

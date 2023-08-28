@@ -8,17 +8,6 @@ import dash_bootstrap_components as dbc
 
 def init_callback(app, API_URL):
     @app.callback(
-        Output('submitted-word', 'data'),
-        Input('search-word-submit-btn', 'n_clicks'),
-        State('search-word', 'value')
-    )
-    def submit_input(n_clicks, word):
-        if n_clicks >= 1:
-            return word.lower()
-
-        raise PreventUpdate
-
-    @app.callback(
         Output('senses-word', 'children'),
         Output('senses-container', 'children'),
         Input('submitted-word', 'data')

@@ -12,26 +12,30 @@ dash.register_page(__name__, path='/', name='FilWordNet | Discover')
 # Local Navigation Side-Bar
 # ==========================
 
-sidebar = html.Div([
-    html.H5('Contents'),
-    html.Hr(),
-    dbc.Nav([
-        dbc.NavLink('Word Senses and Sample Sentences', id='senses-link',
-                    href='#', active='exact', className='sidebar-link'),
-        dbc.NavLink('Word Co-Occurrence', active='exact', id='network-link',
-                    className='sidebar-link'),
-        dbc.NavLink('Usage of Word Senses Over Time', id='plot-sense-link',
-                    active='exact', className='sidebar-link'),
-        dbc.NavLink('Usage of Word Across Sources Over Time', id='plot-source-link',
-                    active='exact', className='sidebar-link'),
-        dbc.NavLink('Word Sense Embeddings', active='exact', id='embeddings-link',
-                    className='sidebar-link'),
-        dbc.NavLink('Export Data', active='exact', id='export-link',
-                    className='sidebar-link'),
-    ], vertical=True, pills=True),
-], style={'position': 'fixed',
-          'paddingTop': '3em',             # Should be the same as padding-top of input_word
-          'zIndex': '3000'}                # Should be higher than z-index of input_word
+sidebar = html.Div(
+    id='home-sidebar',
+    children=[
+        html.H5('Contents'),
+        html.Hr(),
+        dbc.Nav([
+            dbc.NavLink('Word Senses and Sample Sentences', id='senses-link',
+                        href='#', active='exact', className='sidebar-link'),
+            dbc.NavLink('Word Co-Occurrence', active='exact', id='network-link',
+                        className='sidebar-link'),
+            dbc.NavLink('Usage of Word Senses Over Time', id='plot-sense-link',
+                        active='exact', className='sidebar-link'),
+            dbc.NavLink('Usage of Word Across Sources Over Time', id='plot-source-link',
+                        active='exact', className='sidebar-link'),
+            dbc.NavLink('Word Sense Embeddings', active='exact', id='embeddings-link',
+                        className='sidebar-link'),
+            dbc.NavLink('Export Data', active='exact', id='export-link',
+                        className='sidebar-link'),
+        ], vertical=True, pills=True),
+    ], 
+    style={'position': 'fixed',
+            'paddingTop': '3em',             # Should be the same as padding-top of input_word
+            'zIndex': '3000'},                # Should be higher than z-index of input_word
+    hidden=True
 )
 
 
@@ -353,19 +357,26 @@ body = dbc.Row([
     dbc.Col(
         dbc.Container([
             input_word,
-            senses,
-            # html.Br(id='network-row'),
-            # network,
-            html.Br(id='plot-sense-row'),
-            plot_by_sense,
-            html.Br(id='plot-source-row'),
-            html.Br(),
-            plot_by_source,
-            html.Br(id='embeddings-row'),
-            html.Br(),
-            embeddings,
-            html.Br(id='export-row'),
-            export
+
+            html.Div(
+                id='home-body-container',
+                children = [
+                    senses,
+                    # html.Br(id='network-row'),
+                    # network,
+                    html.Br(id='plot-sense-row'),
+                    plot_by_sense,
+                    html.Br(id='plot-source-row'),
+                    html.Br(),
+                    plot_by_source,
+                    html.Br(id='embeddings-row'),
+                    html.Br(),
+                    embeddings,
+                    html.Br(id='export-row'),
+                    export
+                ],
+                hidden=True
+            ),
         ])
     ),
 
