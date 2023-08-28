@@ -25,12 +25,12 @@ def init_callback(app, API_URL):
                     html_sample_sentences_list = []
                     for sentence in sample_sentences_list:
                         item = html.Tr([
-                            html.Td(children=[
-                                html.Div(children=[
-                                    f'Source'
-                                ])
-                            ],
-                            ),
+                            #html.Td(children=[
+                            #    html.Div(children=[
+                            #        f'Source'
+                            #    ])
+                            #],
+                            #),
 
                             html.Td(children=[
                                 html.Div(children=[
@@ -108,11 +108,11 @@ def init_callback(app, API_URL):
                             style={'width': '11%'}),
                         html.Td(
                             html.Div([
-                                html.Span(
-                                    'Definition lorem ipsum',
-                                    style={'fontSize': '0.9em'}
-                                ),
-                                html_pos,
+                                #html.Span(
+                                #    'Definition lorem ipsum',
+                                #    style={'fontSize': '0.9em'}
+                                #),
+                                #html_pos,
 
                                 html_sample_sentences_container,
 

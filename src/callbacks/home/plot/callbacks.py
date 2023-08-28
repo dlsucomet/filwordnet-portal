@@ -87,15 +87,15 @@ def init_callback(app, API_URL):
                 sense_data = html.Div(
                     children=[
                         html.Br(),
-                        html.Div(
-                            children=[
-                                html.Span('Definition: '),
-                                html.Span(
-                                    'lorem ipsum',
-                                    style={'color': 'gray'}
-                                )
-                            ]
-                        ),
+                        #html.Div(
+                        #    children=[
+                        #        html.Span('Definition: '),
+                        #        html.Span(
+                        #            'lorem ipsum',
+                        #            style={'color': 'gray'}
+                        #        )
+                        #    ]
+                        #),
                         html.Div(
                             children=[
                                 html.Span('Sample sentence: '),
