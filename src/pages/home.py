@@ -275,7 +275,7 @@ plot_by_sense = dbc.Row([
             ], style={'width': '20%', 'marginLeft': '1%', 'marginRight': '1%'},
             ),
 
-            ' of', html.Span(
+            ' of', html.Span('word',
                 id='word-plot-sense', style={'white-space': 'pre'}, className='fw-bold'), 'evolves over time',
 
         ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
@@ -293,14 +293,31 @@ plot_by_sense = dbc.Row([
 # Plot (Filtered by Source)
 # ==========================
 
+word_plot_by_source_modal = dbc.Modal(
+    id='word-plot-source-modal',
+    is_open=False,
+    size='xl',
+    scrollable=True,
+    centered=True
+)
+
+
 plot_by_source = dbc.Row([
     html.H4('Usage of Word Across Sources Over Time'),
     html.Br(),
     html.Br(),
     html.Div([
         html.Div([
-            'Show me how the usage of ', html.Span(
-                id='word-plot-source', style={'white-space': 'pre'}, className='fw-bold'), 'in',
+            'Show me how the usage of ', 
+            html.Span(
+                children=[
+                    f' word ',
+                    html.I(
+                        className='bi bi-info-circle',
+                    ),
+                    f' '
+                ],
+                id='word-plot-source', n_clicks=0, style={'white-space': 'pre'}, className='fw-bold'), 'in',
             html.Div([
                 dcc.Dropdown(
                     id='source-dropdown',
@@ -312,6 +329,8 @@ plot_by_source = dbc.Row([
             ' evolves over time'
         ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
         ),
+
+        word_plot_by_source_modal,
 
         dcc.Loading(dcc.Graph(id="graph-source"))
     ])

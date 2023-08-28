@@ -1,4 +1,6 @@
-from dash import Input, Output, html
+from dash import Input, Output, State, html
+import dash_bootstrap_components as dbc
+
 import plotly.express as px
 from plotly.graph_objs import *
 from dash.exceptions import PreventUpdate
@@ -23,9 +25,69 @@ def init_callback(app, API_URL):
         Input('submitted-word', 'data')
     )
     def display_word_in_the_source_plot_description(word):
-        if word:
-            return f' {word} '
+        if word:       
+            return [
+                f' {word} ',
+                html.I(className='bi bi-info-circle'),
+                f' '
+            ]
 
+        raise PreventUpdate
+    
+    @app.callback(
+        Output('word-plot-source-modal', 'children'),
+        Output('word-plot-source-modal', 'is_open'),
+        Input('word-plot-source', 'n_clicks'),
+        State('submitted-word', 'data')
+    )
+    def display_word_tooltip_in_the_source_plot(n_clicks, word):
+        if n_clicks > 0:
+            df = get_word_db(API_URL, word)
+
+            if len(df) >= 1:
+                sense_list = []
+                for i in range(len(df)):
+                    sample_sentence_list = df.iloc[i]['example_sentences']
+
+                    html_sample_sentence = html.Ul()
+                    if len(sample_sentence_list) >= 1:
+                        html_sample_sentence = html.Ul(
+                            children=[
+                                html.Li([
+                                    html.Span('Sample sentence: '),
+                                    html.Span(
+                                        sample_sentence_list[0],
+                                        style={'color': 'gray'}
+                                    )
+                                ])
+                            ]
+                        )
+
+                    sense_list.append(
+                        html.Li([
+                            html.B(f'Sense {i+1}:'),
+                            html_sample_sentence,
+                            html.Br()
+                        ]
+                        )   
+                    )
+
+
+            modal = [
+                dbc.ModalHeader(
+                    dbc.ModalTitle(word)
+                ),
+                dbc.ModalBody([
+                    html.Ul([
+                        html.Li([
+                            s for s in sense_list
+                        ])
+                    ])
+                ])
+            ]
+
+            return modal, True
+        
         raise PreventUpdate
 
     @app.callback(
