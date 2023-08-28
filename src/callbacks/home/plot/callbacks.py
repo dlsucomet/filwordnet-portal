@@ -16,7 +16,11 @@ def init_callback(app, API_URL):
     )
     def display_word_in_the_sense_plot_description(word):
         if word:
-            return f' {word} '
+            return [
+                f' {word} ',
+                html.I(className='bi bi-info-circle'),
+                f' '
+            ]
 
         raise PreventUpdate
 
@@ -35,13 +39,14 @@ def init_callback(app, API_URL):
         raise PreventUpdate
     
     @app.callback(
-        Output('word-plot-source-modal', 'children'),
-        Output('word-plot-source-modal', 'is_open'),
+        Output('word-plot-modal', 'children'),
+        Output('word-plot-modal', 'is_open'),
         Input('word-plot-source', 'n_clicks'),
+        Input('word-plot-sense', 'n_clicks'),
         State('submitted-word', 'data')
     )
-    def display_word_tooltip_in_the_source_plot(n_clicks, word):
-        if n_clicks > 0:
+    def display_word_tooltip_in_the_source_plot(source_n_clicks, sense_n_clicks, word):
+        if source_n_clicks > 0 or sense_n_clicks > 0:
             df = get_word_db(API_URL, word)
 
             if len(df) >= 1:
