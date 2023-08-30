@@ -86,7 +86,16 @@ network = dbc.Row([
         html.Div([
             'Words that frequently appear together with ',
             html.Span(id='input-word-network')
-        ])
+        ], className='mb-2 mt-2'),
+
+        dcc.Dropdown(
+            id='communities-dropdown',
+            value='Sense 1'
+        ),
+
+        html.Br(),
+
+        dcc.Loading(html.Div(id='network-cooccurring-words'))
     ])
 ])
 
@@ -198,7 +207,7 @@ plot_by_source = dbc.Row([
 
             word_plot_modal,
 
-            dcc.Loading(dcc.Graph(id="graph-source"))
+            dcc.Graph(id="graph-source")
         ])
     )
 ])

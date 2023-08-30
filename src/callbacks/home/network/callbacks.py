@@ -1,4 +1,4 @@
-from dash import Input, Output
+from dash import Input, Output, dcc, html
 from plotly.graph_objs import *
 from dash.exceptions import PreventUpdate
 from ..api_query import *
@@ -6,6 +6,17 @@ from .util import *
 
 
 def init_callback(app, API_URL):
+    @app.callback(
+        Output('communities-dropdown', 'options'),
+        Output('communities-dropdown', 'value'),
+        Input('submitted-word', 'data')
+    )
+    def populate_communities_dropdown(word):
+        if word:
+            return [{'label': 'Sense ' + str(i + 1), 'value': i} for i in range(get_num_senses(API_URL, word))], 0
+
+        raise PreventUpdate
+
     @app.callback(
         Output('input-word-network', 'children'),
         Input('submitted-word', 'data')
@@ -20,3 +31,21 @@ def init_callback(app, API_URL):
             return [f'No Word Found: {word}']
 
         raise PreventUpdate
+
+    @app.callback(
+        Output('network-cooccurring-words', 'children'),
+        Input('submitted-word', 'data'),
+        Input('communities-dropdown', 'value')
+    )
+    def display_co_occurring_words(word, sense_id):
+        for entry in get_netsci_word(API_URL, word):
+            if entry['sense_id'] == f'ns_{word}_{sense_id}':
+                cooccurring_words = [dcc.Link(cooccurring_word, href='', style={'text-decoration': 'none'})
+                                     for cooccurring_word in entry['community']]
+
+                ret_val = []
+                for cooccurring_word in cooccurring_words:
+                    ret_val.append(cooccurring_word)
+                    ret_val.append(html.Span(' ', className='me-2'))
+
+                return ret_val
