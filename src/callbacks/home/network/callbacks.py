@@ -1,51 +1,22 @@
-# from dash import Input, Output, State
-# from dash.exceptions import PreventUpdate
+from dash import Input, Output
+from plotly.graph_objs import *
+from dash.exceptions import PreventUpdate
+from ..api_query import *
+from .util import *
 
-# import networkx as nx
 
-# from .network_util import *
+def init_callback(app, API_URL):
+    @app.callback(
+        Output('input-word-network', 'children'),
+        Input('submitted-word', 'data')
+    )
+    def search_word(word):
+        if word:
+            df = get_word_db(API_URL, word)
 
+            if len(df) >= 1:
+                return word
 
-# def init_callback(app, API_URL):
-#     @app.callback(
-#         Output('communities-dropdown', 'options'),
-#         Input('submitted-word', 'data')
-#     )
-#     def populate_communities_dropdown(word):
-#         if word:
-#             return [{'label': 'Community ' + str(i + 1), 'value': i} for i in range(get_num_communities(word))]
+            return [f'No Word Found: {word}']
 
-#         raise PreventUpdate
-
-#     @app.callback(
-#         Output('network', 'elements'),
-#         Output('network', 'layout'),
-#         Input('submitted-word', 'data'),
-#         Input('communities-dropdown', 'value'),
-#         Input('communities-ego-network-dist', 'value'),
-#         Input('communities-layout', 'value')
-#     )
-#     def display_network(word, community_idx, ego_network_dist, layout):
-#         if word:
-#             network = f'static/data/{word}/{community_idx}.tsv'
-#             G = nx.read_edgelist(network)
-
-#             for node in G.nodes:
-#                 if node == word:
-#                     node_word = node
-
-#             if ego_network_dist == 1:
-#                 g = nx.ego_graph(G, node_word, radius=1, center=True)
-#             elif ego_network_dist == 2:
-#                 g = nx.ego_graph(G, node_word, radius=3)
-#             elif ego_network_dist == 3:
-#                 g = nx.ego_graph(G, node_word, radius=5)
-
-#             elements = nx.cytoscape_data(G)['elements']
-#             for node in elements['nodes']:
-#                 if node['data']['id'] == word:
-#                     node['classes'] = 'shaded'
-
-#             return elements, {'name': layout}
-
-#         raise PreventUpdate
+        raise PreventUpdate

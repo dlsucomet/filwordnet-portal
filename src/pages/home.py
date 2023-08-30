@@ -2,8 +2,6 @@ import dash
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 
-import dash_cytoscape as cyto
-
 
 dash.register_page(__name__, path='/', name='FilWordNet | Discover')
 
@@ -20,13 +18,13 @@ sidebar = html.Div(
         dbc.Nav([
             dbc.NavLink('Word Senses and Sample Sentences', id='senses-link',
                         href='#', active='exact', className='sidebar-link'),
-            dbc.NavLink('Word Co-Occurrence', active='exact', id='network-link',
-                        className='sidebar-link'),
             dbc.NavLink('Usage of Word Senses Over Time', id='plot-sense-link',
                         active='exact', className='sidebar-link'),
             dbc.NavLink('Usage of Word Across Sources Over Time', id='plot-source-link',
                         active='exact', className='sidebar-link'),
             dbc.NavLink('Word Sense Embeddings', active='exact', id='embeddings-link',
+                        className='sidebar-link'),
+            dbc.NavLink('Co-Occurring Words', active='exact', id='network-link',
                         className='sidebar-link'),
             dbc.NavLink('Export Data', active='exact', id='export-link',
                         className='sidebar-link'),
@@ -81,89 +79,16 @@ senses = dbc.Row([
 # ========
 
 network = dbc.Row([
-    html.H4('Word Co-Occurrence'),
+    html.H2('Co-Occurring Words', style={'marginTop': '5em'}),
     html.Br(),
     html.Br(),
-    html.P('Select a word co-occurrence community'),
-    dcc.Dropdown(
-        id='communities-dropdown',
-        value=0
-    ),
-    html.Br(),
-    html.Br(),
-    html.Br(),
-    html.Label('Select the size of the displayed community'),
-    html.Br(),
-    html.Br(),
-    dcc.Slider(1, 4,
-               marks={1: '1 (Closest Co-Occurring Words)',
-                      2: '2',
-                      3: '3',
-                      4: '4 (All Co-Occurring Words)'},
-               value=1,
-               id='communities-ego-network-dist'),
-    html.Br(),
-    html.Br(),
-    html.Br(),
-    dbc.Label('Select the display layout'),
-
-    dbc.RadioItems(
-        id='communities-layout',
-        options=[
-            {'value': 'circle', 'label': 'Circle',
-             'label_id': 'circle'},
-            {'value': 'grid', 'label': 'Grid',
-             'label_id': 'grid'}
-        ],
-        value='circle',
-        inline=True,
-        className='ms-3'
-    ),
-    html.Br(),
-    html.P(
-        html.Div([
-            dbc.Button([html.I(
-                className='bi bi-arrow-clockwise me-2'),
-                'Reset Display'],
-                id='reset-network',
-                color='light', size='sm', className='ms-3 table-button',
-                style={'border': '1px solid rgb(211, 211, 211)', 'backgroundColor': 'white'})
-        ], style={'textAlign': 'right'})
-    ),
     html.Div([
-        cyto.Cytoscape(
-            style={'width': '100%', 'height': '100vh'},
-            id='network',
-            layout={'name': 'circle'},
-            stylesheet=[
-                {
-                    'selector': 'node',
-                                'style': {
-                                    'content': 'data(id)',
-                                    'height': '5px',
-                                    'width': '5px',
-                                    'font-size': '10px'
-                                }
-                },
-                {
-                    'selector': 'edge',
-                                'style': {
-                                    'width': '0.5px',
-                                }
-                },
-                {
-                    'selector': '.shaded',
-                                'style': {
-                                    'background-color': 'black',
-                                    'line-color': 'black',
-                                    'height': '10px',
-                                    'width': '10px'
-                                }
-                }
-            ]
-        )
+        html.Div([
+            'Words that frequently appear together with ',
+            html.Span(id='input-word-network')
+        ])
     ])
-], style={'width': '96%'})
+])
 
 # =========================
 # Plot (Modal)
@@ -201,38 +126,40 @@ plot_by_sense = dbc.Row([
     html.H4('Usage of Word Senses Over Time'),
     html.Br(),
     html.Br(),
-    html.Div([
+    dcc.Loading(
         html.Div([
-            'Show me how the usage of ',
             html.Div([
-                dcc.Dropdown(
-                    id='sense-dropdown',
-                    style={
-                        'verticalAlign': 'middle'}
-                ),
-            ], style={'width': '20%', 'marginLeft': '1%', 'marginRight': '1%'},
-            ),
-
-            ' of', html.Span(
-                children=[
-                    f' word ',
-                    html.I(
-                        className='bi bi-info-circle',
+                'Show me how the usage of ',
+                html.Div([
+                    dcc.Dropdown(
+                        id='sense-dropdown',
+                        style={
+                            'verticalAlign': 'middle'}
                     ),
-                    f' '
-                ],
-                id='word-plot-sense', n_clicks=0, style={'white-space': 'pre'}, className='fw-bold'), 'evolves over time',
+                ], style={'width': '20%', 'marginLeft': '1%', 'marginRight': '1%'},
+                ),
 
-        ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
-        ),
-        html.Div(id='sense-sample-sentence'),
+                ' of', html.Span(
+                    children=[
+                        f' word ',
+                        html.I(
+                            className='bi bi-info-circle',
+                        ),
+                        f' '
+                    ],
+                    id='word-plot-sense', n_clicks=0, style={'white-space': 'pre'}, className='fw-bold'), 'evolves over time',
 
-        word_plot_modal,
+            ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
+            ),
+            html.Div(id='sense-sample-sentence'),
 
-        html.Br(),
+            word_plot_modal,
 
-        dcc.Loading(dcc.Graph(id="graph-sense"))
-    ])
+            html.Br(),
+
+            dcc.Graph(id="graph-sense")
+        ])
+    )
 ])
 
 
@@ -244,34 +171,36 @@ plot_by_source = dbc.Row([
     html.H4('Usage of Word Across Sources Over Time'),
     html.Br(),
     html.Br(),
-    html.Div([
+    dcc.Loading(
         html.Div([
-            'Show me how the usage of ',
-            html.Span(
-                children=[
-                    f' word ',
-                    html.I(
-                        className='bi bi-info-circle',
-                    ),
-                    f' '
-                ],
-                id='word-plot-source', n_clicks=0, style={'white-space': 'pre'}, className='fw-bold'), 'in',
             html.Div([
-                dcc.Dropdown(
-                    id='source-dropdown',
-                    style={
-                        'verticalAlign': 'middle'}
+                'Show me how the usage of ',
+                html.Span(
+                    children=[
+                        f' word ',
+                        html.I(
+                            className='bi bi-info-circle',
+                        ),
+                        f' '
+                    ],
+                    id='word-plot-source', n_clicks=0, style={'white-space': 'pre'}, className='fw-bold'), 'in',
+                html.Div([
+                    dcc.Dropdown(
+                        id='source-dropdown',
+                        style={
+                            'verticalAlign': 'middle'}
+                    ),
+                ], style={'width': '20%', 'marginLeft': '1%', 'marginRight': '1%'},
                 ),
-            ], style={'width': '20%', 'marginLeft': '1%', 'marginRight': '1%'},
+                ' evolves over time'
+            ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
             ),
-            ' evolves over time'
-        ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
-        ),
 
-        word_plot_modal,
+            word_plot_modal,
 
-        dcc.Loading(dcc.Graph(id="graph-source"))
-    ])
+            dcc.Loading(dcc.Graph(id="graph-source"))
+        ])
+    )
 ])
 
 
@@ -319,8 +248,6 @@ body = dbc.Row([
                 id='home-body-container',
                 children=[
                     senses,
-                    # html.Br(id='network-row'),
-                    # network,
                     html.Br(id='plot-sense-row'),
                     plot_by_sense,
                     html.Br(id='plot-source-row'),
@@ -329,6 +256,8 @@ body = dbc.Row([
                     html.Br(id='embeddings-row'),
                     html.Br(),
                     embeddings,
+                    html.Br(id='network-row'),
+                    network,
                     html.Br(id='export-row'),
                     export
                 ],

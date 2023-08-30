@@ -5,7 +5,6 @@ from ..api_query import *
 from .util import *
 import dash_bootstrap_components as dbc
 
-import time
 
 
 def init_callback(app, API_URL):

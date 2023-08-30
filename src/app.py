@@ -5,7 +5,7 @@ import dash_bootstrap_components as dbc
 from dash import html, dcc
 
 import callbacks.home.sense.callbacks
-# import callbacks.home.network_callbacks
+import callbacks.home.network.callbacks
 import callbacks.home.plot.callbacks
 import callbacks.home.embeddings.callbacks
 
@@ -50,7 +50,7 @@ app.layout = dbc.Container([
         dash.page_container
     ]),
 
-    #dbc.Row(dbc.Col('Copyright © 2023. Center for Complexity and Emerging Technologies, De La Salle University', class_name='text-center'),
+    # dbc.Row(dbc.Col('Copyright © 2023. Center for Complexity and Emerging Technologies, De La Salle University', class_name='text-center'),
     #        class_name='bg-dark text-white p-3'),
 
     dcc.Store(
@@ -62,7 +62,7 @@ app.layout = dbc.Container([
 
 
 callbacks.home.sense.callbacks.init_callback(app, API_URL)
-# callbacks.home.network_callbacks.init_callback(app, API_URL)
+callbacks.home.network.callbacks.init_callback(app, API_URL)
 callbacks.home.plot.callbacks.init_callback(app, API_URL)
 callbacks.home.embeddings.callbacks.init_callback(app, API_URL)
 
