@@ -1,4 +1,4 @@
-from dash import Input, Output, State, html, MATCH
+from dash import Input, Output, html, MATCH
 from plotly.graph_objs import *
 from dash.exceptions import PreventUpdate
 from ..api_query import *
@@ -15,7 +15,6 @@ def init_callback(app, API_URL):
     def search_word(word):
         if word:
             df = get_word_db(API_URL, word)
-            df['example_sentences']
 
             if len(df) >= 1:
                 def_list = []
@@ -24,20 +23,25 @@ def init_callback(app, API_URL):
 
                     html_sample_sentences_list = []
                     for sentence in sample_sentences_list:
+                        start_idx = sentence.lower().find(word.lower())
+                        sentence_before_word = sentence[:start_idx].strip()
+                        sentence_word = sentence[start_idx: start_idx +
+                                                 len(word)].strip()
+                        sentence_after_word = sentence[start_idx +
+                                                       len(word):].strip()
+
                         item = html.Tr([
-                            #html.Td(children=[
+                            # html.Td(children=[
                             #    html.Div(children=[
                             #        f'Source'
                             #    ])
-                            #],
-                            #),
+                            # ],
+                            # ),
 
                             html.Td(children=[
-                                html.Div(children=[
-                                    f'{sentence}'
-                                ])
-                            ]
-                            ),
+                                    sentence_before_word, html.B(
+                                        sentence_word), sentence_after_word
+                                    ]),
                         ], style={'fontSize': '0.9em',
                                   'color': 'gray',
                                   'verticalAlign': 'top'})
@@ -108,11 +112,11 @@ def init_callback(app, API_URL):
                             style={'width': '11%'}),
                         html.Td(
                             html.Div([
-                                #html.Span(
+                                # html.Span(
                                 #    'Definition lorem ipsum',
                                 #    style={'fontSize': '0.9em'}
-                                #),
-                                #html_pos,
+                                # ),
+                                # html_pos,
 
                                 html_sample_sentences_container,
 
