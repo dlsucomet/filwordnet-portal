@@ -41,3 +41,8 @@
 i {
     cursor: pointer;
 }
+
+body.modal-open {
+    overflow: inherit;
+    padding-right: 0 !important;
+}

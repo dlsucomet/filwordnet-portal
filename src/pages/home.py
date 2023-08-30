@@ -34,7 +34,7 @@ sidebar = html.Div(
     ],
     style={'position': 'fixed',
            'paddingTop': '3em',             # Should be the same as padding-top of input_word
-           'zIndex': '3000'},                # Should be higher than z-index of input_word
+           'zIndex': '3000'},               # Should be higher than z-index of input_word
     hidden=True
 )
 
@@ -172,9 +172,11 @@ network = dbc.Row([
 word_plot_modal = dbc.Modal(
     id='word-plot-modal',
     is_open=False,
-    size='xl',
+    size='lg',
     scrollable=True,
-    centered=True
+    centered=False,
+    # Should be higher than z-index of sidebar
+    style={'zIndex': '5000'}
 )
 
 # =========================
@@ -349,7 +351,4 @@ layout = dbc.Container([
     html.Br()           # Should be here, not in app.py
                         # Otherwise, a portion of the footer can be seen when body
                         #    has not completely loaded
-],
-    fluid=True,
-    style={'paddingLeft': '6em', 'paddingRight': '6em'}
-)
+])
