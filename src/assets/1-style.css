@@ -37,3 +37,7 @@
 .dash-default-spinner > div {
     background-color: black !important;
 }
+
+i {
+    cursor: pointer;
+}
