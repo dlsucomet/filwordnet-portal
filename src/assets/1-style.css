@@ -46,3 +46,7 @@ body.modal-open {
     overflow: inherit;
     padding-right: 0 !important;
 }
+
+.link-primary {
+    cursor: pointer !important;
+}

@@ -79,7 +79,7 @@ senses = dbc.Row([
 # ========
 
 network = dbc.Row([
-    html.H2('Co-Occurring Words', style={'marginTop': '5em'}),
+    html.H2('Co-Occurring Words'),
     html.Br(),
     html.Br(),
     html.Div([
@@ -90,10 +90,9 @@ network = dbc.Row([
 
         dcc.Dropdown(
             id='communities-dropdown',
-            value='Sense 1'
+            value='Sense 1',
+            className='mb-4'
         ),
-
-        html.Br(),
 
         dcc.Loading(html.Div(id='network-cooccurring-words'))
     ])
@@ -234,13 +233,19 @@ embeddings = dbc.Row([
 # =======
 
 export = dbc.Row([
-    html.H4('Export Data'),
+    html.H4('Export Data', className='mt-3'),
     html.Br(),
     html.Br(),
     html.Ul([
         html.Li('Word Senses and Sample Sentences (JSON)'),
-        html.Li('Embeddings (CSV)'),
-    ], style={'marginLeft': '2em'}),
+        html.Li(html.Span('Embeddings (CSV)',
+                className='link-primary', n_clicks=0,
+                id='export-embeddings')),
+    ], style={'marginLeft': '2em'}, className='mt-2'),
+
+    dcc.Download(
+        id='download-embeddings'
+    ),
 ])
 
 

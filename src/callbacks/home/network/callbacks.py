@@ -1,4 +1,4 @@
-from dash import Input, Output, dcc, html
+from dash import Input, Output, html
 from plotly.graph_objs import *
 from dash.exceptions import PreventUpdate
 from ..api_query import *
@@ -40,7 +40,7 @@ def init_callback(app, API_URL):
     def display_co_occurring_words(word, sense_id):
         for entry in get_netsci_word(API_URL, word):
             if entry['sense_id'] == f'ns_{word}_{sense_id}':
-                cooccurring_words = [dcc.Link(cooccurring_word, href='', style={'text-decoration': 'none'})
+                cooccurring_words = [html.Span(cooccurring_word, className='link-primary', style={'text-decoration': 'none'})
                                      for cooccurring_word in entry['community']]
 
                 ret_val = []
