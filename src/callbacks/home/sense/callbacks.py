@@ -22,31 +22,35 @@ def init_callback(app, API_URL):
                     sample_sentences_list = df.iloc[i]['example_sentences']
 
                     html_sample_sentences_list = []
+                    letter_bullet = ord('a')
                     for sentence in sample_sentences_list:
-                        start_idx = sentence.lower().find(word.lower())
-                        sentence_before_word = sentence[:start_idx].strip()
-                        sentence_word = sentence[start_idx: start_idx +
-                                                 len(word)].strip()
-                        sentence_after_word = sentence[start_idx +
-                                                       len(word):].strip()
+                        if is_quality_sentence(sentence):
+                            start_idx = sentence.lower().find(word.lower())
+                            sentence_before_word = sentence[:start_idx]
+                            sentence_word = sentence[start_idx: start_idx +
+                                                     len(word)].strip()
+                            sentence_after_word = sentence[start_idx +
+                                                           len(word):]
 
-                        item = html.Tr([
-                            # html.Td(children=[
-                            #    html.Div(children=[
-                            #        f'Source'
-                            #    ])
-                            # ],
-                            # ),
+                            item = html.Tr([
+                                html.Td(children=[
+                                    html.Div(children=[
+                                        f'{chr(letter_bullet)}. ',
+                                    ])
+                                ],
+                                ),
 
-                            html.Td(children=[
-                                    sentence_before_word, html.B(
-                                        sentence_word), sentence_after_word
-                                    ]),
-                        ], style={'fontSize': '0.9em',
-                                  'color': 'gray',
-                                  'verticalAlign': 'top'})
+                                html.Td(
+                                    children=html.Div([
+                                        sentence_before_word, html.B(
+                                            sentence_word), sentence_after_word
+                                    ])),
+                            ], style={'fontSize': '0.9em',
+                                      'color': 'gray',
+                                      'verticalAlign': 'top'})
 
-                        html_sample_sentences_list.append(item)
+                            html_sample_sentences_list.append(item)
+                            letter_bullet += 1
 
                     html_see_more_text = html.Div()
                     if len(html_sample_sentences_list) >= 2:
