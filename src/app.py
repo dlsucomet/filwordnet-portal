@@ -8,6 +8,7 @@ import callbacks.home.sense.callbacks
 import callbacks.home.network.callbacks
 import callbacks.home.plot.callbacks
 import callbacks.home.embeddings.callbacks
+import callbacks.home.export.callbacks
 
 import callbacks.home.scroll_callbacks
 import callbacks.home.home_callbacks
@@ -65,6 +66,7 @@ callbacks.home.sense.callbacks.init_callback(app, API_URL)
 callbacks.home.network.callbacks.init_callback(app, API_URL)
 callbacks.home.plot.callbacks.init_callback(app, API_URL)
 callbacks.home.embeddings.callbacks.init_callback(app, API_URL)
+callbacks.home.export.callbacks.init_callback(app, API_URL)
 
 callbacks.home.scroll_callbacks.init_callback(app)
 callbacks.home.home_callbacks.init_callback(app)
