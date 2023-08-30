@@ -31,10 +31,10 @@ sidebar = html.Div(
             dbc.NavLink('Export Data', active='exact', id='export-link',
                         className='sidebar-link'),
         ], vertical=True, pills=True),
-    ], 
+    ],
     style={'position': 'fixed',
-            'paddingTop': '3em',             # Should be the same as padding-top of input_word
-            'zIndex': '3000'},                # Should be higher than z-index of input_word
+           'paddingTop': '3em',             # Should be the same as padding-top of input_word
+           'zIndex': '3000'},                # Should be higher than z-index of input_word
     hidden=True
 )
 
@@ -66,102 +66,13 @@ input_word = dbc.Row([
 # Senses & Sample Sentences
 # ==========================
 
-simple_sense = html.Li([
-    html.Span(
-        'Noun',
-        style={'fontStyle': 'italic'}
-    ),
-    html.Br(),
-    html.Span(
-        'Definition lorem ipsum',
-        style={'fontSize': '0.9em', 'marginLeft': '1.5em'}
-    ),
-    html.Br(),
-    html.Span(
-        '"Sentence lorem ipsum" (Source)',
-        style={'fontSize': '0.9em',
-               'color': 'gray', 'marginLeft': '1.5em'}
-    )
-], style={'fontSize': '1.10em'})
-
-sense_with_see_more = html.Li([
-    html.Span(
-        'Verb',
-        style={'fontStyle': 'italic'}
-    ),
-    html.Br(),
-    html.Span(
-        'Definition lorem ipsum',
-        style={'fontSize': '0.9em', 'marginLeft': '1.5em'}
-    ),
-    html.Br(),
-    html.Span(
-        '"Sentence lorem ipsum" (Source)',
-        style={'fontSize': '0.9em',
-               'color': 'gray', 'marginLeft': '1.5em'}
-    ),
-    html.Br(),
-    html.Span(
-        'See more sample sentences ▼',
-        className='see-more',
-        style={'fontSize': '0.9em',
-               'color': 'gray', 'marginLeft': '1.5em'}
-    )
-], style={'fontSize': '1.10em'})
-
 senses = dbc.Row([
-    dcc.Loading(
-        [html.H2('Lorem', style={'marginTop': '5em'}, id='senses-word'),
-         html.Div([
-             dbc.Table(
-                 id='senses-container',
-                 children=[
-                    html.Tr([
-                        html.Td(
-                            html.Span('Sense #1:'),
-                            style={'width': '11%'}),
-                        html.Td(
-                            html.Div([
-                                html.Span(
-                                    'Definition lorem ipsum',
-                                    style={'fontSize': '0.9em'}
-                                ),
-                                html.Br(),
-                                html.Span(
-                                    'Verb (v)',
-                                    style={'fontSize': '0.9em',
-                                           'color': 'gray'}
-                                ),
-                                html.Br(),
-                                html.Br(),
-                                html.Span(
-                                    'Sample Sentences',
-                                    style={'fontSize': '0.9em'}
-                                ),
-                                html.Br(),
-                                html.Ol([
-                                    html.Li(
-                                        html.Span('"Sentence lorem ipsum" (Source)')),
-                                    html.Li(
-                                        html.Span('"Sentence lorem ipsum" (Source)')),
-                                ], style={'fontSize': '0.9em',
-                                          'color': 'gray',
-                                          'listStyleType': 'lower-alpha'
-                                          }),
-                                html.Span(['See more sample sentences ▼'],
-                                          className='see-more',
-                                          style={'fontSize': '0.9em',
-                                                 'color': 'gray'
-                                                 }),
-                                html.Br(),
-                                html.Br()
-                            ])
-                        )
-                    ], className='align-baseline'),
-                 ]
-             )
-         ], style={'fontSize': '1.10em'})]
-    )
+    dcc.Loading(html.Div(
+        html.H2('', style={'marginTop': '5em'}, id='senses-word')
+    )),
+    dcc.Loading(html.Div([
+        dbc.Table(id='senses-container')
+    ], style={'fontSize': '1.10em'}))
 ])
 
 
@@ -333,7 +244,7 @@ plot_by_source = dbc.Row([
     html.Br(),
     html.Div([
         html.Div([
-            'Show me how the usage of ', 
+            'Show me how the usage of ',
             html.Span(
                 children=[
                     f' word ',
@@ -404,7 +315,7 @@ body = dbc.Row([
 
             html.Div(
                 id='home-body-container',
-                children = [
+                children=[
                     senses,
                     # html.Br(id='network-row'),
                     # network,

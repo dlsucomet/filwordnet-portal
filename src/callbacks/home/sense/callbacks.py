@@ -5,14 +5,30 @@ from ..api_query import *
 from .util import *
 import dash_bootstrap_components as dbc
 
+import time
+
 
 def init_callback(app, API_URL):
     @app.callback(
         Output('senses-word', 'children'),
-        Output('senses-container', 'children'),
         Input('submitted-word', 'data')
     )
     def search_word(word):
+        if word:
+            df = get_word_db(API_URL, word)
+
+            if len(df) >= 1:
+                return word
+
+            return [f'No Word Found: {word}']
+
+        raise PreventUpdate
+
+    @app.callback(
+        Output('senses-container', 'children'),
+        Input('submitted-word', 'data')
+    )
+    def get_senses(word):
         if word:
             df = get_word_db(API_URL, word)
 
@@ -126,10 +142,10 @@ def init_callback(app, API_URL):
 
                             ]))], className='align-baseline'))
 
-                return word, def_list
+                return def_list
 
             else:
-                return [f'No Word Found: {word}'], None
+                return None
 
         raise PreventUpdate
 
