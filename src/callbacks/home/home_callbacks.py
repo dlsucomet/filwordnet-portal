@@ -22,7 +22,6 @@ def init_callback(app, API_URL):
             if word:
                 netsci_word_df = get_word_db(API_URL, word)
                 nlp_word_df = get_nlp_word(API_URL, word)
-                # print(df['example_sentences'])
             
                 if len(netsci_word_df) >= 1 or len(nlp_word_df) >= 1:
                     return False, False, word.lower(), '', True, True

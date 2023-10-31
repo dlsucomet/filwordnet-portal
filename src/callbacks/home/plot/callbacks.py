@@ -249,7 +249,7 @@ def init_callback(app, API_URL):
     def display_source_dropdown(word, word_exists):
         if word and word_exists:
             df = get_word_db(API_URL, word)
-
+            
             if len(df) >= 1:
 
                 pos = ''

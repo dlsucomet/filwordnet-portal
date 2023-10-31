@@ -15,18 +15,28 @@ def init_callback(app, API_URL):
     )
     def display_embeddings(word, word_exists):
         if word and word_exists:
+            netsci_word_df = get_word_db(API_URL, word)
             df = get_word_embeddings_db(API_URL, word)
+            
             sense_id_list = []
+            sense_num = 0
+            pca_embeddings_list = []
+
+            if len(netsci_word_df) >= 1:
+                for i in range(len(netsci_word_df)):
+                    sense_num += 1
+                    pca_embeddings_list.append([])
+                    sense_id_list.append(f'Sense {sense_num}*')
 
             if len(df) >= 1:
-                pca_embeddings_list = []
                 for i in range(len(df)):
                     sense_id = df.iloc[i]['sense_id']
                     pca_embeddings = get_pca_embeddings(API_URL, sense_id)
 
                     if pca_embeddings:
+                        sense_num += 1
                         pca_embeddings_list.append(pca_embeddings)
-                        sense_id_list.append(f'Sense {i+1}')
+                        sense_id_list.append(f'Sense {sense_num}')
 
                 components = pca_embeddings_list
 
