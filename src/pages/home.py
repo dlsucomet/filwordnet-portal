@@ -258,29 +258,31 @@ body = dbc.Row([
         dbc.Container([
             input_word,
 
-            dcc.Loading([
-                html.Div(id='search-word-error', style={'paddingTop': '10em'}, hidden=True), 
+            html.Div(id='search-word-error-container', children=[
+                html.Div(id='search-word-error'), 
+                html.Div('Hello World'),
+            ], style={'paddingTop': '10em'}, hidden=True),
 
-                html.Div(
-                    id='home-body-container',
-                    children=[
-                        senses,
-                        html.Br(id='plot-sense-row'),
-                        plot_by_sense,
-                        html.Br(id='plot-source-row'),
-                        html.Br(),
-                        plot_by_source,
-                        html.Br(id='embeddings-row'),
-                        html.Br(),
-                        embeddings,
-                        html.Br(id='network-row'),
-                        network,
-                        html.Br(id='export-row'),
-                        export
-                    ],
-                    hidden=True
-                ),
-            ])
+            html.Div(
+                id='home-body-container',
+                children=[
+                    senses,
+                    html.Br(id='plot-sense-row'),
+                    plot_by_sense,
+                    html.Br(id='plot-source-row'),
+                    html.Br(),
+                    plot_by_source,
+                    html.Br(id='embeddings-row'),
+                    html.Br(),
+                    embeddings,
+                    html.Br(id='network-row'),
+                    network,
+                    html.Br(id='export-row'),
+                    export
+                ],
+                hidden=True
+            ),
+      
         ])
     ),
 

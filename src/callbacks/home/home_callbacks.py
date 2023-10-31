@@ -9,7 +9,7 @@ def init_callback(app, API_URL):
         Output('submitted-word', 'data'),
 
         Output('search-word-error', 'children'),
-        Output('search-word-error', 'hidden'),
+        Output('search-word-error-container', 'hidden'),
 
         Output('word-exists', 'data'),
 
