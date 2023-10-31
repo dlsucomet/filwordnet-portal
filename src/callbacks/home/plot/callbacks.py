@@ -50,9 +50,13 @@ def init_callback(app, API_URL):
     def display_word_tooltip_in_the_source_plot(source_n_clicks, sense_n_clicks, word):
         if source_n_clicks > 0 or sense_n_clicks > 0:
             df = get_word_db(API_URL, word)
+            nlp_word_df = get_nlp_word(API_URL, word)
 
+            sense_list = []
+            sense_num = 0
+
+            # netsci
             if len(df) >= 1:
-                sense_list = []
                 for i in range(len(df)):
                     sample_sentence_list = df.iloc[i]['example_sentences']
 
@@ -70,15 +74,45 @@ def init_callback(app, API_URL):
                             ]
                         )
 
+                    sense_num += 1
+
                     sense_list.append(
                         html.Li([
-                            html.B(f'Sense {i+1}:'),
+                            html.B(f'Sense {sense_num}:'),
                             html_sample_sentence,
                             html.Br()
                         ]
                         )   
                     )
+            # nlp
+            if len(nlp_word_df) >= 1:
+                for i in range(len(df)):
+                    sample_sentence_list = df.iloc[i]['example_sentences']
 
+                    html_sample_sentence = html.Ul()
+                    if len(sample_sentence_list) >= 1:
+                        html_sample_sentence = html.Ul(
+                            children=[
+                                html.Li([
+                                    html.Span('Sample sentence: '),
+                                    html.Span(
+                                        sample_sentence_list[0],
+                                        style={'color': 'gray'}
+                                    )
+                                ])
+                            ]
+                        )
+
+                    sense_num += 1
+
+                    sense_list.append(
+                        html.Li([
+                            html.B(f'Sense {sense_num}:'),
+                            html_sample_sentence,
+                            html.Br()
+                        ]
+                        )   
+                    )
 
             modal = [
                 dbc.ModalHeader(
