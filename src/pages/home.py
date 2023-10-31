@@ -109,7 +109,7 @@ word_plot_modal = dbc.Modal(
     scrollable=True,
     centered=False,
     # Should be higher than z-index of sidebar
-    style={'zIndex': '5000'}
+    style={'zIndex': '500000'}
 )
 
 # =========================
