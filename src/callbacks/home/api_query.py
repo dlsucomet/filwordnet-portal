@@ -13,16 +13,6 @@ def get_word_list_db(API_URL):
     except:
         return pd.DataFrame()
 
-def get_netsci_word(API_URL, word):
-    try:
-        res = requests.get(f'{API_URL}/get_netsci_word/?word={word}&show_context=true')
-        word_db = res.json()
-
-        df = pd.DataFrame(word_db)
-        return df
-    except:
-        return pd.DataFrame()
-
 def get_nlp_word(API_URL, word):
     try:
         res = requests.get(
