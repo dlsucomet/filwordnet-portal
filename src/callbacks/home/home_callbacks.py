@@ -26,6 +26,8 @@ def init_callback(app, API_URL):
                     return False, False, word.lower(), '', True, True
             
                 else: 
+                    all_word = get_word_list_db(API_URL)
+                    print(all_word)
                     return True, True, word.lower(), [f'No Word Found: {word}'], False, False
 
         raise PreventUpdate
