@@ -20,14 +20,16 @@ def init_callback(app, API_URL):
     def submit_input(n_clicks, n_submit, word):
         if n_clicks >= 1 or n_submit >= 1:
             if word:
-                df = get_word_db(API_URL, word)
-     
-                if len(df) >= 1:
+                netsci_word_df = get_word_db(API_URL, word)
+                nlp_word_df = get_nlp_word(API_URL, word)
+                # print(df['example_sentences'])
+            
+                if len(netsci_word_df) >= 1 or len(nlp_word_df) >= 1:
                     return False, False, word.lower(), '', True, True
             
                 else: 
-                    all_word = get_word_list_db(API_URL)
-                    print(all_word)
+                    #all_word = get_word_list_db(API_URL)
+                    #print(all_word)
                     return True, True, word.lower(), [f'No Word Found: {word}'], False, False
 
         raise PreventUpdate
