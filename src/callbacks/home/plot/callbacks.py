@@ -12,10 +12,11 @@ from ..sense.util import *
 def init_callback(app, API_URL):
     @app.callback(
         Output('word-plot-sense', 'children'),
-        Input('submitted-word', 'data')
+        Input('submitted-word', 'data'),
+        Input('word-exists', 'data')
     )
-    def display_word_in_the_sense_plot_description(word):
-        if word:
+    def display_word_in_the_sense_plot_description(word, word_exists):
+        if word and word_exists:
             return [
                 f' {word} ',
                 html.I(className='bi bi-info-circle'),
@@ -26,10 +27,11 @@ def init_callback(app, API_URL):
 
     @app.callback(
         Output('word-plot-source', 'children'),
-        Input('submitted-word', 'data')
+        Input('submitted-word', 'data'),
+        Input('word-exists', 'data')
     )
-    def display_word_in_the_source_plot_description(word):
-        if word:       
+    def display_word_in_the_source_plot_description(word, word_exists):
+        if word and word_exists:        
             return [
                 f' {word} ',
                 html.I(className='bi bi-info-circle'),
@@ -98,10 +100,11 @@ def init_callback(app, API_URL):
     @app.callback(
         Output('sense-dropdown', 'options'),
         Output('sense-dropdown', 'value'),
-        Input('submitted-word', 'data')
+        Input('submitted-word', 'data'),
+        Input('word-exists', 'data')
     )
-    def display_sense_dropdown(word):
-        if word:
+    def display_sense_dropdown(word, word_exists):
+        if word and word_exists:
             df = get_word_db(API_URL, word)
 
             if len(df) >= 1:
@@ -135,11 +138,12 @@ def init_callback(app, API_URL):
     @app.callback(
         Output('sense-sample-sentence', 'children'),
         Input('sense-dropdown', 'value'),
-        Input('submitted-word', 'data')
+        Input('submitted-word', 'data'),
+        Input('word-exists', 'data')
     )
-    def plot_update_sample_sentence_base_on_sense(sense_value, word):
+    def plot_update_sample_sentence_base_on_sense(sense_value, word, word_exists):
 
-        if word and sense_value:
+        if word and sense_value and word_exists:
             df = get_word_db(API_URL, word)  # get_definition_list(word)
 
             if len(df) > 0:
@@ -181,10 +185,11 @@ def init_callback(app, API_URL):
     @app.callback(
         Output('graph-sense', 'figure'),
         Input('sense-dropdown', 'value'),
-        Input('submitted-word', 'data')
+        Input('submitted-word', 'data'),
+        Input('word-exists', 'data')
     )
-    def update_line_chart(sense_value, word):
-        if word:
+    def update_line_chart(sense_value, word, word_exists):
+        if word and word_exists:
             df = get_word_db(API_URL, word)
 
             pos = ''
@@ -219,10 +224,11 @@ def init_callback(app, API_URL):
     @app.callback(
         Output('source-dropdown', 'options'),
         Output('source-dropdown', 'value'),
-        Input('submitted-word', 'data')
+        Input('submitted-word', 'data'),
+        Input('word-exists', 'data')
     )
-    def display_source_dropdown(word):
-        if word:
+    def display_source_dropdown(word, word_exists):
+        if word and word_exists:
             df = get_word_db(API_URL, word)
 
             if len(df) >= 1:
@@ -244,10 +250,11 @@ def init_callback(app, API_URL):
     @app.callback(
         Output('graph-source', 'figure'),
         Input('source-dropdown', 'value'),
-        Input('submitted-word', 'data')
+        Input('submitted-word', 'data'),
+        Input('word-exists', 'data')
     )
-    def update_line_chart(selected_source, word):
-        if word:
+    def update_line_chart(selected_source, word, word_exists):
+        if word and word_exists:
             df = get_word_db(API_URL, word)
             pos = ''
             if 'pos' in df.columns:

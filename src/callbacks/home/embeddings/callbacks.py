@@ -10,10 +10,11 @@ from ..sense.util import *
 def init_callback(app, API_URL):
     @app.callback(
         Output('embeddings', 'figure'),
-        Input('submitted-word', 'data')
+        Input('submitted-word', 'data'),
+        Input('word-exists', 'data')
     )
-    def display_embeddings(word):
-        if word:
+    def display_embeddings(word, word_exists):
+        if word and word_exists:
             df = get_word_embeddings_db(API_URL, word)
             sense_id_list = []
 

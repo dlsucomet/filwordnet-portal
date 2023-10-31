@@ -57,6 +57,11 @@ app.layout = dbc.Container([
     dcc.Store(
         id='submitted-word',
         storage_type='session'
+    ),
+
+    dcc.Store(
+        id='word-exists',
+        storage_type='session'
     )
 
 ], fluid=True)
@@ -69,7 +74,7 @@ callbacks.home.embeddings.callbacks.init_callback(app, API_URL)
 callbacks.home.export.callbacks.init_callback(app, API_URL)
 
 callbacks.home.scroll_callbacks.init_callback(app)
-callbacks.home.home_callbacks.init_callback(app)
+callbacks.home.home_callbacks.init_callback(app, API_URL)
 
 if __name__ == '__main__':
     app.run_server(port='8049', debug=True)

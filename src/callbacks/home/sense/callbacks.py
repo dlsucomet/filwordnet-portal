@@ -1,4 +1,4 @@
-from dash import Input, Output, html, MATCH
+from dash import Input, Output, State, html, MATCH
 from plotly.graph_objs import *
 from dash.exceptions import PreventUpdate
 from ..api_query import *
@@ -10,25 +10,22 @@ import dash_bootstrap_components as dbc
 def init_callback(app, API_URL):
     @app.callback(
         Output('senses-word', 'children'),
-        Input('submitted-word', 'data')
+        Input('submitted-word', 'data'),
+        Input('word-exists', 'data')
     )
-    def search_word(word):
-        if word:
-            df = get_word_db(API_URL, word)
-
-            if len(df) >= 1:
-                return word
-
-            return [f'No Word Found: {word}']
+    def search_word(word, word_exists):
+        if word and word_exists:
+            return word
 
         raise PreventUpdate
 
     @app.callback(
         Output('senses-container', 'children'),
-        Input('submitted-word', 'data')
+        Input('submitted-word', 'data'),
+        Input('word-exists', 'data')
     )
-    def get_senses(word):
-        if word:
+    def get_senses(word, word_exists):
+        if word and word_exists:
             df = get_word_db(API_URL, word)
 
             if len(df) >= 1:
