@@ -128,7 +128,7 @@ def init_callback(app, API_URL):
 
                     def_list.append(html.Tr([
                         html.Td(
-                            html.Span(f'Sense {i+1}:'),
+                            html.Div(f'Sense {i+1}:'),
                             style={'width': '11%'}),
                         html.Td(
                             html.Div([
