@@ -33,6 +33,7 @@ def get_nlp_word(API_URL, word):
             word['example_sentences'] = util.sanitize_sample_sentences(word['example_sentences'])
 
         df = pd.DataFrame(word_db)  
+        df = df.sort_values(by=['sense_id'])
 
         return df
     except Exception as e:
@@ -46,6 +47,7 @@ def get_word_db(API_URL, word):
         word_db = res.json()
 
         df = pd.DataFrame(word_db)
+        df = df.sort_values(by=['sense_id'])
         return df
     except:
         return pd.DataFrame()

@@ -106,22 +106,39 @@ def init_callback(app, API_URL):
     def display_sense_dropdown(word, word_exists):
         if word and word_exists:
             df = get_word_db(API_URL, word)
+            nlp_word_df = get_nlp_word(API_URL, word)
 
+            checklist_options = {}
+            num_sense = 0
+
+            # netsci word 
             if len(df) >= 1:
-
-                checklist_options = {}
-                num_sense = 0
                 for i in range(len(df)):
                     sense_id = df.iloc[i]['sense_id']
 
                     pos = ''
-                    if 'pos' in df.columns:
-                        pos = df.iloc[i]['pos']
+                    #if 'pos' in df.columns:
+                    #    pos = df.iloc[i]['pos']
 
                     checklist_options[sense_id] = sense_and_pos_text(
                         f'Sense {num_sense+1}', pos)
                     num_sense = num_sense + 1
 
+            # nlp word
+            if len(nlp_word_df) >= 1:
+                for i in range(len(nlp_word_df)):
+                    sense_id = nlp_word_df.iloc[i]['sense_id']
+
+                    pos = ''
+                    #if 'pos' in nlp_word_df.columns:
+                    #    pos = nlp_word_df.iloc[i]['pos']
+
+                    checklist_options[sense_id] = sense_and_pos_text(
+                        f'Sense {num_sense+1}', pos) + "*"
+                    num_sense = num_sense + 1
+
+
+            if len(df) >= 1 or len(nlp_word_df) >= 1:
                 selected_option = None
                 if not checklist_options:
                     checklist_options = {None: None}
@@ -129,6 +146,7 @@ def init_callback(app, API_URL):
                     selected_option = list(checklist_options.keys())[0]
 
                 return checklist_options, selected_option
+
             else:
                 # TODO: Handle case where word is not in database
                 raise PreventUpdate
@@ -145,40 +163,41 @@ def init_callback(app, API_URL):
 
         if word and sense_value and word_exists:
             df = get_word_db(API_URL, word)  # get_definition_list(word)
-
+            
             if len(df) > 0:
                 sense_id_df = df.loc[df['sense_id'] == sense_value.lower()]
 
-                sample_sentence_list = sense_id_df.iloc[0]['example_sentences']
+                if len(sense_id_df) >= 1:
+                    sample_sentence_list = sense_id_df.iloc[0]['example_sentences']
 
-                sample_sentence = ''
-                if len(sample_sentence_list) > 0:
-                    sample_sentence = sample_sentence_list[0]
+                    sample_sentence = ''
+                    if len(sample_sentence_list) > 0:
+                        sample_sentence = sample_sentence_list[0]
 
-                sense_data = html.Div(
-                    children=[
-                        html.Br(),
-                        #html.Div(
-                        #    children=[
-                        #        html.Span('Definition: '),
-                        #        html.Span(
-                        #            'lorem ipsum',
-                        #            style={'color': 'gray'}
-                        #        )
-                        #    ]
-                        #),
-                        html.Div(
-                            children=[
-                                html.Span('Sample sentence: '),
-                                html.Span(
-                                    sample_sentence,
-                                    style={'color': 'gray'}
-                                )
-                            ]
-                        ),
-                    ]
-                )
-                return sense_data
+                    sense_data = html.Div(
+                        children=[
+                            html.Br(),
+                            #html.Div(
+                            #    children=[
+                            #        html.Span('Definition: '),
+                            #        html.Span(
+                            #            'lorem ipsum',
+                            #            style={'color': 'gray'}
+                            #        )
+                            #    ]
+                            #),
+                            html.Div(
+                                children=[
+                                    html.Span('Sample sentence: '),
+                                    html.Span(
+                                        sample_sentence,
+                                        style={'color': 'gray'}
+                                    )
+                                ]
+                            ),
+                        ]
+                    )
+                    return sense_data
 
         raise PreventUpdate
 
