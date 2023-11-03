@@ -1,52 +1,56 @@
 .see-more {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .sample-sentence tr {
-    display: none;
+	display: none;
 }
 
 .sample-sentence tr:first-child {
-    display: block;
+	display: block;
 }
 
-.sample-sentence-see-all tr{
-    display: block;
+.sample-sentence-see-all tr {
+	display: block;
 }
 
 .all-sentences tr {
-    text-align: left;
+	text-align: left;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-    background-color: white;
-    color: black;
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+	background-color: white;
+	color: black;
 }
 
-.sidebar-link, .sidebar-link:hover, .sidebar-link:active, .sidebar-link.active {
-    color: black;
-    padding-left: 0;
-    cursor: pointer;
+.sidebar-link,
+.sidebar-link:hover,
+.sidebar-link:active,
+.sidebar-link.active {
+	color: black;
+	padding-left: 0;
+	cursor: pointer;
 }
 
 .form-check-input:checked {
-    background-color: black;
-    border-color: black;
+	background-color: black;
+	border-color: black;
 }
 
 .dash-default-spinner > div {
-    background-color: black !important;
+	background-color: black !important;
 }
 
 i {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 body.modal-open {
-    overflow: inherit;
-    padding-right: 0 !important;
+	overflow: inherit;
+	padding-right: 0 !important;
 }
 
 .link-primary {
-    cursor: pointer !important;
+	cursor: pointer !important;
 }

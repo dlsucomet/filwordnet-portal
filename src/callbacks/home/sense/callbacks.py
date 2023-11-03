@@ -52,17 +52,19 @@ def init_callback(app, API_URL):
                                     html.Div(children=[
                                         f'{chr(letter_bullet)}. ',
                                     ])
-                                ],
-                                ),
+                                ]),
 
                                 html.Td(
                                     children=html.Div([
-                                        sentence_before_word, html.B(
-                                            sentence_word), sentence_after_word
-                                    ])),
-                            ], style={'fontSize': '0.9em',
-                                      'color': 'gray',
-                                      'verticalAlign': 'top'})
+                                        sentence_before_word,
+                                        html.B(sentence_word),
+                                        sentence_after_word
+                                    ])
+                                )],
+                                style={'fontSize': '0.9em',
+                                       'color': 'gray',
+                                       'verticalAlign': 'top'}
+                            )
 
                             html_sample_sentences_list.append(item)
                             letter_bullet += 1
@@ -93,14 +95,25 @@ def init_callback(app, API_URL):
 
                             html.Div(
                                 children=[
+                                    dcc.Loading(
+                                        dbc.Table(
+                                            id={'type': 'senses-sample-sentences-hidden-container',
+                                                'index': i},
+                                            children=[
+                                                html_sample_sentences_list[0]
+                                            ],
+                                            borderless=True,
+                                            style={'marginBottom': '0'}
+                                        )
+                                    ),
                                     dbc.Table(
                                         id={'type': 'senses-sample-sentences-container',
                                             'index': i},
                                         children=[
-                                            j for j in html_sample_sentences_list
+                                            j for j in html_sample_sentences_list[1:]
                                         ], className='sample-sentence',
                                         borderless=True,
-                                        style={'marginBottom': '0'}),
+                                        style={'marginBottom': '0', 'display': 'none'})
                                 ]
                             ),
                             html_see_more_text,
@@ -146,8 +159,12 @@ def init_callback(app, API_URL):
         raise PreventUpdate
 
     @app.callback(
+        Output({'type': 'senses-sample-sentences-hidden-container',
+               'index': MATCH}, 'className'),
         Output({'type': 'senses-sample-sentences-container',
                'index': MATCH}, 'className'),
+        Output({'type': 'senses-sample-sentences-container',
+               'index': MATCH}, 'style'),
         Output({'type': 'word-def-see-more-sample-sentences-text',
                 'index': MATCH}, 'children'),
         Input({'type': 'word-def-see-more-sample-sentences-text',
@@ -155,6 +172,6 @@ def init_callback(app, API_URL):
     )
     def see_or_hide_more_sentences(n_clicks):
         if n_clicks % 2 == 1:
-            return 'sample-sentence-see-all', f'See less sample sentences ▲'
+            return 'sample-sentence', 'sample-sentence-see-all', {'display': 'block'},  f'See less sample sentences ▲'
 
-        return 'sample-sentence', f'See more sample sentences ▼'
+        return 'sample-sentence', 'sample-sentence', {'marginBottom': '0', 'display': 'none'}, f'See more sample sentences ▼'
