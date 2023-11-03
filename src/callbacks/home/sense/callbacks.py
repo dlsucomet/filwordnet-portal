@@ -26,7 +26,6 @@ def init_callback(app, API_URL):
     )
     def get_senses(word, word_exists):
         if word and word_exists:
-            # df = get_word_db(API_URL, word)
             netsci_word_df = get_word_db(API_URL, word)
             nlp_word_df = get_nlp_word(API_URL, word)
 
