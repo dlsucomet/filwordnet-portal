@@ -1,10 +1,10 @@
-from dash import Input, Output, State, html, MATCH
-from plotly.graph_objs import *
+import dash_bootstrap_components as dbc
+from dash import MATCH, Input, Output, State, dcc, html
 from dash.exceptions import PreventUpdate
+from plotly.graph_objs import *
+
 from ..api_query import *
 from .util import *
-import dash_bootstrap_components as dbc
-
 
 
 def init_callback(app, API_URL):
@@ -26,12 +26,12 @@ def init_callback(app, API_URL):
     )
     def get_senses(word, word_exists):
         if word and word_exists:
-            #df = get_word_db(API_URL, word)
+            # df = get_word_db(API_URL, word)
             netsci_word_df = get_word_db(API_URL, word)
             nlp_word_df = get_nlp_word(API_URL, word)
-            
+
             df = pd.concat([netsci_word_df, nlp_word_df])
-            
+
             if len(df) >= 1:
                 def_list = []
                 for i in range(len(df)):
@@ -85,26 +85,28 @@ def init_callback(app, API_URL):
 
                     html_sample_sentences_container = html.Div()
                     if len(html_sample_sentences_list) >= 1:
-                        html_sample_sentences_container = html.Div(
-                            children=[
-                                html.Span('Sample Sentences',
-                                          style={'fontSize': '0.9em',
-                                                 'color': 'gray'}),
-                                html.Br(),
+                        html_sample_sentences_container = html.Div([
+                            html.Span(
+                                'Sample Sentences',
+                                style={'fontSize': '0.9em',
+                                       'color': 'gray'}
+                            ),
 
-                                dbc.Table(
-                                    id={'type': 'senses-sample-sentences-container',
-                                        'index': i},
-                                    children=[
-                                        j for j in html_sample_sentences_list
-                                    ], className='sample-sentence',
-                                    borderless=True,
-                                    style={'marginBottom': '0'}),
-                                html_see_more_text,
-                                html.Br()
-                            ]
-
-                        )
+                            html.Div(
+                                children=[
+                                    dbc.Table(
+                                        id={'type': 'senses-sample-sentences-container',
+                                            'index': i},
+                                        children=[
+                                            j for j in html_sample_sentences_list
+                                        ], className='sample-sentence',
+                                        borderless=True,
+                                        style={'marginBottom': '0'}),
+                                ]
+                            ),
+                            html_see_more_text,
+                            html.Br()
+                        ])
 
                     html_pos = html.Div(
                         children=[
@@ -132,15 +134,10 @@ def init_callback(app, API_URL):
                             style={'width': '11%'}),
                         html.Td(
                             html.Div([
-                                # html.Span(
-                                #    'Definition lorem ipsum',
-                                #    style={'fontSize': '0.9em'}
-                                # ),
-                                # html_pos,
-
                                 html_sample_sentences_container,
-
-                            ]))], className='align-baseline'))
+                            ])
+                        )], className='align-baseline')
+                    )
 
                 return def_list
 
