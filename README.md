@@ -1,7 +1,6 @@
 # FilWordNet Portal
 ![badge][badge-python]
 ![badge][badge-plotly]
-![badge][badge-scikit]
 ![badge][badge-flask]
 ![badge][badge-render]<br>
 ![badge][badge-github-actions]
@@ -14,20 +13,25 @@ This is the web portal for **FilWordNet** &mdash; a language resource for Filipi
 
 ## Running the App Locally
 
-Run the following command to install the necessary dependencies:
-```
-python -m pip install -r requirements.txt
-```
+1. Create a copy of this repository by running:
+   ```
+   git clone https://github.com/dlsucomet/filwordnet-portal
+   ```
 
-Run the following command to launch the app:
-```
-python src/app.py
-```
+2. On this project's root directory, run the following command to install the necessary dependencies:
+   ```
+   python -m pip install -r requirements.txt
+   ```
 
-The app can be accessed at the following URL:
-```
-localhost:8049
-```
+3. Run the following command to launch the app:
+   ```
+   python src/app.py
+   ```
+
+   Then, access the following URL on your browser:
+   ```
+   localhost:8049
+   ```
 
 ## Built Using
 This app is built using [Dash](https://dash.plotly.com/), a Python-based web application framework on top of Plotly.js, React, and Flask.
@@ -43,7 +47,7 @@ This app is built using [Dash](https://dash.plotly.com/), a Python-based web app
 
 This is part of the **Diachronic Representation and Linguistic Study of Filipino Word Senses Across Social and Digital Media Contexts** project funded by the [Department of Science and Technology – Philippine Council for Industry, Energy, and Emerging Technology Research and Development](https://pcieerd.dost.gov.ph/) (DOST-PCIEERD).
 
-The project is led by Dr. Briane Paul V. Samson and co-proponents Dr. Charibeth K. Cheng and Unisse C. Chua of the Department of Software Technology, College of Computer Studies, De La Salle University.
+The project is led by Dr. Briane Paul V. Samson and co-proponents Dr. Charibeth K. Cheng and Ms. Unisse C. Chua of the Department of Software Technology, College of Computer Studies, De La Salle University.
 
 [badge-python]: https://img.shields.io/badge/python-3670A0?style=flat&logo=python&logoColor=white
 [badge-plotly]: https://img.shields.io/badge/Plotly-239120?style=flat&logo=plotly&logoColor=white
