@@ -19,10 +19,7 @@ EXPLETIVES = ['puta',
 
 
 def sanitize_sample_sentences(example_sentence):
-    # data = df.loc[index, 'example_sentences']
     data = example_sentence.strip()[1:-1]
-    # data = data.replace("'", '"')
-    # data = re.findall('"[A-Z][^"]*"', data)
     regex1 = "'[\w]+[^']*'"
     regex2 = '"[\w]+[^"]*"'
     regex = f'{regex1}|{regex2}'
@@ -61,7 +58,7 @@ def is_tweet(sentence):
 
 def has_expletive(sentence):
     for word in EXPLETIVES:
-        if word in sentence:
+        if re.search(word, sentence, re.IGNORECASE):
             return True
 
     return False
