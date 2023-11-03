@@ -3,6 +3,7 @@ import re
 EXPLETIVES = ['puta',
               'walang hiya'
               'tae',
+              'taena',
               'punyeta',
               'gago',
               'shit',
@@ -16,11 +17,12 @@ EXPLETIVES = ['puta',
               'hayop',
               'tarantado']
 
+
 def sanitize_sample_sentences(example_sentence):
-    #data = df.loc[index, 'example_sentences']
+    # data = df.loc[index, 'example_sentences']
     data = example_sentence.strip()[1:-1]
-    #data = data.replace("'", '"')
-    #data = re.findall('"[A-Z][^"]*"', data)
+    # data = data.replace("'", '"')
+    # data = re.findall('"[A-Z][^"]*"', data)
     regex1 = "'[\w]+[^']*'"
     regex2 = '"[\w]+[^"]*"'
     regex = f'{regex1}|{regex2}'
@@ -28,6 +30,7 @@ def sanitize_sample_sentences(example_sentence):
     data = [f'{x[1:-1]}' for x in data]
 
     return data
+
 
 def sanitize_pos(pos):
     pos_dict = {
