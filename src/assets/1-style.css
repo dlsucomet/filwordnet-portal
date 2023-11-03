@@ -54,3 +54,21 @@ body.modal-open {
 .link-primary {
 	cursor: pointer !important;
 }
+
+.bold {
+	font-weight: bold;
+	color: black !important;
+}
+
+.bold:active,
+.bold:visited {
+	color: black !important;
+}
+
+.sidebar-link {
+	color: black !important;
+}
+
+.active {
+	color: black;
+}

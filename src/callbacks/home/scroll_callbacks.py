@@ -15,6 +15,13 @@ def init_callback(app):
                 const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
                 window.scrollTo({top: y, behavior: 'smooth'});
+
+                document.getElementById('senses-link').classList.remove('bold');
+                document.getElementById('plot-sense-link').classList.remove('bold');
+                document.getElementById('plot-source-link').classList.remove('bold');
+                document.getElementById('embeddings-link').classList.remove('bold');
+                document.getElementById('network-link').classList.add('bold');
+                document.getElementById('export-link').classList.remove('bold');
             };
         }
         """,
@@ -36,6 +43,13 @@ def init_callback(app):
                 const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
                 window.scrollTo({top: y, behavior: 'smooth'});
+
+                document.getElementById('senses-link').classList.remove('bold');
+                document.getElementById('plot-sense-link').classList.add('bold');
+                document.getElementById('plot-source-link').classList.remove('bold');
+                document.getElementById('embeddings-link').classList.remove('bold');
+                document.getElementById('network-link').classList.remove('bold');
+                document.getElementById('export-link').classList.remove('bold');
             };
         }
         """,
@@ -57,6 +71,13 @@ def init_callback(app):
                 const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
                 window.scrollTo({top: y, behavior: 'smooth'});
+
+                document.getElementById('senses-link').classList.remove('bold');
+                document.getElementById('plot-sense-link').classList.remove('bold');
+                document.getElementById('plot-source-link').classList.add('bold');
+                document.getElementById('embeddings-link').classList.remove('bold');
+                document.getElementById('network-link').classList.remove('bold');
+                document.getElementById('export-link').classList.remove('bold');
             };
         }
         """,
@@ -78,6 +99,13 @@ def init_callback(app):
                 const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
                 window.scrollTo({top: y, behavior: 'smooth'});
+
+                document.getElementById('senses-link').classList.remove('bold');
+                document.getElementById('plot-sense-link').classList.remove('bold');
+                document.getElementById('plot-source-link').classList.remove('bold');
+                document.getElementById('embeddings-link').classList.add('bold');
+                document.getElementById('network-link').classList.remove('bold');
+                document.getElementById('export-link').classList.remove('bold');
             };
         }
         """,
@@ -99,6 +127,13 @@ def init_callback(app):
                 const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
                 window.scrollTo({top: y, behavior: 'smooth'});
+
+                document.getElementById('senses-link').classList.remove('bold');
+                document.getElementById('plot-sense-link').classList.remove('bold');
+                document.getElementById('plot-source-link').classList.remove('bold');
+                document.getElementById('embeddings-link').classList.remove('bold');
+                document.getElementById('network-link').classList.remove('bold');
+                document.getElementById('export-link').classList.add('bold');
             };
         }
         """,
