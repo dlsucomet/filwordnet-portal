@@ -1,7 +1,6 @@
 import dash
-from dash import html, dcc
 import dash_bootstrap_components as dbc
-
+from dash import dcc, html
 
 dash.register_page(__name__, path='/', name='FilWordNet | Discover')
 
@@ -68,9 +67,9 @@ senses = dbc.Row([
     dcc.Loading(html.Div(
         html.H2('', style={'marginTop': '5em'}, id='senses-word')
     )),
-    dcc.Loading(html.Div([
+    html.Div([
         dbc.Table(id='senses-container')
-    ], style={'fontSize': '1.10em'}))
+    ], style={'fontSize': '1.10em'})
 ])
 
 
@@ -134,40 +133,38 @@ plot_by_sense = dbc.Row([
     html.H4('Usage of Word Senses Over Time'),
     html.Br(),
     html.Br(),
-    dcc.Loading(
+    html.Div([
         html.Div([
+            'Show me how the usage of ',
             html.Div([
-                'Show me how the usage of ',
-                html.Div([
-                    dcc.Dropdown(
-                        id='sense-dropdown',
-                        style={
-                            'verticalAlign': 'middle'}
-                    ),
-                ], style={'width': '20%', 'marginLeft': '1%', 'marginRight': '1%'},
+                dcc.Dropdown(
+                    id='sense-dropdown',
+                    clearable=False,
+                    style={
+                        'verticalAlign': 'middle'}
                 ),
-
-                ' of', html.Span(
-                    children=[
-                        f' word ',
-                        html.I(
-                            className='bi bi-info-circle',
-                        ),
-                        f' '
-                    ],
-                    id='word-plot-sense', n_clicks=0, style={'white-space': 'pre'}, className='fw-bold'), 'evolves over time',
-
-            ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
+            ], style={'width': '20%', 'marginLeft': '1%', 'marginRight': '1%'},
             ),
-            html.Div(id='sense-sample-sentence'),
 
-            word_plot_modal,
+            ' of', html.Span(
+                children=[
+                    f' word ',
+                    html.I(
+                        className='bi bi-info-circle',
+                    ),
+                    f' '
+                ],
+                id='word-plot-sense', n_clicks=0, style={'white-space': 'pre'}, className='fw-bold'), 'evolves over time',
 
-            html.Br(),
-
-            dcc.Graph(id="graph-sense")
-        ])
-    )
+        ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
+        ),
+        dcc.Loading(
+            [html.Div(id='sense-sample-sentence'),
+             word_plot_modal,
+             html.Br(),
+             dcc.Graph(id="graph-sense")]
+        )
+    ])
 ])
 
 
@@ -179,36 +176,34 @@ plot_by_source = dbc.Row([
     html.H4('Usage of Word Across Sources Over Time'),
     html.Br(),
     html.Br(),
-    dcc.Loading(
+    html.Div([
         html.Div([
-            html.Div([
-                'Show me how the usage of ',
-                html.Span(
-                    children=[
-                        f' word ',
-                        html.I(
-                            className='bi bi-info-circle',
-                        ),
-                        f' '
-                    ],
-                    id='word-plot-source', n_clicks=0, style={'white-space': 'pre'}, className='fw-bold'), 'in',
-                html.Div([
-                    dcc.Dropdown(
-                        id='source-dropdown',
-                        style={
-                            'verticalAlign': 'middle'}
+            'Show me how the usage of ',
+            html.Span(
+                children=[
+                    f' word ',
+                    html.I(
+                        className='bi bi-info-circle',
                     ),
-                ], style={'width': '20%', 'marginLeft': '1%', 'marginRight': '1%'},
+                    f' '
+                ],
+                id='word-plot-source', n_clicks=0, style={'white-space': 'pre'}, className='fw-bold'), 'in',
+            html.Div([
+                dcc.Dropdown(
+                    id='source-dropdown',
+                    clearable=False,
+                    style={
+                        'verticalAlign': 'middle'}
                 ),
-                ' evolves over time'
-            ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}
+            ], style={'width': '20%', 'marginLeft': '1%', 'marginRight': '1%'},
             ),
+            ' evolves over time'
+        ],  className='d-flex flex-row align-middle', style={'alignItems': 'center'}),
 
-            word_plot_modal,
+        word_plot_modal,
 
-            dcc.Graph(id="graph-source")
-        ])
-    )
+        dcc.Loading(dcc.Graph(id="graph-source"))
+    ])
 ])
 
 
@@ -259,7 +254,7 @@ body = dbc.Row([
             input_word,
 
             html.Div(id='search-word-error-container', children=[
-                html.Div(id='search-word-error'), 
+                html.Div(id='search-word-error'),
                 html.Div('Hello World'),
             ], style={'paddingTop': '10em'}, hidden=True),
 
@@ -282,7 +277,7 @@ body = dbc.Row([
                 ],
                 hidden=True
             ),
-      
+
         ])
     ),
 
