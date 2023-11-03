@@ -1,20 +1,18 @@
 
+import os
+
 import dash
 import dash_bootstrap_components as dbc
+from dash import dcc, html
+from dotenv import load_dotenv
 
-from dash import html, dcc
-
-import callbacks.home.sense.callbacks
-import callbacks.home.network.callbacks
-import callbacks.home.plot.callbacks
 import callbacks.home.embeddings.callbacks
 import callbacks.home.export.callbacks
-
-import callbacks.home.scroll_callbacks
 import callbacks.home.home_callbacks
-
-from dotenv import load_dotenv
-import os
+import callbacks.home.network.callbacks
+import callbacks.home.plot.callbacks
+import callbacks.home.scroll_callbacks
+import callbacks.home.sense.callbacks
 
 load_dotenv()
 
@@ -22,7 +20,10 @@ API_URL = os.environ.get("API_URL")
 
 app = dash.Dash(__name__, use_pages=True,
                 external_stylesheets=[dbc.themes.BOOTSTRAP,
-                                      dbc.icons.BOOTSTRAP, dbc.icons.FONT_AWESOME])
+                                      dbc.icons.BOOTSTRAP, dbc.icons.FONT_AWESOME],
+                update_title='Loading...',
+                meta_tags=[{'name': 'viewport',
+                            'content': 'width=1024'}])
 server = app.server
 
 navbar = dbc.NavbarSimple(
