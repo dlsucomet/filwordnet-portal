@@ -197,7 +197,8 @@ def init_callback(app, API_URL):
 
         if word and sense_value and word_exists:
             df = get_word_db(API_URL, word)  # get_definition_list(word)
-            
+            nlp_word_df = get_nlp_word(API_URL, word)
+
             if len(df) > 0:
                 sense_id_df = df.loc[df['sense_id'] == sense_value.lower()]
 
@@ -233,6 +234,41 @@ def init_callback(app, API_URL):
                     )
                     return sense_data
 
+            if len(nlp_word_df) > 0:
+                sense_id_df = nlp_word_df.loc[df['sense_id'] == sense_value.lower()]
+
+                if len(sense_id_df) >= 1:
+                    sample_sentence_list = sense_id_df.iloc[0]['example_sentences']
+
+                    sample_sentence = ''
+                    if len(sample_sentence_list) > 0:
+                        sample_sentence = sample_sentence_list[0]
+
+                    sense_data = html.Div(
+                        children=[
+                            html.Br(),
+                            #html.Div(
+                            #    children=[
+                            #        html.Span('Definition: '),
+                            #        html.Span(
+                            #            'lorem ipsum',
+                            #            style={'color': 'gray'}
+                            #        )
+                            #    ]
+                            #),
+                            html.Div(
+                                children=[
+                                    html.Span('Sample sentence: '),
+                                    html.Span(
+                                        sample_sentence,
+                                        style={'color': 'gray'}
+                                    )
+                                ]
+                            ),
+                        ]
+                    )
+                    return sense_data
+            
         raise PreventUpdate
 
     @app.callback(
