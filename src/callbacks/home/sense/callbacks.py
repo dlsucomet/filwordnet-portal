@@ -47,6 +47,10 @@ def init_callback(app, API_URL):
                             sentence_after_word = sentence[start_idx +
                                                            len(word):]
 
+                            if len(sentence_before_word) == 0:
+                                sentence_word = capitalize_first_word(
+                                    sentence_word)
+
                             item = html.Tr([
                                 html.Td(children=[
                                     html.Div(children=[
@@ -56,7 +60,8 @@ def init_callback(app, API_URL):
 
                                 html.Td(
                                     children=html.Div([
-                                        sentence_before_word,
+                                        capitalize_first_word(
+                                            sentence_before_word),
                                         html.B(sentence_word),
                                         sentence_after_word
                                     ])

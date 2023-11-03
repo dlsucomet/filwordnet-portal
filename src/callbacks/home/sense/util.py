@@ -29,6 +29,10 @@ def sanitize_sample_sentences(example_sentence):
     return data
 
 
+def capitalize_first_word(sentence):
+    return sentence.capitalize()
+
+
 def sanitize_pos(pos):
     pos_dict = {
         'NN': 'Noun',
