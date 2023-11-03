@@ -86,8 +86,8 @@ def init_callback(app, API_URL):
                     )
             # nlp
             if len(nlp_word_df) >= 1:
-                for i in range(len(df)):
-                    sample_sentence_list = df.iloc[i]['example_sentences']
+                for i in range(len(nlp_word_df)):
+                    sample_sentence_list = nlp_word_df.iloc[i]['example_sentences']
 
                     html_sample_sentence = html.Ul()
                     if len(sample_sentence_list) >= 1:
