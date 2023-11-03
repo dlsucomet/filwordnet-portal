@@ -21,6 +21,7 @@ API_URL = os.environ.get("API_URL")
 app = dash.Dash(__name__, use_pages=True,
                 external_stylesheets=[dbc.themes.BOOTSTRAP,
                                       dbc.icons.BOOTSTRAP, dbc.icons.FONT_AWESOME],
+                title="FilWordNet",
                 update_title='Loading...',
                 meta_tags=[{'name': 'viewport',
                             'content': 'width=1024'}])
