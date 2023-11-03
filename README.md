@@ -36,7 +36,7 @@ This is the web portal for **FilWordNet** &mdash; a language resource for Filipi
 ## Built Using
 This app is built using [Dash](https://dash.plotly.com/), a Python-based web application framework on top of Plotly.js, React, and Flask.
 
-For the FilWordNet API, refer to this (private) [repository](https://github.com/dlsucomet/filwordnet-api). [FastAPI](https://fastapi.tiangolo.com/) is used as the asynchronous server gateway interface (ASGI) framework, with [Uvicorn](https://www.uvicorn.org/) as the ASGI server. The API endpoints are exposed over a secure tunnel created via [ngrok](https://ngrok.com). 
+For the FilWordNet API, kindly refer to this (private) [repository](https://github.com/dlsucomet/filwordnet-api). [FastAPI](https://fastapi.tiangolo.com/) is used as the asynchronous server gateway interface (ASGI) framework, with [Uvicorn](https://www.uvicorn.org/) as the ASGI server. The API endpoints are exposed over a secure tunnel created via [ngrok](https://ngrok.com). 
 
 ## Authors
 - **Mark Edward M. Gonzales**<br>
