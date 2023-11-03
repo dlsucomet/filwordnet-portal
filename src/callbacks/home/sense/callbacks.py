@@ -118,7 +118,9 @@ def init_callback(app, API_URL):
                                             j for j in html_sample_sentences_list[1:]
                                         ], className='sample-sentence',
                                         borderless=True,
-                                        style={'marginBottom': '0', 'display': 'none'})
+                                        style={'marginBottom': '0',
+                                               'display': 'none'}
+                                    )
                                 ]
                             ),
                             html_see_more_text,
@@ -166,6 +168,13 @@ def init_callback(app, API_URL):
     @app.callback(
         Output({'type': 'senses-sample-sentences-hidden-container',
                'index': MATCH}, 'className'),
+        Input({'type': 'senses-sample-sentences-hidden-container',
+               'index': MATCH}, 'children')
+    )
+    def load_only_on_word_change(n_clicks):
+        raise PreventUpdate
+
+    @app.callback(
         Output({'type': 'senses-sample-sentences-container',
                'index': MATCH}, 'className'),
         Output({'type': 'senses-sample-sentences-container',
@@ -177,6 +186,6 @@ def init_callback(app, API_URL):
     )
     def see_or_hide_more_sentences(n_clicks):
         if n_clicks % 2 == 1:
-            return 'sample-sentence', 'sample-sentence-see-all', {'display': 'block'},  f'See less sample sentences ▲'
+            return 'sample-sentence-see-all', {'display': 'block'},  f'See less sample sentences ▲'
 
-        return 'sample-sentence', 'sample-sentence', {'marginBottom': '0', 'display': 'none'}, f'See more sample sentences ▼'
+        return 'sample-sentence', {'marginBottom': '0', 'display': 'none'}, f'See more sample sentences ▼'
