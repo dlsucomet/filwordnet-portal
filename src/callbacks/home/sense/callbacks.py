@@ -107,6 +107,7 @@ def init_callback(app, API_URL):
                                             children=[
                                                 html_sample_sentences_list[0]
                                             ],
+                                            className='sample-sentence',
                                             borderless=True,
                                             style={'marginBottom': '0'}
                                         )
@@ -116,7 +117,8 @@ def init_callback(app, API_URL):
                                             'index': i},
                                         children=[
                                             j for j in html_sample_sentences_list[1:]
-                                        ], className='sample-sentence',
+                                        ],
+                                        className='sample-sentence',
                                         borderless=True,
                                         style={'marginBottom': '0',
                                                'display': 'none'}
