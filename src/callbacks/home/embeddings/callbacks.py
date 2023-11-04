@@ -1,10 +1,11 @@
-from dash import Input, Output
 import plotly.express as px
-from plotly.graph_objs import *
+from dash import Input, Output
 from dash.exceptions import PreventUpdate
+from plotly.graph_objs import *
+
 from ..api_query import *
-from .util import *
 from ..sense.util import *
+from .util import *
 
 
 def init_callback(app, API_URL):
@@ -17,7 +18,7 @@ def init_callback(app, API_URL):
         if word and word_exists:
             netsci_word_df = get_word_db(API_URL, word)
             df = get_word_embeddings_db(API_URL, word)
-            
+
             sense_id_list = []
             sense_num = 0
             pca_embeddings_list = []

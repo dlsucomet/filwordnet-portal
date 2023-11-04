@@ -1,12 +1,12 @@
-from dash import Input, Output, State, html
 import dash_bootstrap_components as dbc
-
 import plotly.express as px
-from plotly.graph_objs import *
+from dash import Input, Output, State, html
 from dash.exceptions import PreventUpdate
+from plotly.graph_objs import *
+
 from ..api_query import *
-from .util import *
 from ..sense.util import *
+from .util import *
 
 
 def init_callback(app, API_URL):
@@ -31,7 +31,7 @@ def init_callback(app, API_URL):
         Input('word-exists', 'data')
     )
     def display_word_in_the_source_plot_description(word, word_exists):
-        if word and word_exists:        
+        if word and word_exists:
             return [
                 f' {word} ',
                 html.I(className='bi bi-info-circle'),
@@ -39,7 +39,7 @@ def init_callback(app, API_URL):
             ]
 
         raise PreventUpdate
-    
+
     @app.callback(
         Output('word-plot-modal', 'children'),
         Output('word-plot-modal', 'is_open'),
@@ -81,8 +81,7 @@ def init_callback(app, API_URL):
                             html.B(f'Sense {sense_num}:'),
                             html_sample_sentence,
                             html.Br()
-                        ]
-                        )   
+                        ])
                     )
             # nlp
             if len(nlp_word_df) >= 1:
@@ -111,7 +110,7 @@ def init_callback(app, API_URL):
                             html_sample_sentence,
                             html.Br()
                         ]
-                        )   
+                        )
                     )
 
             modal = [
@@ -128,7 +127,7 @@ def init_callback(app, API_URL):
             ]
 
             return modal, True
-        
+
         raise PreventUpdate
 
     @app.callback(
@@ -145,13 +144,13 @@ def init_callback(app, API_URL):
             checklist_options = {}
             num_sense = 0
 
-            # netsci word 
+            # netsci word
             if len(df) >= 1:
                 for i in range(len(df)):
                     sense_id = df.iloc[i]['sense_id']
 
                     pos = ''
-                    #if 'pos' in df.columns:
+                    # if 'pos' in df.columns:
                     #    pos = df.iloc[i]['pos']
 
                     checklist_options[sense_id] = sense_and_pos_text(
@@ -164,13 +163,12 @@ def init_callback(app, API_URL):
                     sense_id = nlp_word_df.iloc[i]['sense_id']
 
                     pos = ''
-                    #if 'pos' in nlp_word_df.columns:
+                    # if 'pos' in nlp_word_df.columns:
                     #    pos = nlp_word_df.iloc[i]['pos']
 
                     checklist_options[sense_id] = sense_and_pos_text(
                         f'Sense {num_sense+1}', pos) + "*"
                     num_sense = num_sense + 1
-
 
             if len(df) >= 1 or len(nlp_word_df) >= 1:
                 selected_option = None
@@ -212,7 +210,7 @@ def init_callback(app, API_URL):
                     sense_data = html.Div(
                         children=[
                             html.Br(),
-                            #html.Div(
+                            # html.Div(
                             #    children=[
                             #        html.Span('Definition: '),
                             #        html.Span(
@@ -220,7 +218,7 @@ def init_callback(app, API_URL):
                             #            style={'color': 'gray'}
                             #        )
                             #    ]
-                            #),
+                            # ),
                             html.Div(
                                 children=[
                                     html.Span('Sample sentence: '),
@@ -235,7 +233,8 @@ def init_callback(app, API_URL):
                     return sense_data
 
             if len(nlp_word_df) > 0:
-                sense_id_df = nlp_word_df.loc[df['sense_id'] == sense_value.lower()]
+                sense_id_df = nlp_word_df.loc[df['sense_id']
+                                              == sense_value.lower()]
 
                 if len(sense_id_df) >= 1:
                     sample_sentence_list = sense_id_df.iloc[0]['example_sentences']
@@ -247,7 +246,7 @@ def init_callback(app, API_URL):
                     sense_data = html.Div(
                         children=[
                             html.Br(),
-                            #html.Div(
+                            # html.Div(
                             #    children=[
                             #        html.Span('Definition: '),
                             #        html.Span(
@@ -255,7 +254,7 @@ def init_callback(app, API_URL):
                             #            style={'color': 'gray'}
                             #        )
                             #    ]
-                            #),
+                            # ),
                             html.Div(
                                 children=[
                                     html.Span('Sample sentence: '),
@@ -268,7 +267,7 @@ def init_callback(app, API_URL):
                         ]
                     )
                     return sense_data
-            
+
         raise PreventUpdate
 
     @app.callback(
@@ -319,7 +318,7 @@ def init_callback(app, API_URL):
     def display_source_dropdown(word, word_exists):
         if word and word_exists:
             df = get_word_db(API_URL, word)
-            
+
             if len(df) >= 1:
 
                 pos = ''

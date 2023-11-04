@@ -1,6 +1,8 @@
 import pandas as pd
 import requests
+
 from .sense import util
+
 
 def get_word_list_db(API_URL):
     try:

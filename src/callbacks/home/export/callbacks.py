@@ -1,6 +1,7 @@
 from dash import Input, Output, State, dcc
-from plotly.graph_objs import *
 from dash.exceptions import PreventUpdate
+from plotly.graph_objs import *
+
 from ..api_query import *
 from .util import *
 
