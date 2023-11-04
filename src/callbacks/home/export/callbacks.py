@@ -14,7 +14,18 @@ def init_callback(app, API_URL):
     )
     def download_lift_over_table_to_csv(word, export_embeddings):
         if export_embeddings >= 1:
+            num_netsci_word = len(get_word_db(API_URL, word))
+            num_nlp_word = len(get_nlp_word(API_URL, word))
+
             df = pd.DataFrame(get_all_embeddings(API_URL, word))
+            df['sense'] = [i for i in range(
+                num_netsci_word + 1, num_netsci_word + num_nlp_word + 1)]
+
+            cols = list(df.columns.values)
+            cols = [cols[-1]] + cols[1:]
+
+            df = df[cols]
+
             return dcc.send_data_frame(df.to_csv, f'{word}-embeddings.csv', index=False)
 
         raise PreventUpdate
