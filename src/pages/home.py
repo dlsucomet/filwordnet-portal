@@ -15,21 +15,22 @@ sidebar = html.Div(
         html.H5('Contents'),
         html.Hr(),
         dbc.Nav([
-            dbc.NavLink('Word Senses and Sample Sentences', id='senses-link',
-                        href='#', active='exact', className='sidebar-link'),
+            dbc.NavLink('Word Senses & Sample Sentences', id='senses-link',
+                        href='#', active='exact', className='sidebar-link', style={'white-space': 'nowrap'}),
             dbc.NavLink('Usage of Word Senses Over Time', id='plot-sense-link',
-                        active='exact', className='sidebar-link'),
-            dbc.NavLink('Usage of Word Across Sources Over Time', id='plot-source-link',
-                        active='exact', className='sidebar-link'),
+                        active='exact', className='sidebar-link', style={'white-space': 'nowrap'}),
+            dbc.NavLink('Usage Across Sources Over Time', id='plot-source-link',
+                        active='exact', className='sidebar-link', style={'white-space': 'nowrap'}),
             dbc.NavLink('Word Sense Embeddings', active='exact', id='embeddings-link',
-                        className='sidebar-link'),
+                        className='sidebar-link', style={'white-space': 'nowrap'}),
             dbc.NavLink('Co-Occurring Words', active='exact', id='network-link',
-                        className='sidebar-link'),
+                        className='sidebar-link', style={'white-space': 'nowrap'}),
             dbc.NavLink('Export Data', active='exact', id='export-link',
-                        className='sidebar-link'),
+                        className='sidebar-link', style={'white-space': 'nowrap'}),
         ], vertical=True, pills=True),
     ],
     style={'position': 'fixed',
+           'paddingRight': '4em',
            'paddingTop': '3em',             # Should be the same as padding-top of input_word
            'zIndex': '3000'},               # Should be higher than z-index of input_word
     hidden=True
@@ -175,7 +176,7 @@ plot_by_sense = dbc.Row([
 # ==========================
 
 plot_by_source = dbc.Row([
-    html.H4('Usage of Word Across Sources Over Time'),
+    html.H4('Usage Across Sources Over Time'),
     html.Br(),
     html.Br(),
     html.Div([
@@ -263,6 +264,7 @@ body = dbc.Row([
             html.Div(
                 id='home-body-container',
                 children=[
+                    html.Br(id='senses-row', style={'display': 'none'}),
                     senses,
                     html.Br(id='plot-sense-row'),
                     plot_by_sense,
@@ -280,7 +282,10 @@ body = dbc.Row([
                 hidden=True
             ),
 
-        ])
+        ]),
+        width=9,
+        style={'paddingLeft': '5em',
+               'paddingRight': '2em'}
     ),
 
     dbc.Col(sidebar, width=3)
@@ -297,4 +302,4 @@ layout = dbc.Container([
     html.Br()           # Should be here, not in app.py
                         # Otherwise, a portion of the footer can be seen when body
                         #    has not completely loaded
-])
+], fluid=True)
