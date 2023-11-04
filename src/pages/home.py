@@ -66,8 +66,8 @@ input_word = dbc.Row([
 senses = dbc.Row([
     html.Div(
         dcc.Loading(
-            html.H2('', style={'marginTop': '5em'}, id='senses-word')
-        )
+            html.H2('', id='senses-word')
+        ), style={'marginTop': '10em'}
     ),
     html.Div([
         dbc.Table(id='senses-container')
