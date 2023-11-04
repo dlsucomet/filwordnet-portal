@@ -28,7 +28,7 @@ window.addEventListener('scroll', function (e) {
 		make_bold('embeddings-link');
 	} else if (displacement < get_position('plot-sense-row')) {
 		make_bold('senses-link');
-	} else {
+	} else if (Math.abs(displacement - get_position('export-row')) < SCROLL_THRESHOLD) {
 		make_bold('export-link');
 	}
 });
