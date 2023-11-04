@@ -22,13 +22,13 @@ window.addEventListener('scroll', function (e) {
 		make_bold('export-link');
 	} else if (Math.abs(displacement - get_position('network-row')) < SCROLL_THRESHOLD) {
 		make_bold('network-link');
-	} else if (displacement < get_position('plot-sense-row')) {
-		make_bold('senses-link');
 	} else if (Math.abs(displacement - get_position('plot-sense-row')) < SCROLL_THRESHOLD) {
 		make_bold('plot-sense-link');
 	} else if (Math.abs(displacement - get_position('plot-source-row')) < SCROLL_THRESHOLD) {
 		make_bold('plot-source-link');
 	} else if (Math.abs(displacement - get_position('embeddings-row')) < SCROLL_THRESHOLD) {
 		make_bold('embeddings-link');
+	} else if (displacement < get_position('plot-sense-row')) {
+		make_bold('senses-link');
 	}
 });
