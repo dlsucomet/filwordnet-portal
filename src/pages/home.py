@@ -55,7 +55,8 @@ input_word = dbc.Row([
           'backgroundColor': 'white',
           'paddingTop': '3em',              # Should be the same as padding-top of sidebar
           'paddingBottom': '2.3em',
-          'zIndex': '1000'},                # Should be lower than z-index of sidebar
+          'zIndex': '1050'},                # Should be lower than z-index of sidebar,
+                                            # Exact value (obtained via trial and error). Do not change!
     id='search-word-div'
 )
 
