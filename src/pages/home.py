@@ -42,7 +42,7 @@ sidebar = html.Div(
 # =====================
 
 input_word = dbc.Row([
-    html.H5('Word to Search for'),
+    html.H5('Enter a word'),
     html.Br(),
     dbc.InputGroup([
         html.Br(),
