@@ -43,3 +43,11 @@ def sense_and_pos_text(sense, pos):
         return f'{sense} ({pos_name})'
 
     return f'{sense}'
+
+
+def find_first_sample_sentence(sample_sentences):
+    for sentence in sample_sentences:
+        if is_quality_sentence(sentence):
+            return sentence.capitalize()
+
+    return ''

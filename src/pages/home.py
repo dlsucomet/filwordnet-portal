@@ -235,7 +235,9 @@ export = dbc.Row([
     html.Br(),
     html.Br(),
     html.Ul([
-        html.Li('Word Senses and Sample Sentences (JSON)'),
+        html.Li('Word Senses and Sample Sentences (JSON)',
+                className='link-primary', n_clicks=0,
+                id='export-senses'),
         html.Li(html.Span('Embeddings (CSV)',
                 className='link-primary', n_clicks=0,
                 id='export-embeddings')),
@@ -244,6 +246,10 @@ export = dbc.Row([
     dcc.Download(
         id='download-embeddings'
     ),
+
+    dcc.Download(
+        id='download-senses'
+    )
 ])
 
 

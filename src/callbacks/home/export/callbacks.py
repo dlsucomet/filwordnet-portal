@@ -29,3 +29,20 @@ def init_callback(app, API_URL):
             return dcc.send_data_frame(df.to_csv, f'{word}-embeddings.csv', index=False)
 
         raise PreventUpdate
+
+    @app.callback(
+        Output('download-senses', 'data'),
+        State('submitted-word', 'data'),
+        Input('export-senses', 'n_clicks'),
+    )
+    def download_senses_to_json(word, export_embeddings):
+        if export_embeddings >= 1:
+            netsci_word_df = get_word_db(API_URL, word)
+            nlp_word_df = get_nlp_word(API_URL, word)
+
+            df = pd.concat([netsci_word_df, nlp_word_df])
+            print(df)
+
+            return dcc.send_data_frame(df.to_csv, f'{word}-senses-and-sentences.csv', index=False)
+
+        raise PreventUpdate

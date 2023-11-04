@@ -65,9 +65,10 @@ def init_callback(app, API_URL):
                         html_sample_sentence = html.Ul(
                             children=[
                                 html.Li([
-                                    html.Span('Sample sentence: '),
+                                    html.Span('Sample Sentence: '),
                                     html.Span(
-                                        sample_sentence_list[0],
+                                        find_first_sample_sentence(
+                                            sample_sentence_list),
                                         style={'color': 'gray'}
                                     )
                                 ])
@@ -78,7 +79,7 @@ def init_callback(app, API_URL):
 
                     sense_list.append(
                         html.Li([
-                            html.B(f'Sense {sense_num}:'),
+                            html.B(f'Sense {sense_num}'),
                             html_sample_sentence,
                             html.Br()
                         ])
@@ -93,9 +94,10 @@ def init_callback(app, API_URL):
                         html_sample_sentence = html.Ul(
                             children=[
                                 html.Li([
-                                    html.Span('Sample sentence: '),
+                                    html.Span('Sample Sentence: '),
                                     html.Span(
-                                        sample_sentence_list[0],
+                                        find_first_sample_sentence(
+                                            sample_sentence_list),
                                         style={'color': 'gray'}
                                     )
                                 ])
@@ -106,7 +108,7 @@ def init_callback(app, API_URL):
 
                     sense_list.append(
                         html.Li([
-                            html.B(f'Sense {sense_num}:'),
+                            html.B(f'Sense {sense_num}'),
                             html_sample_sentence,
                             html.Br()
                         ]
@@ -205,7 +207,8 @@ def init_callback(app, API_URL):
 
                     sample_sentence = ''
                     if len(sample_sentence_list) > 0:
-                        sample_sentence = sample_sentence_list[0]
+                        sample_sentence = find_first_sample_sentence(
+                            sample_sentence_list)
 
                     sense_data = html.Div(
                         children=[
@@ -221,7 +224,7 @@ def init_callback(app, API_URL):
                             # ),
                             html.Div(
                                 children=[
-                                    html.Span('Sample sentence: '),
+                                    html.Span('Sample Sentence: '),
                                     html.Span(
                                         sample_sentence,
                                         style={'color': 'gray'}
@@ -233,7 +236,7 @@ def init_callback(app, API_URL):
                     return sense_data
 
             if len(nlp_word_df) > 0:
-                sense_id_df = nlp_word_df.loc[df['sense_id']
+                sense_id_df = nlp_word_df.loc[nlp_word_df['sense_id']
                                               == sense_value.lower()]
 
                 if len(sense_id_df) >= 1:
@@ -241,7 +244,8 @@ def init_callback(app, API_URL):
 
                     sample_sentence = ''
                     if len(sample_sentence_list) > 0:
-                        sample_sentence = sample_sentence_list[0]
+                        sample_sentence = find_first_sample_sentence(
+                            sample_sentence_list)
 
                     sense_data = html.Div(
                         children=[
@@ -257,7 +261,7 @@ def init_callback(app, API_URL):
                             # ),
                             html.Div(
                                 children=[
-                                    html.Span('Sample sentence: '),
+                                    html.Span('Sample Sentence: '),
                                     html.Span(
                                         sample_sentence,
                                         style={'color': 'gray'}
