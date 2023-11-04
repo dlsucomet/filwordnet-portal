@@ -111,8 +111,7 @@ def init_callback(app, API_URL):
                             html.B(f'Sense {sense_num}'),
                             html_sample_sentence,
                             html.Br()
-                        ]
-                        )
+                        ])
                     )
 
             modal = [
@@ -169,7 +168,7 @@ def init_callback(app, API_URL):
                     #    pos = nlp_word_df.iloc[i]['pos']
 
                     checklist_options[sense_id] = sense_and_pos_text(
-                        f'Sense {num_sense+1}', pos) + "*"
+                        f'Sense {num_sense+1}', pos)
                     num_sense = num_sense + 1
 
             if len(df) >= 1 or len(nlp_word_df) >= 1:
@@ -213,15 +212,6 @@ def init_callback(app, API_URL):
                     sense_data = html.Div(
                         children=[
                             html.Br(),
-                            # html.Div(
-                            #    children=[
-                            #        html.Span('Definition: '),
-                            #        html.Span(
-                            #            'lorem ipsum',
-                            #            style={'color': 'gray'}
-                            #        )
-                            #    ]
-                            # ),
                             html.Div(
                                 children=[
                                     html.Span('Sample Sentence: '),
@@ -230,7 +220,7 @@ def init_callback(app, API_URL):
                                         style={'color': 'gray'}
                                     )
                                 ]
-                            ),
+                            )
                         ]
                     )
                     return sense_data
@@ -250,15 +240,6 @@ def init_callback(app, API_URL):
                     sense_data = html.Div(
                         children=[
                             html.Br(),
-                            # html.Div(
-                            #    children=[
-                            #        html.Span('Definition: '),
-                            #        html.Span(
-                            #            'lorem ipsum',
-                            #            style={'color': 'gray'}
-                            #        )
-                            #    ]
-                            # ),
                             html.Div(
                                 children=[
                                     html.Span('Sample Sentence: '),
@@ -283,6 +264,7 @@ def init_callback(app, API_URL):
     def update_line_chart(sense_value, word, word_exists):
         if word and word_exists:
             df = get_word_db(API_URL, word)
+            nlp_word_df = get_nlp_word(API_URL, word)
 
             pos = ''
             if 'pos' in df.columns:
@@ -290,6 +272,10 @@ def init_callback(app, API_URL):
 
             data = convert_to_data_by_sense(
                 df['contextual_info'].values, df['sense_id'].values, pos)
+            nlp_data = convert_to_data_by_sense(
+                nlp_word_df['contextual_info'].values, nlp_word_df['sense_id'].values, pos, nlp=True)
+
+            data = pd.concat([data, nlp_data])
 
             data = data.groupby(['category', 'year', 'sense_and_pos', 'sense'])[
                 'counts'].sum().reset_index()
@@ -322,20 +308,20 @@ def init_callback(app, API_URL):
     def display_source_dropdown(word, word_exists):
         if word and word_exists:
             df = get_word_db(API_URL, word)
+            nlp_word_df = get_nlp_word(API_URL, word)
 
-            if len(df) >= 1:
+            pos = ''
+            if 'pos' in df.columns:
+                pos = df['pos'].values
 
-                pos = ''
-                if 'pos' in df.columns:
-                    pos = df['pos'].values
+            data = convert_to_data_by_sense(
+                df['contextual_info'].values, df['sense_id'].values, pos)
+            nlp_data = convert_to_data_by_sense(
+                nlp_word_df['contextual_info'].values, nlp_word_df['sense_id'].values, pos, nlp=True)
 
-                data = convert_to_data_by_sense(
-                    df['contextual_info'].values, df['sense_id'].values, pos)
+            data = pd.concat([data, nlp_data])
 
-                return data['category'].unique(), data['category'].unique()[0]
-            else:
-                # TODO: Handle case where word is not in database
-                raise PreventUpdate
+            return data['category'].unique(), data['category'].unique()[0]
 
         raise PreventUpdate
 
@@ -348,12 +334,18 @@ def init_callback(app, API_URL):
     def update_line_chart(selected_source, word, word_exists):
         if word and word_exists:
             df = get_word_db(API_URL, word)
+            nlp_word_df = get_nlp_word(API_URL, word)
+
             pos = ''
             if 'pos' in df.columns:
                 pos = df['pos'].values
 
             data = convert_to_data_by_sense(
                 df['contextual_info'].values, df['sense_id'].values, pos)
+            nlp_data = convert_to_data_by_sense(
+                nlp_word_df['contextual_info'].values, nlp_word_df['sense_id'].values, pos, nlp=True)
+
+            data = pd.concat([data, nlp_data])
 
             data = data.groupby(['sense_and_pos', 'sense', 'year', 'category'])[
                 'counts'].sum().reset_index()
