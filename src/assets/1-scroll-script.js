@@ -18,9 +18,7 @@ window.addEventListener('scroll', function (e) {
 	const SCROLL_THRESHOLD = 100;
 	const displacement = window.pageYOffset !== undefined ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 
-	if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 2) {
-		make_bold('export-link');
-	} else if (Math.abs(displacement - get_position('network-row')) < SCROLL_THRESHOLD) {
+	if (Math.abs(displacement - get_position('network-row')) < SCROLL_THRESHOLD) {
 		make_bold('network-link');
 	} else if (Math.abs(displacement - get_position('plot-sense-row')) < SCROLL_THRESHOLD) {
 		make_bold('plot-sense-link');
@@ -30,5 +28,7 @@ window.addEventListener('scroll', function (e) {
 		make_bold('embeddings-link');
 	} else if (displacement < get_position('plot-sense-row')) {
 		make_bold('senses-link');
+	} else {
+		make_bold('export-link');
 	}
 });

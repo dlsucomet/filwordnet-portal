@@ -48,13 +48,9 @@ navbar = dbc.NavbarSimple(
 )
 
 app.layout = dbc.Container([
-    dbc.Row([
-        navbar,
-        dash.page_container
-    ]),
+    dbc.Row(navbar),
 
-    # dbc.Row(dbc.Col('Copyright © 2023. Center for Complexity and Emerging Technologies, De La Salle University', class_name='text-center'),
-    #        class_name='bg-dark text-white p-3'),
+    dbc.Row(dash.page_container),
 
     dcc.Store(
         id='submitted-word',
