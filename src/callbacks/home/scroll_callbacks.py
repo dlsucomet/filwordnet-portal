@@ -114,7 +114,7 @@ def init_callback(app):
 
     app.clientside_callback(
         """
-        function (n_clicks) {
+        function (n_clicks, n_clicks_submit_btn, n_submit) {
             window.scrollTo({top: 0, behavior: 'instant'});
 
             document.getElementById('senses-link').classList.add('bold');
@@ -127,5 +127,7 @@ def init_callback(app):
         """,
         Output('senses-row', 'children'),
         Input('senses-link', 'n_clicks'),
+        Input('search-word-submit-btn', 'n_clicks'),
+        Input('search-word', 'n_submit'),
         prevent_initial_call=True
     )
