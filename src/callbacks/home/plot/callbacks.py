@@ -277,12 +277,17 @@ def init_callback(app, API_URL):
 
             data = pd.concat([data, nlp_data])
 
-            data = data.groupby(['category', 'year', 'sense_and_pos', 'sense'])[
-                'counts'].sum().reset_index()
+            data = data.rename(columns={'category': 'Source',
+                                        'year': 'Year',
+                                        'sense_and_pos': 'Word Sense',
+                                        'counts': 'Num. of Appearances'})
+
+            data = data.groupby(['Source', 'Year', 'Word Sense', 'sense'])[
+                'Num. of Appearances'].sum().reset_index()
 
             mask = data.sense.isin([sense_value])
-            fig = px.line(data[mask], x='year',
-                          y='counts', color='category', markers=True)
+            fig = px.line(data[mask], x='Year',
+                          y='Num. of Appearances', color='Source', markers=True)
 
             fig.update_xaxes(
                 categoryorder='category ascending', linecolor='gray', tickangle=-45)
@@ -347,12 +352,17 @@ def init_callback(app, API_URL):
 
             data = pd.concat([data, nlp_data])
 
-            data = data.groupby(['sense_and_pos', 'sense', 'year', 'category'])[
-                'counts'].sum().reset_index()
+            data = data.rename(columns={'category': 'Source',
+                                        'year': 'Year',
+                                        'sense_and_pos': 'Word Sense',
+                                        'counts': 'Num. of Appearances'})
 
-            mask = data.category.isin([selected_source])
-            fig = px.line(data[mask], x='year',
-                          y='counts', color='sense_and_pos', markers=True)
+            data = data.groupby(['Word Sense', 'sense', 'Year', 'Source'])[
+                'Num. of Appearances'].sum().reset_index()
+
+            mask = data.Source.isin([selected_source])
+            fig = px.line(data[mask], x='Year',
+                          y='Num. of Appearances', color='Word Sense', markers=True)
 
             fig.update_xaxes(
                 categoryorder='category ascending', linecolor='gray', tickangle=-45)
