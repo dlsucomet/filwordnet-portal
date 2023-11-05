@@ -1,3 +1,5 @@
+import json
+
 from ..api_query import *
 
 
@@ -26,3 +28,27 @@ def get_all_embeddings(API_URL, word):
             embeddings_list.append(embeddings)
 
     return embeddings_list
+
+
+def get_all_info(API_URL, word):
+    netsci_word_df = get_word_db(API_URL, word)
+    nlp_word_df = get_nlp_word(API_URL, word)
+
+    final_json = {}
+    sense_idx = 1
+    if len(netsci_word_df) >= 1:
+        for i in range(len(netsci_word_df)):
+            final_json[f'Sense {sense_idx}'] = {}
+
+            final_json[f'Sense {sense_idx}']['example_sentences'] = []
+            example_sentences = netsci_word_df.iloc[i]['example_sentences']
+            for sentence in example_sentences:
+                final_json[f'Sense {sense_idx}']['example_sentences'].append(
+                    sentence)
+
+            final_json[f'Sense {sense_idx}']['contextual_info'] = netsci_word_df.iloc[i]['contextual_info']
+            final_json[f'Sense {sense_idx}']['community'] = netsci_word_df.iloc[i]['community']
+
+            sense_idx += 1
+
+    return json.dumps(final_json)
