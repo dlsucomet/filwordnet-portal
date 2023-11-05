@@ -39,10 +39,12 @@ def init_callback(app, API_URL):
                         pca_embeddings_list.append(pca_embeddings)
                         sense_id_list.append(f'Sense {sense_num}')
 
-                components = pca_embeddings_list
+                components = pd.DataFrame(pca_embeddings_list)
+                components = components.rename(
+                    columns={0: 'Component 1', 1: 'Component 2', 2: 'Component 3'})
 
                 fig = px.scatter_3d(components,
-                                    x=0, y=1, z=2,
+                                    x='Component 1', y='Component 2', z='Component 3',
                                     color=sense_id_list)
                 camera = dict(
                     eye=dict(x=1.75, y=1.75, z=1)
