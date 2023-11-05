@@ -236,9 +236,9 @@ export = dbc.Row([
     html.Br(),
     html.Br(),
     html.Ul([
-        html.Li('Word Senses, Samples Sentences, Usage & Co-Occurring Words (JSON)',
+        html.Li(html.Span('Word Senses, Samples Sentences, Usage & Co-Occurring Words (JSON)',
                 className='link-primary', n_clicks=0,
-                id='export-senses'),
+                id='export-senses')),
         html.Li(html.Span('Word Sense Embeddings (CSV)',
                 className='link-primary', n_clicks=0,
                 id='export-embeddings')),
