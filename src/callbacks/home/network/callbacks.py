@@ -1,6 +1,7 @@
 from dash import Input, Output, html
-from plotly.graph_objs import *
 from dash.exceptions import PreventUpdate
+from plotly.graph_objs import *
+
 from ..api_query import *
 from .util import *
 
@@ -26,7 +27,6 @@ def init_callback(app, API_URL):
     def search_word(word, word_exists):
         if word and word_exists:
             df = get_word_db(API_URL, word)
-
             if len(df) >= 1:
                 return word
 
@@ -45,7 +45,7 @@ def init_callback(app, API_URL):
             for entry in get_netsci_word(API_URL, word):
                 if entry['sense_id'] == f'ns_{word}_{sense_id}':
                     cooccurring_words = [html.Span(cooccurring_word, className='link-primary', style={'text-decoration': 'none'})
-                                        for cooccurring_word in entry['community']]
+                                         for cooccurring_word in entry['community']]
 
                     ret_val = []
                     for cooccurring_word in cooccurring_words:
@@ -53,5 +53,5 @@ def init_callback(app, API_URL):
                         ret_val.append(html.Span(' ', className='me-2'))
 
                     return ret_val
-        
+
         raise PreventUpdate
