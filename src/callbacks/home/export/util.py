@@ -1,6 +1,8 @@
 import json
 
 from ..api_query import *
+from ..plot.util import *
+from ..sense.util import *
 
 
 def sanitize_embeddings(embeddings):
@@ -43,11 +45,27 @@ def get_all_info(API_URL, word):
             final_json[f'Sense {sense_idx}']['example_sentences'] = []
             example_sentences = netsci_word_df.iloc[i]['example_sentences']
             for sentence in example_sentences:
-                final_json[f'Sense {sense_idx}']['example_sentences'].append(
-                    sentence)
+                if is_quality_sentence(sentence):
+                    final_json[f'Sense {sense_idx}']['example_sentences'].append(
+                        capitalize_first_word(sentence))
 
             final_json[f'Sense {sense_idx}']['contextual_info'] = netsci_word_df.iloc[i]['contextual_info']
             final_json[f'Sense {sense_idx}']['community'] = netsci_word_df.iloc[i]['community']
+
+            sense_idx += 1
+
+    if len(nlp_word_df) >= 1:
+        for i in range(len(nlp_word_df)):
+            final_json[f'Sense {sense_idx}'] = {}
+
+            final_json[f'Sense {sense_idx}']['example_sentences'] = []
+            for sentence in nlp_word_df.iloc[i]['example_sentences']:
+                if is_quality_sentence(sentence):
+                    final_json[f'Sense {sense_idx}']['example_sentences'].append(
+                        capitalize_first_word(sentence))
+
+            final_json[f'Sense {sense_idx}']['contextual_info'] = sanitize_sources(
+                nlp_word_df.iloc[i]['contextual_info'])
 
             sense_idx += 1
 
