@@ -10,10 +10,11 @@ def get_word_list_db(API_URL):
             f'{API_URL}/get_word_list/')
         word_db = res.json()
 
-        #df = pd.DataFrame(word_db)
+        # df = pd.DataFrame(word_db)
         return word_db
     except:
         return pd.DataFrame()
+
 
 def get_nlp_word(API_URL, word):
     try:
@@ -22,20 +23,21 @@ def get_nlp_word(API_URL, word):
         word_db = res.json()
 
         for word in word_db:
-            word['example_sentences'] = util.sanitize_sample_sentences(word['example_sentences'])
+            word['example_sentences'] = util.sanitize_sample_sentences(
+                word['example_sentences'])
 
-        df = pd.DataFrame(word_db)  
+        df = pd.DataFrame(word_db)
         df = df.sort_values(by=['sense_id'])
 
         return df
     except Exception as e:
-        print(repr(e))
-        print(e)
         return pd.DataFrame()
+
 
 def get_word_db(API_URL, word):
     try:
-        res = requests.get(f'{API_URL}/get_netsci_word/?word={word}&show_context=true')
+        res = requests.get(
+            f'{API_URL}/get_netsci_word/?word={word}&show_context=true')
         word_db = res.json()
 
         df = pd.DataFrame(word_db)
@@ -43,6 +45,7 @@ def get_word_db(API_URL, word):
         return df
     except:
         return pd.DataFrame()
+
 
 def get_word_embeddings_db(API_URL, word):
     try:
