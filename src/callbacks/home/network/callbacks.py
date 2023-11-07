@@ -15,7 +15,8 @@ def init_callback(app, API_URL):
     )
     def populate_communities_dropdown(word, word_exists):
         if word and word_exists:
-            return [{'label': 'Sense ' + str(i + 1), 'value': i} for i in range(get_num_senses(API_URL, word))], 0
+            return [{'label': 'Sense ' + str(i + 1), 'value': i}
+                    for i in range(get_num_senses(API_URL, word) + get_num_nlp_senses(API_URL, word))], 0
 
         raise PreventUpdate
 
@@ -43,6 +44,13 @@ def init_callback(app, API_URL):
     def display_co_occurring_words(word, sense_id, word_exists):
         if word_exists:
             netsci_df = get_netsci_word(API_URL, word)
+            try:
+                if sense_id >= len(netsci_df):
+                    return html.Div('Data processing is ongoing for this sense',
+                                    style={'color': 'gray'})
+            except:
+                pass
+
             word_list = get_word_list_db(API_URL)
             for entry in netsci_df:
                 if entry['sense_id'] == f'ns_{word}_{sense_id}':

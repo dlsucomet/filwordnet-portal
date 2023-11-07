@@ -93,7 +93,6 @@ network = dbc.Row([
 
         dcc.Dropdown(
             id='communities-dropdown',
-            value='Sense 1',
             className='mb-4',
             clearable=False,
         ),
