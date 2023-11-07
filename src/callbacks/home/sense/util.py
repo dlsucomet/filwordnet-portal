@@ -1,6 +1,8 @@
 import re
 
-EXPLETIVES = ['bwiset',
+EXPLETIVES = ['adik',
+              'amputa',
+              'bwiset',
               'bwisit',
               'fuck',
               'gagi',
@@ -17,6 +19,8 @@ EXPLETIVES = ['bwiset',
               'shuta',
               'tae',
               'taena',
+              'tanga',
+              'tangina',
               'tarantado'
               'walang hiya']
 
@@ -86,7 +90,7 @@ def is_tweet(sentence):
 
 def has_expletive(sentence):
     for word in EXPLETIVES:
-        if re.search(word, sentence, re.IGNORECASE):
+        if word in sentence.lower():
             return True
 
     return False
