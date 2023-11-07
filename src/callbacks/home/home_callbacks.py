@@ -1,4 +1,4 @@
-from dash import Input, Output, State, html
+from dash import ALL, Input, Output, State, ctx, html
 from dash.exceptions import PreventUpdate
 from strsimpy.jaro_winkler import JaroWinkler
 
@@ -54,5 +54,21 @@ def init_callback(app, API_URL):
                                                       html.Div([html.Span(
                                                           'Here are some suggested words:', className='me-2')] +
                                                           suggestions)], False, False
+
+        raise PreventUpdate
+
+    @app.callback(
+        Output('search-word', 'value', allow_duplicate=True),
+        Output('search-word-submit-btn', 'n_clicks', allow_duplicate=True),
+        Input({'type': 'suggestion-word',
+               'index': ALL}, 'n_clicks'),
+        prevent_initial_call=True
+    )
+    def select_co_occurring_word(n_clicks):
+        try:
+            if 1 in n_clicks:
+                return ctx.triggered_id['index'], 1
+        except:
+            raise PreventUpdate
 
         raise PreventUpdate

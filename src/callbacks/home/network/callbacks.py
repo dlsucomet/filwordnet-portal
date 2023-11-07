@@ -88,10 +88,11 @@ def init_callback(app, API_URL):
         raise PreventUpdate
 
     @app.callback(
-        Output('search-word', 'value'),
-        Output('search-word-submit-btn', 'n_clicks'),
+        Output('search-word', 'value', allow_duplicate=True),
+        Output('search-word-submit-btn', 'n_clicks', allow_duplicate=True),
         Input({'type': 'co-occurring-word',
                'index': ALL}, 'n_clicks'),
+        prevent_initial_call=True
     )
     def select_co_occurring_word(n_clicks):
         try:
