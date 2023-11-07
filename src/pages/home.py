@@ -49,7 +49,7 @@ input_word = dbc.Row([
         dbc.Input(id='search-word', n_submit=0),
         dbc.Button('Search', color='dark',
                    id='search-word-submit-btn', n_clicks=0)
-    ], style={'width': '60%'})
+    ], style={'width': '65%'})
 ], style={'position': 'fixed',
           'width': 'inherit',
           'backgroundColor': 'white',
