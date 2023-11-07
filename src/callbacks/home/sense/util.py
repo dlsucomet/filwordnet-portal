@@ -1,21 +1,24 @@
 import re
 
-EXPLETIVES = ['puta',
-              'walang hiya'
-              'tae',
-              'taena',
-              'punyeta',
-              'gago',
-              'shit',
-              'shet',
-              'fuck',
-              'pakyu',
+EXPLETIVES = ['bwiset',
               'bwisit',
-              'bwiset',
+              'fuck',
+              'gagi',
+              'gago',
+              'hayop',
               'leche',
               'letse',
-              'hayop',
-              'tarantado']
+              'pakyu',
+              'pota'
+              'punyeta',
+              'puta'
+              'shet',
+              'shit',
+              'shuta',
+              'tae',
+              'taena',
+              'tarantado'
+              'walang hiya']
 
 
 def sanitize_sample_sentences(example_sentence):
