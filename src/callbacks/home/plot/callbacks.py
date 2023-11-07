@@ -60,6 +60,18 @@ def init_callback(app, API_URL):
                 for i in range(len(df)):
                     sample_sentence_list = df.iloc[i]['example_sentences']
 
+                    sentence = find_first_sample_sentence(sample_sentence_list)
+                    start_idx = sentence.lower().find(word.lower())
+                    sentence_before_word = sentence[:start_idx]
+                    sentence_word = sentence[start_idx: start_idx +
+                                             len(word)].strip()
+                    sentence_after_word = sentence[start_idx +
+                                                   len(word):]
+
+                    if len(sentence_before_word) == 0:
+                        sentence_word = capitalize_first_word(
+                            sentence_word)
+
                     html_sample_sentence = html.Ul()
                     if len(sample_sentence_list) >= 1:
                         html_sample_sentence = html.Ul(
@@ -67,8 +79,17 @@ def init_callback(app, API_URL):
                                 html.Li([
                                     html.Span('Sample Sentence: '),
                                     html.Span(
-                                        find_first_sample_sentence(
-                                            sample_sentence_list),
+                                        capitalize_first_word(
+                                            sentence_before_word),
+                                        style={'color': 'gray'}
+                                    ),
+                                    html.Span(
+                                        html.B(sanitize_symbols(
+                                            sentence_word)),
+                                        style={'color': 'gray'}
+                                    ),
+                                    html.Span(
+                                        sanitize_symbols(sentence_after_word),
                                         style={'color': 'gray'}
                                     )
                                 ])
@@ -89,6 +110,18 @@ def init_callback(app, API_URL):
                 for i in range(len(nlp_word_df)):
                     sample_sentence_list = nlp_word_df.iloc[i]['example_sentences']
 
+                    sentence = find_first_sample_sentence(sample_sentence_list)
+                    start_idx = sentence.lower().find(word.lower())
+                    sentence_before_word = sentence[:start_idx]
+                    sentence_word = sentence[start_idx: start_idx +
+                                             len(word)].strip()
+                    sentence_after_word = sentence[start_idx +
+                                                   len(word):]
+
+                    if len(sentence_before_word) == 0:
+                        sentence_word = capitalize_first_word(
+                            sentence_word)
+
                     html_sample_sentence = html.Ul()
                     if len(sample_sentence_list) >= 1:
                         html_sample_sentence = html.Ul(
@@ -96,8 +129,17 @@ def init_callback(app, API_URL):
                                 html.Li([
                                     html.Span('Sample Sentence: '),
                                     html.Span(
-                                        find_first_sample_sentence(
-                                            sample_sentence_list),
+                                        capitalize_first_word(
+                                            sentence_before_word),
+                                        style={'color': 'gray'}
+                                    ),
+                                    html.Span(
+                                        html.B(sanitize_symbols(
+                                            sentence_word)),
+                                        style={'color': 'gray'}
+                                    ),
+                                    html.Span(
+                                        sanitize_symbols(sentence_after_word),
                                         style={'color': 'gray'}
                                     )
                                 ])
@@ -204,10 +246,23 @@ def init_callback(app, API_URL):
                 if len(sense_id_df) >= 1:
                     sample_sentence_list = sense_id_df.iloc[0]['example_sentences']
 
-                    sample_sentence = ''
+                    sentence = ''
                     if len(sample_sentence_list) > 0:
-                        sample_sentence = find_first_sample_sentence(
+                        sentence = find_first_sample_sentence(
                             sample_sentence_list)
+
+                        sentence = find_first_sample_sentence(
+                            sample_sentence_list)
+                        start_idx = sentence.lower().find(word.lower())
+                        sentence_before_word = sentence[:start_idx]
+                        sentence_word = sentence[start_idx: start_idx +
+                                                 len(word)].strip()
+                        sentence_after_word = sentence[start_idx +
+                                                       len(word):]
+
+                        if len(sentence_before_word) == 0:
+                            sentence_word = capitalize_first_word(
+                                sentence_word)
 
                     sense_data = html.Div(
                         children=[
@@ -216,7 +271,17 @@ def init_callback(app, API_URL):
                                 children=[
                                     html.Span('Sample Sentence: '),
                                     html.Span(
-                                        sample_sentence,
+                                        capitalize_first_word(
+                                            sentence_before_word),
+                                        style={'color': 'gray'}
+                                    ),
+                                    html.Span(
+                                        html.B(sanitize_symbols(
+                                            sentence_word)),
+                                        style={'color': 'gray'}
+                                    ),
+                                    html.Span(
+                                        sanitize_symbols(sentence_after_word),
                                         style={'color': 'gray'}
                                     )
                                 ]
@@ -232,10 +297,23 @@ def init_callback(app, API_URL):
                 if len(sense_id_df) >= 1:
                     sample_sentence_list = sense_id_df.iloc[0]['example_sentences']
 
-                    sample_sentence = ''
+                    sentence = ''
                     if len(sample_sentence_list) > 0:
-                        sample_sentence = find_first_sample_sentence(
+                        sentence = find_first_sample_sentence(
                             sample_sentence_list)
+
+                        sentence = find_first_sample_sentence(
+                            sample_sentence_list)
+                        start_idx = sentence.lower().find(word.lower())
+                        sentence_before_word = sentence[:start_idx]
+                        sentence_word = sentence[start_idx: start_idx +
+                                                 len(word)].strip()
+                        sentence_after_word = sentence[start_idx +
+                                                       len(word):]
+
+                        if len(sentence_before_word) == 0:
+                            sentence_word = capitalize_first_word(
+                                sentence_word)
 
                     sense_data = html.Div(
                         children=[
@@ -244,7 +322,17 @@ def init_callback(app, API_URL):
                                 children=[
                                     html.Span('Sample Sentence: '),
                                     html.Span(
-                                        sample_sentence,
+                                        capitalize_first_word(
+                                            sentence_before_word),
+                                        style={'color': 'gray'}
+                                    ),
+                                    html.Span(
+                                        html.B(sanitize_symbols(
+                                            sentence_word)),
+                                        style={'color': 'gray'}
+                                    ),
+                                    html.Span(
+                                        sanitize_symbols(sentence_after_word),
                                         style={'color': 'gray'}
                                     )
                                 ]
