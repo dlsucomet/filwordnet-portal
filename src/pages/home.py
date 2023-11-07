@@ -49,7 +49,7 @@ input_word = dbc.Row([
         dbc.Input(id='search-word', n_submit=0),
         dbc.Button('Search', color='dark',
                    id='search-word-submit-btn', n_clicks=0)
-    ], style={'width': '65%'})
+    ], style={'width': '62%'})
 ], style={'position': 'fixed',
           'width': 'inherit',
           'backgroundColor': 'white',
@@ -94,11 +94,12 @@ network = dbc.Row([
         dcc.Dropdown(
             id='communities-dropdown',
             value='Sense 1',
-            className='mb-4'
+            className='mb-4',
+            clearable=False,
         ),
 
         dcc.Loading(html.Div(id='network-cooccurring-words'))
-    ])
+    ], className='pe-5')
 ])
 
 # =========================
@@ -296,7 +297,7 @@ body = dbc.Row([
         ]),
         width=9,
         style={'paddingLeft': '5em',
-               'paddingRight': '2em'}
+               'paddingRight': '3em'}
     ),
 
     dbc.Col(sidebar, width=3)
