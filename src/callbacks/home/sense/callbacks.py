@@ -62,8 +62,9 @@ def init_callback(app, API_URL):
                                     children=html.Div([
                                         capitalize_first_word(
                                             sentence_before_word),
-                                        html.B(sentence_word),
-                                        sentence_after_word
+                                        html.B(sanitize_symbols(
+                                            sentence_word)),
+                                        sanitize_symbols(sentence_after_word)
                                     ])
                                 )],
                                 style={'fontSize': '0.9em',

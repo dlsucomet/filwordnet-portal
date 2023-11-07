@@ -60,7 +60,7 @@ def sense_and_pos_text(sense, pos):
 def find_first_sample_sentence(sample_sentences):
     for sentence in sample_sentences:
         if is_quality_sentence(sentence):
-            return sentence.capitalize()
+            return capitalize_first_word(sentence)
 
     return ''
 

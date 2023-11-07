@@ -32,8 +32,29 @@ def sanitize_sample_sentences(example_sentence):
     return data
 
 
+def sanitize_symbols(sentence):
+    sentence = sentence.replace(' .', '.')
+    sentence = sentence.replace(' ,', ',')
+    sentence = sentence.replace(' ?', '?')
+    sentence = sentence.replace(' !', '!')
+    sentence = sentence.replace(' ...', '...')
+    sentence = sentence.replace(' :', ':')
+    sentence = sentence.replace(' ;', ';')
+    sentence = sentence.replace(" '", "'")
+    sentence = sentence.replace(" %", "%")
+    sentence = sentence.replace("( ", "(")
+    sentence = sentence.replace(" )", ")")
+    sentence = sentence.replace("# ", "#")
+    sentence = sentence.replace(" - ", "-")
+
+    return sentence
+
+
 def capitalize_first_word(sentence):
-    return sentence.capitalize()
+    sentence = sentence.capitalize()
+    sentence = sanitize_symbols(sentence)
+
+    return sentence
 
 
 def sanitize_pos(pos):
