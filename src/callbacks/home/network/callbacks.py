@@ -42,16 +42,37 @@ def init_callback(app, API_URL):
     )
     def display_co_occurring_words(word, sense_id, word_exists):
         if word_exists:
-            for entry in get_netsci_word(API_URL, word):
+            netsci_df = get_netsci_word(API_URL, word)
+            word_list = get_word_list_db(API_URL)
+            for entry in netsci_df:
                 if entry['sense_id'] == f'ns_{word}_{sense_id}':
-                    cooccurring_words = [html.Span(cooccurring_word, className='link-primary', style={'text-decoration': 'none'})
-                                         for cooccurring_word in entry['community']]
+                    existing_words = []
+                    non_existing_words = []
+                    for cooccurring_word in entry['community']:
+                        if cooccurring_word in word_list:
+                            existing_words.append(html.Span(
+                                cooccurring_word, className='link-primary', style={'text-decoration': 'none'}))
+
+                        else:
+                            non_existing_words.append(
+                                html.Span(cooccurring_word))
 
                     ret_val = []
-                    for cooccurring_word in cooccurring_words:
+                    for cooccurring_word in existing_words:
                         ret_val.append(cooccurring_word)
                         ret_val.append(html.Span(' ', className='me-2'))
 
-                    return ret_val
+                    non_existing_ret_val = []
+                    for cooccurring_word in non_existing_words:
+                        non_existing_ret_val.append(cooccurring_word)
+                        non_existing_ret_val.append(
+                            html.Span(' ', className='me-2'))
+
+                    if non_existing_ret_val:
+                        return html.Div([html.Div(ret_val), html.Br(),
+                                         html.B('More Co-Occurring Words:'),
+                                         html.Div(non_existing_ret_val, className='mt-3')])
+
+                    return html.Div([html.Div(ret_val)])
 
         raise PreventUpdate
