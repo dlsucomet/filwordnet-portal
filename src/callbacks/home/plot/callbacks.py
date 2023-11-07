@@ -123,7 +123,7 @@ def init_callback(app, API_URL):
                         html.Li([
                             s for s in sense_list
                         ])
-                    ])
+                    ], className='mb-0')
                 ])
             ]
 
