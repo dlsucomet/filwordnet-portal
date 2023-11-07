@@ -13,7 +13,7 @@ SOURCES = {'books': ['bible', 'gutenberg', 'google_books'],
            'dictionaries': ['wikitionary', 'pinoydictionary']}
 
 
-def convert_to_data_by_sense(contextual_info, sense_ids, pos_list, nlp=False):
+def convert_to_data_by_sense(contextual_info, sense_ids, pos_list, nlp=False, offset=0):
     data_matrix = []
     for i in range(0, len(contextual_info)):
         sources = contextual_info[i]
@@ -27,7 +27,8 @@ def convert_to_data_by_sense(contextual_info, sense_ids, pos_list, nlp=False):
                     pos = ''
                     if pos:
                         pos = pos_list[i]
-                    sense_and_pos = sense_and_pos_text(f'Sense {i+1}', pos)
+                    sense_and_pos = sense_and_pos_text(
+                        f'Sense {offset + i+1}', pos)
                     category = sanitize_category(categories)
 
                     entry = [sources[categories][title][year], year,

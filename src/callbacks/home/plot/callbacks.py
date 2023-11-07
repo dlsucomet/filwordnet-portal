@@ -273,7 +273,7 @@ def init_callback(app, API_URL):
             data = convert_to_data_by_sense(
                 df['contextual_info'].values, df['sense_id'].values, pos)
             nlp_data = convert_to_data_by_sense(
-                nlp_word_df['contextual_info'].values, nlp_word_df['sense_id'].values, pos, nlp=True)
+                nlp_word_df['contextual_info'].values, nlp_word_df['sense_id'].values, pos, nlp=True, offset=df['sense_id'].nunique())
 
             data = pd.concat([data, nlp_data])
 
@@ -348,7 +348,7 @@ def init_callback(app, API_URL):
             data = convert_to_data_by_sense(
                 df['contextual_info'].values, df['sense_id'].values, pos)
             nlp_data = convert_to_data_by_sense(
-                nlp_word_df['contextual_info'].values, nlp_word_df['sense_id'].values, pos, nlp=True)
+                nlp_word_df['contextual_info'].values, nlp_word_df['sense_id'].values, pos, nlp=True, offset=df['sense_id'].nunique())
 
             data = pd.concat([data, nlp_data])
 
