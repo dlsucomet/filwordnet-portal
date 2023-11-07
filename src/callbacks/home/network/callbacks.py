@@ -1,4 +1,4 @@
-from dash import Input, Output, html
+from dash import ALL, Input, Output, ctx, html
 from dash.exceptions import PreventUpdate
 from plotly.graph_objs import *
 
@@ -51,7 +51,11 @@ def init_callback(app, API_URL):
                     for cooccurring_word in entry['community']:
                         if cooccurring_word in word_list:
                             existing_words.append(html.Span(
-                                cooccurring_word, className='link-primary', style={'text-decoration': 'none'}))
+                                cooccurring_word, className='link-primary',
+                                n_clicks=0,
+                                id={'type': 'co-occurring-word',
+                                    'index': cooccurring_word},
+                                style={'text-decoration': 'none'}))
 
                         else:
                             non_existing_words.append(
@@ -74,5 +78,20 @@ def init_callback(app, API_URL):
                                          html.Div(non_existing_ret_val, className='mt-3')])
 
                     return html.Div([html.Div(ret_val)])
+
+        raise PreventUpdate
+
+    @app.callback(
+        Output('search-word', 'value'),
+        Output('search-word-submit-btn', 'n_clicks'),
+        Input({'type': 'co-occurring-word',
+               'index': ALL}, 'n_clicks'),
+    )
+    def select_co_occurring_word(n_clicks):
+        try:
+            if 1 in n_clicks:
+                return ctx.triggered_id['index'], 1
+        except:
+            raise PreventUpdate
 
         raise PreventUpdate
