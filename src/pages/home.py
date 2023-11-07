@@ -268,8 +268,7 @@ body = dbc.Row([
             input_word,
 
             html.Div(id='search-word-error-container', children=[
-                html.Div(id='search-word-error'),
-                html.Div('Hello World'),
+                html.Div(id='search-word-error')
             ], style={'paddingTop': '10em'}, hidden=True),
 
             html.Div(

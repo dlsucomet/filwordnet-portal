@@ -31,8 +31,6 @@ def init_callback(app, API_URL):
             if len(df) >= 1:
                 return word
 
-            return [f'No Word Found: {word}']
-
         raise PreventUpdate
 
     @app.callback(
