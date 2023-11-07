@@ -34,8 +34,8 @@ navbar = dbc.NavbarSimple(
                     'About', href='/about', active='exact')),
         dbc.NavItem(dbc.NavLink(
                     'People', href='/people', active='exact')),
-        dbc.NavItem(dbc.NavLink('Publications',
-                                href='/publications', active='exact')),
+        # dbc.NavItem(dbc.NavLink('Publications',
+        #                         href='/publications', active='exact')),
     ],
     brand=[html.Img(src="static/assets/filwordnet-logo.png",
                     height="30px", style={'marginRight': '30px'}), 'FilWordNet'],
