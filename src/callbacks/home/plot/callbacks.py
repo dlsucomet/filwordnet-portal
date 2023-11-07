@@ -379,7 +379,8 @@ def init_callback(app, API_URL):
             # https://github.com/plotly/plotly.py/issues/3441
             fig = go.Figure(layout=dict(template='plotly'))
             fig = px.line(data[mask], x='Year',
-                          y='Num. of Appearances', color='Source', markers=True)
+                          y='Num. of Appearances', color='Source', markers=True,
+                          color_discrete_sequence=px.colors.qualitative.Safe)
 
             fig.update_xaxes(
                 categoryorder='category ascending', linecolor='gray', tickangle=-45)
@@ -457,7 +458,8 @@ def init_callback(app, API_URL):
             # https://github.com/plotly/plotly.py/issues/3441
             fig = go.Figure(layout=dict(template='plotly'))
             fig = px.line(data[mask], x='Year',
-                          y='Num. of Appearances', color='Word Sense', markers=True)
+                          y='Num. of Appearances', color='Word Sense', markers=True,
+                          color_discrete_sequence=px.colors.qualitative.Safe)
 
             fig.update_xaxes(
                 categoryorder='category ascending', linecolor='gray', tickangle=-45)
