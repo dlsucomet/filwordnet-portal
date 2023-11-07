@@ -79,9 +79,12 @@ def init_callback(app, API_URL):
                             html.Span(' ', className='me-2'))
 
                     if non_existing_ret_val:
-                        return html.Div([html.Div(ret_val), html.Br(),
+                        if ret_val:
+                            return html.Div([html.Div(ret_val), html.Br(),
                                          html.B('More Co-Occurring Words:'),
                                          html.Div(non_existing_ret_val, className='mt-3')])
+
+                        return html.Div([html.Div(non_existing_ret_val, className='mt-3')])
 
                     return html.Div([html.Div(ret_val)])
 
