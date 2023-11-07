@@ -1,5 +1,6 @@
 import dash_bootstrap_components as dbc
 import plotly.express as px
+import plotly.graph_objects as go
 from dash import Input, Output, State, html
 from dash.exceptions import PreventUpdate
 from plotly.graph_objs import *
@@ -374,6 +375,9 @@ def init_callback(app, API_URL):
                 'Num. of Appearances'].sum().reset_index()
 
             mask = data.sense.isin([sense_value])
+
+            # https://github.com/plotly/plotly.py/issues/3441
+            fig = go.Figure(layout=dict(template='plotly'))
             fig = px.line(data[mask], x='Year',
                           y='Num. of Appearances', color='Source', markers=True)
 
@@ -449,6 +453,9 @@ def init_callback(app, API_URL):
                 'Num. of Appearances'].sum().reset_index()
 
             mask = data.Source.isin([selected_source])
+
+            # https://github.com/plotly/plotly.py/issues/3441
+            fig = go.Figure(layout=dict(template='plotly'))
             fig = px.line(data[mask], x='Year',
                           y='Num. of Appearances', color='Word Sense', markers=True)
 
