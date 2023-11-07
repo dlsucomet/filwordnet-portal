@@ -222,6 +222,10 @@ embeddings = dbc.Row([
     html.Div([
         html.Div(
             'Three-dimensional projection of word sense embeddings obtained via principal component analysis (PCA)'),
+        html.Div(
+            'Data processing is ongoing for senses marked with an asterisk (*)',
+            className='small mt-3', style={'color': 'gray'}
+        ),
         dcc.Loading(dcc.Graph(id="embeddings"))
     ])
 ])
