@@ -10,7 +10,6 @@ def get_word_list_db(API_URL):
             f'{API_URL}/get_word_list/')
         word_db = res.json()
 
-        # df = pd.DataFrame(word_db)
         return word_db
     except:
         return pd.DataFrame()
