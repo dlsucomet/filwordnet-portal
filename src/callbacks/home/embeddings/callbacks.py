@@ -45,7 +45,8 @@ def init_callback(app, API_URL):
 
                 fig = px.scatter_3d(components,
                                     x='Component 1', y='Component 2', z='Component 3',
-                                    color=sense_id_list)
+                                    color=sense_id_list,
+                                    color_discrete_sequence=px.colors.qualitative.Safe)
                 camera = dict(
                     eye=dict(x=1.75, y=1.75, z=1)
                 )
