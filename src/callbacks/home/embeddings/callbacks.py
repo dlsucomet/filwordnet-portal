@@ -82,3 +82,16 @@ def init_callback(app, API_URL):
                 # TODO: add exception handling
                 raise PreventUpdate
         raise PreventUpdate
+
+    @app.callback(
+        Output('input-word-embeddings', 'children'),
+        Input('submitted-word', 'data'),
+        Input('word-exists', 'data')
+    )
+    def search_word(word, word_exists):
+        if word and word_exists:
+            df = get_word_db(API_URL, word)
+            if len(df) >= 1:
+                return word
+
+        raise PreventUpdate

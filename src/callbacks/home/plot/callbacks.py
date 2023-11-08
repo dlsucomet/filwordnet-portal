@@ -47,10 +47,11 @@ def init_callback(app, API_URL):
         Input('word-plot-source', 'n_clicks'),
         Input('word-plot-sense', 'n_clicks'),
         Input('word-plot-network', 'n_clicks'),
+        Input('word-plot-embeddings', 'n_clicks'),
         State('submitted-word', 'data')
     )
-    def display_word_tooltip_in_the_source_plot(source_n_clicks, sense_n_clicks, network_n_clicks, word):
-        if source_n_clicks > 0 or sense_n_clicks > 0 or network_n_clicks > 0:
+    def display_word_tooltip_in_the_source_plot(source_n_clicks, sense_n_clicks, network_n_clicks, embeddings_n_clicks, word):
+        if source_n_clicks > 0 or sense_n_clicks > 0 or network_n_clicks > 0 or embeddings_n_clicks > 0:
             df = get_word_db(API_URL, word)
             nlp_word_df = get_nlp_word(API_URL, word)
 
