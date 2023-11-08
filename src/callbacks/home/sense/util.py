@@ -55,7 +55,7 @@ def sanitize_symbols(sentence):
 
 
 def capitalize_first_word(sentence):
-    sentence = sentence.capitalize()
+    sentence = sentence[:1].upper() + sentence[1:]
     sentence = sanitize_symbols(sentence)
 
     return sentence
