@@ -1,6 +1,7 @@
 import dash
 import dash_bootstrap_components as dbc
-from dash import dcc, html
+import pandas as pd
+from dash import dash_table, dcc, html
 
 dash.register_page(__name__, path='/', name='FilWordNet | Discover')
 
@@ -8,6 +9,19 @@ dash.register_page(__name__, path='/', name='FilWordNet | Discover')
 # ==========================
 # Local Navigation Side-Bar
 # ==========================
+
+df_data = pd.DataFrame([['Books', '173'],
+                        ['Wikipedia', '129,302'],
+                        ['Dictionary', '56,608'],
+                        ['News Sites', '445,685'],
+                        ['Reddit', '2,053,405'],
+                        ['Twitter', '54,457,383'],
+                        ['PinoyExchange', '347,319'],
+                        ['Wattpad', '22'],
+                        ['LyricsFreak', '727'],
+                        ['YouTube', '44,823,774']])
+
+df_data = df_data.rename(columns={0: 'Source', 1: 'Data Count'})
 
 sidebar = html.Div(
     id='home-sidebar',
@@ -323,18 +337,52 @@ body_about = html.Div([
     ], style={'paddingTop': '10em',
               'paddingLeft': '5.7em',
               'paddingBottom': '1.75em'}),
+
     dbc.Row(
-        dbc.Col(
-            html.H4('News')
-        ),
+        dbc.Col([
+            html.H4('News'),
+
+            html.Ul([
+                html.Li([
+                    html.P([html.B('November 2023: '),
+                            html.Span(className='ms-2'),
+                            'We added 59,784 more data, collected from multiple news sites and Reddit, to our database.']),
+                ]),
+                html.Li([
+                    html.P([html.B('September 2023: '),
+                            html.Span(className='ms-2'),
+                            'Our paper "Towards the Creation of the Filipino Wordnet: A Two-Way Approach" was accepted for paper presentation at the ',
+                            html.B(
+                                'International Conference on Asian Language Processing 2023 (IALP 2023)'),
+                            ', organized by the Chinese and Oriental Languages Information Processing Society. Research assistants Dan John Velasco and Mark Edward Gonzales will be heading to Singapore on November 18 to present our work.']),
+                ]),
+            ], className='mt-3')
+        ]),
         style={'paddingLeft': '5em',
-               'paddingBottom': '3em'}
+               'paddingRight': '5em',
+               'paddingBottom': '1.75em'}
     ),
+
     dbc.Row(
-        dbc.Col(
+        dbc.Col([
             html.H4('Statistics'),
-            style={'paddingLeft': '5.7em'}
-        )
+
+            html.P([
+                'We have a total of ',
+                html.B('101,967,079'),
+                ' data collected from the following sources:'
+            ],
+                className='mt-3'),
+            dash_table.DataTable(
+                df_data.to_dict('records'),
+                style_table={'width': '25%'},
+                style_cell={'fontFamily': 'var(--bs-font-sans-serif)'}
+            ),
+
+        ], className='mt-3'),
+        style={'paddingLeft': '5em',
+               'paddingRight': '8em',
+               'paddingBottom': '1.75em'}
     )
 ])
 
