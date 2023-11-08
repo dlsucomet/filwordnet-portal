@@ -23,6 +23,19 @@ df_data = pd.DataFrame([['Books', '173'],
 
 df_data = df_data.rename(columns={0: 'Source', 1: 'Data Count'})
 
+df_tokens = pd.DataFrame([['Books', '8,907,568', '23'],
+                          ['Wikipedia', '9,177,188', '32'],
+                          ['News Sites', '94,466,149', '20'],
+                          ['Reddit', '30,041,725', '15'],
+                          ['Twitter', '214,649,994', '11'],
+                          ['PinoyExchange', '64,289,785', '15'],
+                          ['Wattpad', '15,433', '23'],
+                          ['LyricsFreak', '87,723', '13'],
+                          ['YouTube', '578,128,702', '13']])
+
+df_tokens = df_tokens.rename(
+    columns={0: 'Source', 1: 'Total Num. of Tokens', 2: 'Mean Sentence Length'})
+
 sidebar = html.Div(
     id='home-sidebar',
     children=[
@@ -371,13 +384,27 @@ body_about = html.Div(
 
                 html.P([
                     'We have a total of ',
-                    html.B('101,967,079'),
-                    ' data collected from the following sources:'
+                    html.B('101,967,079 data'),
+                    ' collected from the following sources:'
                 ],
                     className='mt-3'),
                 dash_table.DataTable(
                     df_data.to_dict('records'),
                     style_table={'width': '25%', 'paddingLeft': '1em'},
+                    style_cell={'fontFamily': 'var(--bs-font-sans-serif)'},
+                ),
+
+                html.P([
+                    'Our corpus has ',
+                    html.B('935,371,326 tokens'),
+                    ', of which ',
+                    html.B('5,370,667 are unique'),
+                    ':'
+                ],
+                    className='mt-4'),
+                dash_table.DataTable(
+                    df_tokens.to_dict('records'),
+                    style_table={'width': '50%', 'paddingLeft': '1em'},
                     style_cell={'fontFamily': 'var(--bs-font-sans-serif)'},
                 ),
 
