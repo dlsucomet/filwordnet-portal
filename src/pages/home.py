@@ -301,6 +301,43 @@ body = dbc.Row([
     dbc.Col(sidebar, width=3)
 ])
 
+body_about = html.Div([
+    dbc.Row([
+        dbc.Col([
+            html.H4(
+                'FilWordNet: Building a Rich Lexicon for Low-Resource Philippine Languages'),
+            html.P('Filipino WordNet or FilWordNet is a language resource for Filipino and Philippine English as used in the online realm. The project aims to capture word meanings and their contexts — and how their usages evolve over time — through analyzing textual data via network science and natural language processing techniques.',
+                   className='mt-3'),
+            html.P('By creating a rich digital lexicon, FilWordNet crucially fills a void in local language resources and could pave the way for enhancing several downstream applications such as sentiment analysis and translation.')
+        ], width=9, className='px-0'),
+
+        dbc.Col([
+            html.Div(
+                html.Img(src='assets/images/filwordnet-body.png',
+                         style={'width': '45%',
+                                'height': 'auto'}),
+                className='text-center',
+                style={'paddingTop': '1em'}
+            )
+        ],  width=3)
+    ], style={'paddingTop': '10em',
+              'paddingLeft': '5.7em',
+              'paddingBottom': '1.75em'}),
+    dbc.Row(
+        dbc.Col(
+            html.H4('News')
+        ),
+        style={'paddingLeft': '5em',
+               'paddingBottom': '3em'}
+    ),
+    dbc.Row(
+        dbc.Col(
+            html.H4('Statistics'),
+            style={'paddingLeft': '5.7em'}
+        )
+    )
+])
+
 # ============
 # Main Layout
 # ============
@@ -309,6 +346,7 @@ layout = dbc.Container([
     html.Br(),
     html.Br(),
     body,
+    body_about,
     html.Br()           # Should be here, not in app.py
                         # Otherwise, a portion of the footer can be seen when body
                         #    has not completely loaded
