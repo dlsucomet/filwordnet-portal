@@ -34,6 +34,8 @@ def init_callback(app, API_URL):
 
         Output('word-exists', 'data'),
 
+        Output('body-about', 'style'),
+
         Input('search-word-submit-btn', 'n_clicks'),
         Input('search-word', 'n_submit'),
         State('search-word', 'value')
@@ -47,7 +49,7 @@ def init_callback(app, API_URL):
                 nlp_word_df = get_nlp_word(API_URL, word)
 
                 if len(netsci_word_df) >= 1 or len(nlp_word_df) >= 1:
-                    return False, False, word.lower(), '', True, True
+                    return False, False, word.lower(), '', True, True, {'display': 'none'}
 
                 else:
                     # Get suggested words
@@ -70,7 +72,7 @@ def init_callback(app, API_URL):
                     return True, True, word.lower(), [html.P(f'"{word}" is not in our database'),
                                                       html.Div([html.Span(
                                                           'Here are some suggested words:', className='me-2')] +
-                                                          suggestions)], False, False
+                                                          suggestions)], False, False, {'display': 'none'}
 
         raise PreventUpdate
 

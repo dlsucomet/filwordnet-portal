@@ -315,76 +315,78 @@ body = dbc.Row([
     dbc.Col(sidebar, width=3)
 ])
 
-body_about = html.Div([
-    dbc.Row([
-        dbc.Col([
-            html.H4(
-                'FilWordNet: Building a Rich Lexicon for Low-Resource Philippine Languages'),
-            html.P('Filipino WordNet or FilWordNet is a language resource for Filipino and Philippine English as used in the online realm. The project aims to capture word meanings and their contexts — and how their usages evolve over time — through analyzing textual data via network science and natural language processing techniques.',
-                   className='mt-3'),
-            html.P('By creating a rich digital lexicon, FilWordNet crucially fills a void in local language resources and could pave the way for enhancing several downstream applications such as sentiment analysis and translation.')
-        ], width=9, className='px-0'),
+body_about = html.Div(
+    id='body-about',
+    children=[
+        dbc.Row([
+            dbc.Col([
+                html.H4(
+                    'FilWordNet: Building a Rich Lexicon for Low-Resource Philippine Languages'),
+                html.P('Filipino WordNet or FilWordNet is a language resource for Filipino and Philippine English as used in the online realm. The project aims to capture word meanings and their contexts — and how their usages evolve over time — through analyzing textual data via network science and natural language processing techniques.',
+                       className='mt-3'),
+                html.P('By creating a rich digital lexicon, FilWordNet crucially fills a void in local language resources and could pave the way for enhancing several downstream applications such as sentiment analysis and translation.')
+            ], width=9, className='px-0'),
 
-        dbc.Col([
-            html.Div(
-                html.Img(src='assets/images/filwordnet-body.png',
-                         style={'width': '45%',
-                                'height': 'auto'}),
-                className='text-center',
-                style={'paddingTop': '1em'}
-            )
-        ],  width=3)
-    ], style={'paddingTop': '10em',
-              'paddingLeft': '5.7em',
-              'paddingBottom': '1.75em'}),
+            dbc.Col([
+                html.Div(
+                    html.Img(src='assets/images/filwordnet-body.png',
+                             style={'width': '45%',
+                                    'height': 'auto'}),
+                    className='text-center',
+                    style={'paddingTop': '1em'}
+                )
+            ],  width=3)
+        ], style={'paddingTop': '10em',
+                  'paddingLeft': '5.7em',
+                  'paddingBottom': '1.75em'}),
 
-    dbc.Row(
-        dbc.Col([
-            html.H4('News'),
+        dbc.Row(
+            dbc.Col([
+                html.H4('News'),
 
-            html.Ul([
-                html.Li([
-                    html.P([html.B('November 2023: '),
+                html.Ul([
+                    html.Li([
+                        html.P([html.B('November 2023: '),
                             html.Span(className='ms-2'),
                             'We added 59,784 more data, collected from multiple news sites and Reddit, to our database.']),
-                ]),
-                html.Li([
-                    html.P([html.B('September 2023: '),
+                    ]),
+                    html.Li([
+                        html.P([html.B('September 2023: '),
                             html.Span(className='ms-2'),
                             'Our paper "Towards the Creation of the Filipino Wordnet: A Two-Way Approach" was accepted for paper presentation at the ',
-                            html.B(
+                                html.B(
                                 'International Conference on Asian Language Processing 2023 (IALP 2023)'),
-                            ', organized by the Chinese and Oriental Languages Information Processing Society. Research assistants Dan John Velasco and Mark Edward Gonzales will be heading to Singapore on November 18 to present our work.']),
-                ]),
-            ], className='mt-3')
-        ]),
-        style={'paddingLeft': '5em',
-               'paddingRight': '5em',
-               'paddingBottom': '1.75em'}
-    ),
+                                ', organized by the Chinese and Oriental Languages Information Processing Society. Research assistants Dan John Velasco and Mark Edward Gonzales will be heading to Singapore on November 18 to present our work.']),
+                    ]),
+                ], className='mt-3')
+            ]),
+            style={'paddingLeft': '5em',
+                   'paddingRight': '5em',
+                   'paddingBottom': '1.75em'}
+        ),
 
-    dbc.Row(
-        dbc.Col([
-            html.H4('Statistics'),
+        dbc.Row(
+            dbc.Col([
+                html.H4('Statistics'),
 
-            html.P([
-                'We have a total of ',
-                html.B('101,967,079'),
-                ' data collected from the following sources:'
-            ],
-                className='mt-3'),
-            dash_table.DataTable(
-                df_data.to_dict('records'),
-                style_table={'width': '25%'},
-                style_cell={'fontFamily': 'var(--bs-font-sans-serif)'}
-            ),
+                html.P([
+                    'We have a total of ',
+                    html.B('101,967,079'),
+                    ' data collected from the following sources:'
+                ],
+                    className='mt-3'),
+                dash_table.DataTable(
+                    df_data.to_dict('records'),
+                    style_table={'width': '25%', 'paddingLeft': '1em'},
+                    style_cell={'fontFamily': 'var(--bs-font-sans-serif)'},
+                ),
 
-        ], className='mt-3'),
-        style={'paddingLeft': '5em',
-               'paddingRight': '8em',
-               'paddingBottom': '1.75em'}
-    )
-])
+            ], className='mt-3'),
+            style={'paddingLeft': '5em',
+                   'paddingRight': '8em',
+                   'paddingBottom': '1.75em'}
+        )
+    ])
 
 # ============
 # Main Layout
