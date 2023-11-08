@@ -3,6 +3,8 @@ from dash.exceptions import PreventUpdate
 from plotly.graph_objs import *
 
 from ..api_query import *
+from ..plot.util import *
+from ..sense.util import *
 from .util import *
 
 
@@ -81,8 +83,9 @@ def init_callback(app, API_URL):
                     if non_existing_ret_val:
                         if ret_val:
                             return html.Div([html.Div(ret_val), html.Br(),
-                                         html.B('More Co-Occurring Words:'),
-                                         html.Div(non_existing_ret_val, className='mt-3')])
+                                             html.B(
+                                                 'More Co-Occurring Words:'),
+                                             html.Div(non_existing_ret_val, className='mt-3')])
 
                         return html.Div([html.Div(non_existing_ret_val, className='mt-3')])
 
@@ -103,5 +106,116 @@ def init_callback(app, API_URL):
                 return ctx.triggered_id['index'], 1
         except:
             raise PreventUpdate
+
+        raise PreventUpdate
+
+    @app.callback(
+        Output('network-sample-sentence', 'children'),
+        Input('communities-dropdown', 'value'),
+        Input('submitted-word', 'data'),
+        Input('word-exists', 'data')
+    )
+    def plot_update_sample_sentence_base_on_sense(sense_value, word, word_exists):
+        if word and word_exists:
+            df = get_word_db(API_URL, word)  # get_definition_list(word)
+            nlp_word_df = get_nlp_word(API_URL, word)
+
+            if len(df) > 0 and sense_value < len(df):
+                sense_id_df = df.iloc[[sense_value]]
+
+                if len(sense_id_df) >= 1:
+                    sample_sentence_list = sense_id_df.iloc[0]['example_sentences']
+
+                    sentence = ''
+                    if len(sample_sentence_list) > 0:
+                        sentence = find_first_sample_sentence(
+                            sample_sentence_list)
+
+                        sentence = find_first_sample_sentence(
+                            sample_sentence_list)
+                        start_idx = sentence.lower().find(word.lower())
+                        sentence_before_word = sentence[:start_idx]
+                        sentence_word = sentence[start_idx: start_idx +
+                                                 len(word)].strip()
+                        sentence_after_word = sentence[start_idx +
+                                                       len(word):]
+
+                        if len(sentence_before_word) == 0:
+                            sentence_word = capitalize_first_word(
+                                sentence_word)
+
+                    sense_data = html.Div(
+                        children=[
+                            html.Div(
+                                children=[
+                                    html.Span('Sample Sentence: '),
+                                    html.Span(
+                                        capitalize_first_word(
+                                            sentence_before_word),
+                                        style={'color': 'gray'}
+                                    ),
+                                    html.Span(
+                                        html.B(sanitize_symbols(
+                                            sentence_word)),
+                                        style={'color': 'gray'}
+                                    ),
+                                    html.Span(
+                                        sanitize_symbols(sentence_after_word),
+                                        style={'color': 'gray'}
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                    return sense_data
+
+            if len(nlp_word_df) > 0:
+                sense_id_df = nlp_word_df.iloc[[sense_value - len(df)]]
+
+                if len(sense_id_df) >= 1:
+                    sample_sentence_list = sense_id_df.iloc[0]['example_sentences']
+
+                    sentence = ''
+                    if len(sample_sentence_list) > 0:
+                        sentence = find_first_sample_sentence(
+                            sample_sentence_list)
+
+                        sentence = find_first_sample_sentence(
+                            sample_sentence_list)
+                        start_idx = sentence.lower().find(word.lower())
+                        sentence_before_word = sentence[:start_idx]
+                        sentence_word = sentence[start_idx: start_idx +
+                                                 len(word)].strip()
+                        sentence_after_word = sentence[start_idx +
+                                                       len(word):]
+
+                        if len(sentence_before_word) == 0:
+                            sentence_word = capitalize_first_word(
+                                sentence_word)
+
+                    sense_data = html.Div(
+                        children=[
+                            html.Div(
+                                children=[
+                                    html.Span('Sample Sentence: '),
+                                    html.Span(
+                                        capitalize_first_word(
+                                            sentence_before_word),
+                                        style={'color': 'gray'}
+                                    ),
+                                    html.Span(
+                                        html.B(sanitize_symbols(
+                                            sentence_word)),
+                                        style={'color': 'gray'}
+                                    ),
+                                    html.Span(
+                                        sanitize_symbols(sentence_after_word),
+                                        style={'color': 'gray'}
+                                    )
+                                ]
+                            ),
+                        ]
+                    )
+                    return sense_data
 
         raise PreventUpdate

@@ -122,9 +122,14 @@ network = dbc.Row([
             id='communities-dropdown',
             className='mb-4',
             clearable=False,
+            value=0
         ),
 
-        dcc.Loading(html.Div(id='network-cooccurring-words'))
+        dcc.Loading([
+            html.Div(id='network-sample-sentence'),
+            html.Br(),
+            html.Div(id='network-cooccurring-words')
+        ])
     ], className='pe-5')
 ])
 
