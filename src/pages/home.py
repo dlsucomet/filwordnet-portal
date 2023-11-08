@@ -115,8 +115,16 @@ network = dbc.Row([
     html.Div([
         html.Div([
             'Words that frequently appear together with ',
-            html.Span(id='input-word-network')
-        ], className='mb-2 mt-2'),
+             html.Span(
+                 children=[
+                     html.Span(' ', id='input-word-network'),
+                     html.Span(' '),
+                     html.I(
+                         className='bi bi-info-circle',
+                     ),
+                 ],
+                 id='word-plot-network', n_clicks=0, style={'white-space': 'pre'}, className='fw-bold')
+             ], className='mb-2 mt-2'),
 
         dcc.Dropdown(
             id='communities-dropdown',
@@ -184,7 +192,7 @@ plot_by_sense = dbc.Row([
 
             ' of', html.Span(
                 children=[
-                    f' word ',
+                    f' ',
                     html.I(
                         className='bi bi-info-circle',
                     ),
@@ -217,7 +225,7 @@ plot_by_source = dbc.Row([
             'Show me how the usage of ',
             html.Span(
                 children=[
-                    f' word ',
+                    f' ',
                     html.I(
                         className='bi bi-info-circle',
                     ),
