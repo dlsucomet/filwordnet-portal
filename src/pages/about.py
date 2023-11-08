@@ -92,7 +92,8 @@ body_about = html.Div(
                 dash_table.DataTable(
                     df_data.to_dict('records'),
                     style_table={'width': '25%', 'paddingLeft': '1em'},
-                    style_cell={'fontFamily': 'var(--bs-font-sans-serif)'},
+                    style_cell={
+                        'fontFamily': 'var(--bs-font-sans-serif)', 'padding': '5px'},
                 ),
 
                 html.P([
@@ -106,7 +107,8 @@ body_about = html.Div(
                 dash_table.DataTable(
                     df_tokens.to_dict('records'),
                     style_table={'width': '50%', 'paddingLeft': '1em'},
-                    style_cell={'fontFamily': 'var(--bs-font-sans-serif)'},
+                    style_cell={
+                        'fontFamily': 'var(--bs-font-sans-serif)', 'padding': '5px'},
                 ),
 
             ], className='mt-3 px-0'),
