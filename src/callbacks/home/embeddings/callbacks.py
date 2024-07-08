@@ -1,3 +1,4 @@
+import pandas as pd
 import plotly.express as px
 from dash import Input, Output
 from dash.exceptions import PreventUpdate
